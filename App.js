@@ -7,8 +7,8 @@
  */
 
 import React from 'react';
-import {SafeAreaView, TouchableOpacity, Text} from 'react-native';
 import NfcManager, {NfcEvents} from 'react-native-nfc-manager';
+import {Container, Content, Button, Text} from 'native-base';
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -27,12 +27,14 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <SafeAreaView>
-        <Text>This is an NFC app and I'm going SQL inject your NFC tag</Text>
-        <TouchableOpacity onPress={this._read}>
-          <Text>Test</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
+      <Container>
+        <Content>
+          <Text>This is an NFC app and I'm going SQL inject your NFC tag</Text>
+          <Button onPress={this._read}>
+            <Text>Test</Text>
+          </Button>
+        </Content>
+      </Container>
     );
   }
 
