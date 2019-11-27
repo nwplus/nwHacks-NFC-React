@@ -7,14 +7,17 @@
  */
 
 import React from 'react';
-import NfcManager, {NfcEvents} from 'react-native-nfc-manager';
+import NfcManager, {NfcEvents, Ndef} from 'react-native-nfc-manager';
 import {Container, Content, Button, Text} from 'native-base';
 
 export default class App extends React.Component {
   componentDidMount() {
     NfcManager.start();
     NfcManager.setEventListener(NfcEvents.DiscoverTag, tag => {
-      console.log('tag', tag);
+      console.log('Read a tag with payload(s):');
+      tag.ndefMessage.map(message =>
+        console.log(Ndef.text.decodePayload(message.payload)),
+      );
       NfcManager.setAlertMessageIOS('I got your tag!');
       NfcManager.unregisterTagEvent().catch(() => 0);
     });
