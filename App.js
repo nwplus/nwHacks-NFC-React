@@ -10,13 +10,14 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import NfcManager, {NfcEvents, Ndef, NfcTech} from 'react-native-nfc-manager';
 import {Container, Content, Button, Text, H1} from 'native-base';
+import uuid from 'uuid';
 
 const styles = StyleSheet.create({
   content: {
     margin: 20,
   },
   button: {
-    margin: 10,
+    marginVertical: 10,
   },
 });
 
@@ -25,6 +26,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       text: '',
+      uuid: '',
     };
   }
 
@@ -58,15 +60,22 @@ export default class App extends React.Component {
           <Button style={styles.button} onPress={this._write}>
             <Text>Write</Text>
           </Button>
+          <Button style={styles.button} onPress={this._generateUUID}>
+            <Text>Generate UUID: {this.state.uuid}</Text>
+          </Button>
           <H1>{this.state.text}</H1>
         </Content>
       </Container>
     );
   }
 
-  _cleanUp() {
+  _generateUUID = () => {
+    this.setState({uuid: uuid.v4()});
+  };
+
+  _cleanUp = () => {
     NfcManager.cancelTechnologyRequest().catch(() => 0);
-  }
+  };
 
   _read = async () => {
     try {
@@ -87,13 +96,11 @@ export default class App extends React.Component {
         alertMessage: 'Ready to write',
       });
       let bytes = Ndef.encodeMessage([
-        Ndef.textRecord(
-          'Hey I just met you and this is crazy but heres my number (REDACTED) so call me maybe',
-        ),
+        Ndef.textRecord(`Heres my number ${this.state.uuid} so call me maybe`),
       ]);
       await NfcManager.writeNdefMessage(bytes);
       console.log('successfully write ndef');
-      this.setState({text: 'Successful write'});
+      this.setState({text: `Successfully wrote uuid: ${this.state.uuid}`});
       await NfcManager.setAlertMessageIOS('Successfully write ndef');
     } catch (ex) {
       this.setState({text: 'wtf'});
