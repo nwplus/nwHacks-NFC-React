@@ -3,7 +3,9 @@
 `npm install`
 
 If developing for Android, install Android Studio [https://developer.android.com/studio](https://developer.android.com/studio)
+
 Either set up an emulated device or plug in your phone and enable USB Debugging
+
 `adb devices` should show your phone is connected and ready to go
 
 `npm run android` || `npm run ios`
