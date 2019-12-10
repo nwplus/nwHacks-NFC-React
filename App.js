@@ -9,7 +9,7 @@
 import React, {useState} from 'react';
 import useNFC from './src/utils/nfc';
 import useUuid from './src/utils/uuid';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Image} from 'react-native';
 import {
   Header,
   Body,
@@ -18,6 +18,8 @@ import {
   Content,
   Button,
   Text,
+  Left,
+  Right,
   H3,
   H1,
 } from 'native-base';
@@ -33,6 +35,13 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
   },
+  image: {
+    width: 30,
+    height: 30,
+    margin: 10,
+    marginLeft: 0,
+    marginRight: 0,
+  },
 });
 
 export default props => {
@@ -42,6 +51,7 @@ export default props => {
   return (
     <Container>
       <Header>
+        <Image style={styles.image} source={require('./nwplus_logo.png')} />
         <Body>
           <Title>nwHacks NFC</Title>
         </Body>
