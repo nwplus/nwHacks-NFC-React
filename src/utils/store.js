@@ -1,7 +1,5 @@
 import {createStore, thunk, action} from 'easy-peasy';
-import firebase from 'react-native-firebase';
-
-const db = firebase.firestore();
+import {db} from './firebase';
 
 export default createStore({
   login: {
