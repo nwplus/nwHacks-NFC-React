@@ -1,17 +1,26 @@
 import {createStore, thunk, action} from 'easy-peasy';
-// import firebase from 'react-native-firebase';
+import firebase from 'react-native-firebase';
 
-// const db = firebase.firestore();
+const db = firebase.firestore();
 
 export default createStore({
+  login: {
+    loggedIn: false,
+    uid: null,
+  },
   hackers: {
-    items: ['hello', 'world'],
-    // fetch: thunk(async (actions, payload) => {
-    //   const docs = await db.collection('hacker_info_2020').get();
-    //   actions.update(docs.docs.map(doc => doc.data()));
-    // }),
+    items: [],
+    fetch: thunk(async (actions, payload) => {
+      const docs = await db.collection('hacker_email_2020').get();
+      console.log('fetching...');
+      actions.update(docs.docs.map(doc => doc.data()));
+    }),
     update: action((state, updates) => {
       state.hackers = updates;
+    }),
+    initialise: thunk(async (actions, payload) => {
+      console.log('calling fetch');
+      await actions.fetch();
     }),
   },
 });

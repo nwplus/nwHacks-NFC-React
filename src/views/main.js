@@ -6,11 +6,11 @@
  * @flow
  */
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import useNFC from '../utils/nfc';
 import useUuid from '../utils/uuid';
 import {StyleSheet, Image} from 'react-native';
-import {useStoreState} from 'easy-peasy';
+import {useStoreState, useStoreActions} from 'easy-peasy';
 import {
   Header,
   Body,
@@ -48,6 +48,10 @@ export default props => {
   const [currUuid, _generateUUID] = useUuid();
   const {_read, _write} = useNFC(currUuid, setText);
   const hackers = useStoreState(state => state.hackers.items);
+  const initialise = useStoreActions(actions => actions.hackers.initialise);
+  useEffect(() => {
+    initialise();
+  }, [initialise]);
   console.log(hackers);
   return (
     <Container>
