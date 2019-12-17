@@ -16,7 +16,7 @@ export default (currUuid, setText) => {
           NfcManager.unregisterTagEvent().catch(() => 0);
         });
       })
-      .catch(e => alert("this device doesn't support nfc!"));
+      .catch(e => console.log('warning, this phone does not support NFC!'));
 
     return () => {
       NfcManager.setEventListener(NfcEvents.DiscoverTag, null);

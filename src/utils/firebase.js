@@ -14,12 +14,13 @@ export const db = firestore();
 analytics();
 
 export const watchUser = callback => {
-  auth.onAuthStateChanged(({uid, email}) => {
-    if (uid) {
-      callback({success: true, email});
-    } else {
+  auth.onAuthStateChanged(user => {
+    if (!user) {
       callback({success: false, email: null});
+      return;
     }
+    const {email} = user;
+    callback({success: true, email});
   });
 };
 

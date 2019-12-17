@@ -23,7 +23,11 @@ export default createStore({
   },
   hackers: {
     items: [],
-    update: action((state, {docs}) => {
+    update: action((state, ref) => {
+      if (!ref) {
+        return;
+      }
+      const {docs} = ref;
       const data = docs.map(d => d.data());
       state.items = data;
     }),

@@ -6,22 +6,12 @@
  * @flow
  */
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import useNFC from '../utils/nfc';
 import useUuid from '../utils/uuid';
-import {StyleSheet, Image} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {useStoreState, useStoreActions} from 'easy-peasy';
-import {
-  Header,
-  Body,
-  Title,
-  Container,
-  Content,
-  Button,
-  Text,
-  H3,
-  H1,
-} from 'native-base';
+import {Container, Content, Button, Text, H3, H1} from 'native-base';
 
 const styles = StyleSheet.create({
   content: {
@@ -43,37 +33,35 @@ const styles = StyleSheet.create({
   },
 });
 
-export default props => {
+const Main = props => {
+  //Set navigation options:
+
   const [text, setText] = useState('');
   const [currUuid, _generateUUID] = useUuid();
   const {_read, _write} = useNFC(currUuid, setText);
 
   //Example of getting an item from easy-peasy store
-  const hackers = useStoreState(state => state.hackers.items);
   const isLoggedIn = useStoreState(state => state.auth.loggedIn);
 
   //Example of getting actions or thunks from easy-peasy store
   const initialise = useStoreActions(actions => actions.initialise);
-  const login = useStoreActions(actions => actions.auth.login);
-
+  const logout = useStoreActions(actions => actions.auth.logout);
   //initialize store
-  initialise();
-
+  useEffect(() => {
+    initialise();
+  }, [initialise]);
+  if (!isLoggedIn) {
+    props.navigation.navigate('Auth');
+  }
   return (
     <Container>
-      <Header>
-        <Image style={styles.image} source={require('../../nwplus_logo.png')} />
-        <Body>
-          <Title>nwHacks NFC</Title>
-        </Body>
-      </Header>
+      <Button onPress={() => props.navigation.navigate('Test')}>
+        <Text>Test navigation!</Text>
+      </Button>
       <Content style={styles.content}>
         <H3 style={styles.text}>
           This is an NFC app and I'm going SQL inject your NFC tag
         </H3>
-        <Button onPress={login}>
-          <Text>Login!</Text>
-        </Button>
         <Button style={styles.button} onPress={_read}>
           <Text>Read</Text>
         </Button>
@@ -84,7 +72,16 @@ export default props => {
           <Text>Generate UUID: {currUuid}</Text>
         </Button>
         <H1 style={styles.text}>{text}</H1>
+        <Button onPress={logout}>
+          <Text>logout!</Text>
+        </Button>
       </Content>
     </Container>
   );
 };
+
+Main.navigationOptions = {
+  headerTitle: 'nwHacks NFC',
+};
+
+export default Main;
