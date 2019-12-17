@@ -13,6 +13,20 @@ export const auth = firebase.auth();
 export const db = firestore();
 analytics();
 
+export const watchUser = callback => {
+  auth.onAuthStateChanged(({uid, email}) => {
+    if (uid) {
+      callback({success: true, email});
+    } else {
+      callback({success: false, email: null});
+    }
+  });
+};
+
+export const watchHackers = callback => {
+  db.collection('hacker_info_2020').onSnapshot(callback);
+};
+
 export const logout = async () => {
   return auth.signOut();
 };

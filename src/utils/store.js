@@ -1,5 +1,5 @@
 import {createStore, thunk, action} from 'easy-peasy';
-import {db, login, logout} from './firebase';
+import {watchUser, login, logout, watchHackers} from './firebase';
 
 export default createStore({
   auth: {
@@ -23,19 +23,13 @@ export default createStore({
   },
   hackers: {
     items: [],
-    fetch: thunk(async (actions, payload) => {
-      const docs = await db.collection('hacker_email_2020').get();
-      console.log('fetching...');
-      const res = docs.docs.map(doc => doc.data());
-      console.log(res);
-      actions.update(res);
-    }),
-    update: action((state, updates) => {
-      state.hackers = updates;
-    }),
-    initialise: thunk(async (actions, payload) => {
-      console.log('calling fetch');
-      await actions.fetch();
+    update: action((state, {docs}) => {
+      const data = docs.map(d => d.data());
+      state.items = data;
     }),
   },
+  initialise: thunk(actions => {
+    watchHackers(actions.hackers.update);
+    watchUser(actions.auth.setLogin);
+  }),
 });

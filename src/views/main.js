@@ -48,13 +48,12 @@ export default props => {
   const [currUuid, _generateUUID] = useUuid();
   const {_read, _write} = useNFC(currUuid, setText);
   const hackers = useStoreState(state => state.hackers.items);
-  const initialise = useStoreActions(actions => actions.hackers.initialise);
+  const initialise = useStoreActions(actions => actions.initialise);
   const login = useStoreActions(actions => actions.auth.login);
   const isLoggedIn = useStoreState(state => state.auth.loggedIn);
   useEffect(() => {
     initialise();
   }, [initialise, isLoggedIn]);
-  console.log(hackers);
   return (
     <Container>
       <Header>
@@ -64,7 +63,6 @@ export default props => {
         </Body>
       </Header>
       <Content style={styles.content}>
-        <Text>Hello</Text>
         <H3 style={styles.text}>
           This is an NFC app and I'm going SQL inject your NFC tag
         </H3>
