@@ -3,17 +3,21 @@ import NfcManager, {NfcEvents, Ndef, NfcTech} from 'react-native-nfc-manager';
 
 export default (currUuid, setText) => {
   useEffect(() => {
-    NfcManager.start();
-    NfcManager.setEventListener(NfcEvents.DiscoverTag, tag => {
-      console.log('Read a tag with payload(s):');
-      tag.ndefMessage.map(message => {
-        const payload = Ndef.text.decodePayload(message.payload);
-        console.log(payload);
-        setText(`Payload: ${payload}`);
-      });
-      NfcManager.setAlertMessageIOS('I got your tag!');
-      NfcManager.unregisterTagEvent().catch(() => 0);
-    });
+    NfcManager.start()
+      .then(() => {
+        NfcManager.setEventListener(NfcEvents.DiscoverTag, tag => {
+          console.log('Read a tag with payload(s):');
+          tag.ndefMessage.map(message => {
+            const payload = Ndef.text.decodePayload(message.payload);
+            console.log(payload);
+            setText(`Payload: ${payload}`);
+          });
+          NfcManager.setAlertMessageIOS('I got your tag!');
+          NfcManager.unregisterTagEvent().catch(() => 0);
+        });
+      })
+      .catch(e => alert("this device doesn't support nfc!"));
+
     return () => {
       NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
       _cleanUp();
