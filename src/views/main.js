@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import useNFC from '../utils/nfc';
 import useUuid from '../utils/uuid';
 import {StyleSheet, Image} from 'react-native';
@@ -47,13 +47,18 @@ export default props => {
   const [text, setText] = useState('');
   const [currUuid, _generateUUID] = useUuid();
   const {_read, _write} = useNFC(currUuid, setText);
+
+  //Example of getting an item from easy-peasy store
   const hackers = useStoreState(state => state.hackers.items);
+  const isLoggedIn = useStoreState(state => state.auth.loggedIn);
+
+  //Example of getting actions or thunks from easy-peasy store
   const initialise = useStoreActions(actions => actions.initialise);
   const login = useStoreActions(actions => actions.auth.login);
-  const isLoggedIn = useStoreState(state => state.auth.loggedIn);
-  useEffect(() => {
-    initialise();
-  }, [initialise, isLoggedIn]);
+
+  //initialize store
+  initialise();
+
   return (
     <Container>
       <Header>
