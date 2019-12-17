@@ -41,13 +41,3 @@ target 'nwnfc' do
 
   use_native_modules!
 end
-
-target 'nwnfc-tvOS' do
-  # Pods for nwnfc-tvOS
-
-  target 'nwnfc-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end
