@@ -28,6 +28,7 @@
 		69AA911A212E4F6E9E1FF727 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C230FA0977E4AECB8C172E0 /* Feather.ttf */; };
 		6E783DF085EF498FAB1121C7 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D002F4EFAB5543EA9A0338FF /* FontAwesome.ttf */; };
 		7F960F52B2034080B18E7B0E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D5A47BB94F490A864724DC /* Ionicons.ttf */; };
+		918CE71A23A9D65D00B83E9E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 918CE71923A9D65D00B83E9E /* GoogleService-Info.plist */; };
 		A3CCFDDAA36D90A72A7E3F6D /* libPods-nwnfc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66389CE2065764210F4E6924 /* libPods-nwnfc.a */; };
 		C675A2F42D9340BAA49F070D /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 670B4E4FB842425BB54E3A1B /* Roboto_medium.ttf */; };
 		CE8F0E2306AC4BD690F8F8D1 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF8816506B3142A0825B93BF /* Roboto.ttf */; };
@@ -72,7 +73,7 @@
 		8AA065CC68CEB2D54B4E8B40 /* Pods-nwnfc-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nwnfc-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-nwnfc-tvOSTests/Pods-nwnfc-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		8C230FA0977E4AECB8C172E0 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		9115612A23A05B3700927F00 /* nwnfc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = nwnfc.entitlements; path = nwnfc/nwnfc.entitlements; sourceTree = "<group>"; };
-		918CE71823A9D5A600B83E9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "/Users/ciuffi/dev/nfc-2/ios/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
+		918CE71923A9D65D00B83E9E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		996B7150DBD70904738D22B4 /* Pods-nwnfcTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nwnfcTests.debug.xcconfig"; path = "Target Support Files/Pods-nwnfcTests/Pods-nwnfcTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B5D5A47BB94F490A864724DC /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		B789058BF8494058BF784D7A /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -134,8 +135,8 @@
 		13B07FAE1A68108700A75B9A /* nwnfc */ = {
 			isa = PBXGroup;
 			children = (
+				918CE71923A9D65D00B83E9E /* GoogleService-Info.plist */,
 				9115612A23A05B3700927F00 /* nwnfc.entitlements */,
-				918CE71823A9D5A600B83E9E /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -347,6 +348,7 @@
 				C675A2F42D9340BAA49F070D /* Roboto_medium.ttf in Resources */,
 				CE8F0E2306AC4BD690F8F8D1 /* Roboto.ttf in Resources */,
 				2F155FAA95C446309721D766 /* rubicon-icon-font.ttf in Resources */,
+				918CE71A23A9D65D00B83E9E /* GoogleService-Info.plist in Resources */,
 				21DD9C7C3D2F4B4CBC27BE47 /* SimpleLineIcons.ttf in Resources */,
 				66C202D6B45F4C04BED77132 /* Zocial.ttf in Resources */,
 			);
