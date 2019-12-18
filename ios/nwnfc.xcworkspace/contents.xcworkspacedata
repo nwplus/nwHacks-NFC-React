@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/ciuffi/dev/nfc-2/ios/GoogleService-Info.plist">
+   </FileRef>
+   <FileRef
       location = "group:nwnfc.xcodeproj">
    </FileRef>
    <FileRef
