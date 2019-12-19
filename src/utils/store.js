@@ -13,7 +13,9 @@ export default createStore({
       actions.setLogin({success: true, email: loginResult.user.email});
     }),
     logout: thunk(async actions => {
-      await logout();
+      try {
+        await logout();
+      } catch (e) {}
       actions.setLogin({success: false, email: null});
     }),
     setLogin: action((state, {success, email}) => {
@@ -31,6 +33,10 @@ export default createStore({
       const data = docs.map(d => d.data());
       state.items = data;
     }),
+  },
+  nfc: {
+    on: false,
+    setNFC: action((state, nfc) => (state.on = nfc)),
   },
   initialise: thunk(actions => {
     watchHackers(actions.hackers.update);

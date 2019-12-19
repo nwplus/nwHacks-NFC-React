@@ -38,7 +38,7 @@ const Main = props => {
 
   const [text, setText] = useState('');
   const [currUuid, _generateUUID] = useUuid();
-  const {_read, _write} = useNFC(currUuid, setText);
+  const {getNFC, _read, _write} = useNFC(currUuid, setText);
 
   //Example of getting an item from easy-peasy store
   const isLoggedIn = useStoreState(state => state.auth.loggedIn);
@@ -62,6 +62,11 @@ const Main = props => {
         <H3 style={styles.text}>
           This is an NFC app and I'm going SQL inject your NFC tag
         </H3>
+        {getNFC ? null : (
+          <Text style={styles.text}>
+            {getNFC ? 'NFC Enabled!' : 'NFC not supported.'}
+          </Text>
+        )}
         <Button style={styles.button} onPress={_read}>
           <Text>Read</Text>
         </Button>
