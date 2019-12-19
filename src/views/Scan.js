@@ -13,15 +13,8 @@ import {StyleSheet, View, ImageBackground} from 'react-native';
 import {useStoreState, useStoreActions} from 'easy-peasy';
 import {Container, Content, Button, Text, H3, H1} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import Scan from './Scan';
 
 const styles = StyleSheet.create({
-  headerImage: {
-    resizeMode: 'cover',
-    width: '100%',
-    height: '100%',
-    flex: 1,
-  },
   content: {
     margin: 20,
   },
@@ -38,17 +31,10 @@ const styles = StyleSheet.create({
     margin: 10,
     marginLeft: 0,
     marginRight: 0,
-  },
-  menuBtn: {
-    width: 145,
-    height: 145,
-    color: '#FFFFFF',
-    borderRadius: 2,
-    alignSelf: 'center'
   }
 });
 
-const Main = props => {
+const Scan = props => {
   //Set navigation options:
 
   const [text, setText] = useState('');
@@ -73,40 +59,29 @@ const Main = props => {
   }
   return (
     <Container>
-      <ImageBackground style={styles.headerImage} source={require('../../assets/nwMenuHeader.png')}>
-      <View>
-        <H3 style={styles.text}>
-          Home
-        </H3>
-        <Button onPress={() => navigateTo('Test')}>
-          <Text>Scan</Text>
+      <Content style={styles.content}>
+        <Button onPress={() => navigateTo('Home')}>
+          <Text>Home</Text>
         </Button>
-          <Grid>
-            <Col>
-              <Button light style={styles.menuBtn} onPress={() => navigateTo('Test')}>
-                <Text>Test</Text>
-              </Button>
-              <Button light style={styles.menuBtn} onPress={() => navigateTo('Test')}>
-                <Text>Test</Text>
-              </Button>
-            </Col>
-            <Col>
-              <Button light style={styles.menuBtn} onPress={() => navigateTo('Test')}>
-                <Text>Test</Text>
-              </Button>
-              <Button light style={styles.menuBtn} onPress={() => navigateTo('Test')}>
-                <Text>Test</Text>
-              </Button>
-            </Col>
-          </Grid>
-          </View>
-      </ImageBackground>
-      <Scan/>
+        <Button style={styles.button} onPress={_read}>
+          <Text>Read</Text>
+        </Button>
+        <Button style={styles.button} onPress={_write}>
+          <Text>Write</Text>
+        </Button>
+        <Button style={styles.button} onPress={_generateUUID}>
+          <Text>Generate UUID: {currUuid}</Text>
+        </Button>
+        <H1 style={styles.text}>{text}</H1>
+        <Button onPress={logout}>
+          <Text>logout!</Text>
+        </Button>
+      </Content>
     </Container>
   );
 };
-Main.navigationOptions = {
+Scan.navigationOptions = {
   header: null,
-//  headerTitle: 'nwHacks NFC',
 };
-export default Main;
+
+export default Scan;
