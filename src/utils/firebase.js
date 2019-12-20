@@ -4,7 +4,7 @@ import analytics from '@react-native-firebase/analytics';
 import {GoogleSignin} from '@react-native-community/google-signin';
 
 GoogleSignin.configure({
-  scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  scopes: ['https://www.googleapis.com/auth/userinfo.profile'],
   webClientId:
     '5043243303-otbpttl12vjtitiokg16sb0nctusapio.apps.googleusercontent.com', // required
 });
@@ -29,17 +29,20 @@ export const watchHackers = callback => {
 };
 
 export const logout = async () => {
+  await GoogleSignin.revokeAccess();
+  await GoogleSignin.signOut();
   return auth.signOut();
 };
 
 export const login = async () => {
   try {
-    const {accessToken, idToken} = await GoogleSignin.signIn();
+    const userInfo = await GoogleSignin.signIn();
     const credential = firebase.auth.GoogleAuthProvider.credential(
-      idToken,
-      accessToken,
+      userInfo.idToken,
+      userInfo.accessToken,
     );
     console.log('signing in....');
+    console.log(userInfo)
     return auth.signInWithCredential(credential);
   } catch (e) {
     return false;
