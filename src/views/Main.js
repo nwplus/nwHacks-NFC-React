@@ -9,7 +9,7 @@
 import React, {useState, useEffect} from 'react';
 import useNFC from '../utils/nfc';
 import useUuid from '../utils/uuid';
-import {StyleSheet, View, ImageBackground} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import {useStoreState, useStoreActions} from 'easy-peasy';
 import {Container, Content, Button, Text, H3, H1} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
@@ -17,13 +17,15 @@ import Scan from './Scan';
 
 const styles = StyleSheet.create({
   headerImage: {
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     width: '100%',
     height: '100%',
-    flex: 1,
+    position: 'absolute',
+    zIndex: -1,
+    top: 0,
   },
   content: {
-    margin: 20,
+    margin: '10%',
   },
   button: {
     marginVertical: 10,
@@ -31,20 +33,23 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-  },
-  image: {
-    width: 30,
-    height: 30,
-    margin: 10,
-    marginLeft: 0,
-    marginRight: 0,
+    color: 'white',
   },
   menuBtn: {
     width: 145,
     height: 145,
     color: '#FFFFFF',
     borderRadius: 2,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+    	width: 0,
+    	height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 10,
+    marginVertical: '10%',
   }
 });
 
@@ -73,15 +78,15 @@ const Main = props => {
   }
   return (
     <Container>
-      <ImageBackground style={styles.headerImage} source={require('../../assets/nwMenuHeader.png')}>
+      <Image style={styles.headerImage} source={require('../../assets/nwMenuHeader.png')}/>
       <View>
         <H3 style={styles.text}>
           Home
         </H3>
-        <Button onPress={() => navigateTo('Scan')}>
+        <Button block onPress={() => navigateTo('Scan')}>
           <Text>Scan</Text>
         </Button>
-          <Grid>
+          <Grid style={styles.grid}>
             <Col>
               <Button light style={styles.menuBtn} onPress={() => navigateTo('Test')}>
                 <Text>Test</Text>
@@ -100,12 +105,10 @@ const Main = props => {
             </Col>
           </Grid>
           </View>
-      </ImageBackground>
     </Container>
   );
 };
 Main.navigationOptions = {
   header: null,
-//  headerTitle: 'nwHacks NFC',
 };
 export default Main;
