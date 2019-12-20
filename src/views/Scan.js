@@ -80,6 +80,7 @@ const Scan = props => {
     </Container>
   );
 };
+
 Scan.navigationOptions = {
   header: null,
 };

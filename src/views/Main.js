@@ -78,7 +78,7 @@ const Main = props => {
         <H3 style={styles.text}>
           Home
         </H3>
-        <Button onPress={() => navigateTo('Test')}>
+        <Button onPress={() => navigateTo('Scan')}>
           <Text>Scan</Text>
         </Button>
           <Grid>
@@ -101,7 +101,6 @@ const Main = props => {
           </Grid>
           </View>
       </ImageBackground>
-      <Scan/>
     </Container>
   );
 };

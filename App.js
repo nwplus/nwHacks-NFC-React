@@ -12,6 +12,7 @@ import {StoreProvider} from 'easy-peasy';
 import Main from './src/views/Main';
 import Test from './src/views/Test';
 import Login from './src/views/Login';
+import Scan from './src/views/Scan';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
@@ -19,7 +20,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 const MainApp = createStackNavigator(
   {
     Home: Main,
-    Test,
+    Scan,
   },
   {
     initialRouteName: 'Home',
