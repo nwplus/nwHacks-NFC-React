@@ -89,7 +89,6 @@ const Main = props => {
 
 Main.navigationOptions = {
   headerTitle: 'nwHacks NFC',
-  headerLeft: <Text>hi</Text>,
 };
 
 export default Main;

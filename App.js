@@ -14,43 +14,45 @@ import Test from './src/views/Test';
 import Login from './src/views/Login';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import DrawerNavigator from './src/navigation/DrawerNavigator';
 
 //Router for the app
-const MainApp = createStackNavigator(
-  {
-    Home: Main,
-    Test,
-  },
-  {
-    initialRouteName: 'Home',
-  },
-);
+// const MainApp = createStackNavigator(
+//   {
+//     Home: Main,
+//     Test,
+//   },
+//   {
+//     initialRouteName: 'Home',
+//   },
+// );
 
-const Auth = createStackNavigator(
-  {
-    Login,
-  },
-  {
-    initialRouteName: 'Login',
-  },
-);
+// const Auth = createStackNavigator(
+//   {
+//     Login,
+//   },
+//   {
+//     initialRouteName: 'Login',
+//   },
+// );
 
-const AppNavigator = createSwitchNavigator(
-  {
-    Auth,
-    Main: MainApp,
-  },
-  {
-    initialRouteName: 'Auth',
-  },
-);
+// const AppNavigator = createSwitchNavigator(
+//   {
+//     Auth,
+//     Main: MainApp,
+//   },
+//   {
+//     initialRouteName: 'Auth',
+//   },
+// );
 
-const App = createAppContainer(AppNavigator);
+// const App = createAppContainer(AppNavigator);
 
 export default props => {
   return (
     <StoreProvider store={store}>
-      <App />
+      <DrawerNavigator />
+      {/* <App /> */}
     </StoreProvider>
   );
 };

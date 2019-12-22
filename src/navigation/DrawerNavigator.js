@@ -6,6 +6,8 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import HomeScreen from '../views/Home';
 import EventsScreen from '../views/Events';
 import WorkshopsScreen from '../views/Workshops';
+import CoatCheckScreen from '../views/CoatCheck';
+import ScanScreen from '../views/Scan';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -23,6 +25,12 @@ const DrawerNavigator = createDrawerNavigator(
         },
         Workshops: {
             screen: WorkshopsScreen
+        },
+        "Coat Check": {
+          screen: CoatCheckScreen
+        },
+        Scan: {
+          screen: ScanScreen
         }
     },
     DrawerConfig)

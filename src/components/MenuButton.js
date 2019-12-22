@@ -9,7 +9,7 @@ export default class MenuButton extends React.Component {
                 name="menu"
                 size={30}
                 // color="#900"
-                onPress={() => { console.log("pressed")}}
+                onPress={() => this.props.navigation.toggleDrawer()}
                 style={styles.menuIcon} />
         )
     }
