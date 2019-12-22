@@ -9,10 +9,16 @@ import WorkshopsScreen from '../views/Workshops';
 import CoatCheckScreen from '../views/CoatCheck';
 import ScanScreen from '../views/Scan';
 
+import MenuDrawer from '../components/MenuDrawer';
 const WIDTH = Dimensions.get('window').width;
 
 const DrawerConfig = {
     drawerWidth: WIDTH * 0.83,
+
+    contentComponent: ({ navigation }) => {
+        return (<MenuDrawer />)
+    }
+
 }
 
 const DrawerNavigator = createDrawerNavigator(
@@ -27,10 +33,10 @@ const DrawerNavigator = createDrawerNavigator(
             screen: WorkshopsScreen
         },
         "Coat Check": {
-          screen: CoatCheckScreen
+            screen: CoatCheckScreen
         },
         Scan: {
-          screen: ScanScreen
+            screen: ScanScreen
         }
     },
     DrawerConfig)
