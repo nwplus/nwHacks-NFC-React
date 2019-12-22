@@ -12,6 +12,7 @@ import useUuid from '../utils/uuid';
 import {StyleSheet} from 'react-native';
 import {useStoreState, useStoreActions} from 'easy-peasy';
 import {Container, Content, Button, Text, H3, H1} from 'native-base';
+import DrawerNavigator from '../navigation/DrawerNavigator';
 
 const styles = StyleSheet.create({
   content: {
@@ -55,7 +56,8 @@ const Main = props => {
   }
   return (
     <Container>
-      <Button onPress={() => props.navigation.navigate('Test')}>
+      <DrawerNavigator />
+      {/* <Button onPress={() => props.navigation.navigate('Test')}>
         <Text>Test navigation!</Text>
       </Button>
       <Content style={styles.content}>
@@ -80,13 +82,14 @@ const Main = props => {
         <Button onPress={logout}>
           <Text>logout!</Text>
         </Button>
-      </Content>
+      </Content> */}
     </Container>
   );
 };
 
 Main.navigationOptions = {
   headerTitle: 'nwHacks NFC',
+  headerLeft: <Text>hi</Text>,
 };
 
 export default Main;
