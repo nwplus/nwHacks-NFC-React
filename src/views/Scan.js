@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Main = props => {
+const Scan = props => {
   //Set navigation options:
 
   const [text, setText] = useState('');
@@ -85,8 +85,8 @@ const Main = props => {
   );
 };
 
-Main.navigationOptions = {
-  headerTitle: 'nwHacks NFC',
+Scan.navigationOptions = {
+  header: null,
 };
 
-export default Main;
+export default Scan;
