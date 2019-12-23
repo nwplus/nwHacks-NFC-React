@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,23 +14,19 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nwplus_logo" translatesAutoresizingMaskIntoConstraints="NO" id="gmh-iF-w44">
-                    <rect key="frame" x="143" y="200" width="128" height="128"/>
+                    <rect key="frame" x="143" y="102" width="128" height="128"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="128" id="CWw-93-ZJV"/>
-                        <constraint firstAttribute="height" constant="128" id="Klb-gF-jXl"/>
-                        <constraint firstAttribute="width" secondItem="gmh-iF-w44" secondAttribute="height" multiplier="1:1" id="WgC-2w-c6w"/>
+                        <constraint firstAttribute="height" constant="128" id="AsF-Zk-pKr"/>
+                        <constraint firstAttribute="width" constant="128" id="B0j-MN-qsV"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nwHacks NFC Tag Writer" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
-                    <rect key="frame" x="20" y="378" width="374" height="117"/>
+                    <rect key="frame" x="20" y="280" width="374" height="117"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="49"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Made with love by the nwPlus team" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1v7-bt-jL2">
-                    <rect key="frame" x="26.333333333333343" y="730" width="361.66666666666663" height="106"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="106" id="08U-FR-3yM"/>
-                    </constraints>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Made with love by the nwPlus team" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1v7-bt-jL2">
+                    <rect key="frame" x="27" y="790" width="361.33333333333326" height="57.333333333333371"/>
                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -38,14 +34,14 @@
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="1" id="5cJ-9S-tgC"/>
-                <constraint firstItem="1v7-bt-jL2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Edz-ue-DBI"/>
-                <constraint firstItem="gmh-iF-w44" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="200" id="Jul-2M-1eZ"/>
-                <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
-                <constraint firstItem="gmh-iF-w44" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Tk1-uF-bxt"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="top" secondItem="gmh-iF-w44" secondAttribute="bottom" constant="50" id="hVO-CR-RO0"/>
-                <constraint firstAttribute="bottom" secondItem="1v7-bt-jL2" secondAttribute="bottom" constant="60" id="p3e-BS-QP3"/>
+                <constraint firstItem="kId-c2-rCX" firstAttribute="top" secondItem="gmh-iF-w44" secondAttribute="bottom" constant="50" id="8Xd-TO-IKJ"/>
+                <constraint firstItem="gmh-iF-w44" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="102" id="PFU-MX-Ue6"/>
+                <constraint firstItem="gmh-iF-w44" firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Zvh-5K-oBq"/>
+                <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="ice-Vf-rI8"/>
+                <constraint firstAttribute="bottom" secondItem="1v7-bt-jL2" secondAttribute="bottom" constant="48.666666666666629" id="pq3-Ce-Itt"/>
+                <constraint firstItem="kId-c2-rCX" firstAttribute="centerX" secondItem="1v7-bt-jL2" secondAttribute="centerX" id="qB3-mR-WZy"/>
+                <constraint firstItem="kId-c2-rCX" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="ro8-2z-zho"/>
+                <constraint firstItem="1v7-bt-jL2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="27" id="w99-5q-DVq"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -53,6 +49,6 @@
         </view>
     </objects>
     <resources>
-        <image name="nwplus_logo" width="512" height="512"/>
+        <image name="nwplus_logo" width="170.66667175292969" height="170.66667175292969"/>
     </resources>
 </document>
