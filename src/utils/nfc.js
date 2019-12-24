@@ -39,7 +39,7 @@ export default (currUuid, setText) => {
 
   const _read = async () => {
     try {
-      setText('Ready to read');
+      setText('Scanning...');
       await NfcManager.registerTagEvent(tag => {
         NfcManager.unregisterTagEvent().catch(() => 0);
       });

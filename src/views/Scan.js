@@ -8,11 +8,8 @@
 
 import React, { useState, useEffect } from 'react';
 import useNFC from '../utils/nfc';
-import useUuid from '../utils/uuid';
-import { StyleSheet } from 'react-native';
-import { useStoreState, useStoreActions } from 'easy-peasy';
-import { Container, Content, Button, Text, H3, H1 } from 'native-base';
-import MenuButton from '../components/MenuButton';
+import {StyleSheet} from 'react-native';
+import {Container, Content, Button, Text, H3, H1} from 'native-base';
 
 const styles = StyleSheet.create({
   content: {
@@ -35,49 +32,26 @@ const styles = StyleSheet.create({
 });
 
 const Scan = props => {
-  //Set navigation options:
-
   const [text, setText] = useState('');
-  const [currUuid, _generateUUID] = useUuid();
-  const { getNFC, _read, _write } = useNFC(currUuid, setText);
+  const {getNFC, _read} = useNFC(null, setText);
 
-  //Example of getting an item from easy-peasy store
-  const isLoggedIn = useStoreState(state => state.auth.loggedIn);
-
-  //Example of getting actions or thunks from easy-peasy store
-  const initialise = useStoreActions(actions => actions.initialise);
-  const logout = useStoreActions(actions => actions.auth.logout);
-  //initialize store
   useEffect(() => {
-    initialise();
-  }, [initialise]);
-  if (!isLoggedIn) {
-    props.navigation.navigate('Auth');
-  }
+    _read();
+  }, []);
+
   return (
     <Container>
       <MenuButton navigation={props.navigation} />
       <Content style={styles.content}>
-        <H3 style={styles.text}>
-          This is an NFC app and I'm going SQL inject your NFC tag
-        </H3>
+        <H3 style={styles.text}>NFC Tag Scanner</H3>
         {getNFC ? null : (
           <Text style={styles.text}>
             {getNFC ? 'NFC Enabled!' : 'NFC not supported.'}
           </Text>
         )}
-        <Button style={styles.button} onPress={_read}>
-          <Text>Read</Text>
-        </Button>
-        <Button style={styles.button} onPress={_write}>
-          <Text>Write</Text>
-        </Button>
-        <Button style={styles.button} onPress={_generateUUID}>
-          <Text>Generate UUID: {currUuid}</Text>
-        </Button>
         <H1 style={styles.text}>{text}</H1>
-        <Button onPress={logout}>
-          <Text>logout!</Text>
+        <Button onPress={() => props.navigation.navigate('Auth')}>
+          <Text>Cancel</Text>
         </Button>
       </Content>
     </Container>

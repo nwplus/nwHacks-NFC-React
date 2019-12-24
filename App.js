@@ -8,13 +8,9 @@
 
 import React from 'react';
 import store from './src/utils/store';
-<<<<<<< HEAD
 import { StoreProvider } from 'easy-peasy';
 import Main from './src/views/Main';
-=======
-import {StoreProvider} from 'easy-peasy';
 import Scan from './src/views/Scan';
->>>>>>> rename main to scan
 import Test from './src/views/Test';
 import Login from './src/views/Login';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
