@@ -3,7 +3,9 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    Image
+    Image,
+    Dimensions,
+    ScrollView
 } from 'react-native';
 import { View } from 'native-base';
 import { useStoreActions } from 'easy-peasy';
@@ -11,11 +13,13 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import store from '../utils/store';
 import { StoreProvider } from 'easy-peasy';
 
+let { height, width } = Dimensions.get('window');
+
 const MenuDrawer = props => {
     const logout = useStoreActions(actions => actions.auth.logout);
     function navLink(nav, text) {
         return (
-            <TouchableOpacity style={{ height: 80 }} onPress={() => props.navigation.navigate(nav)}>
+            <TouchableOpacity style={{ height: 70 }} onPress={() => props.navigation.navigate(nav)}>
                 <Text style={styles.link}>{text}</Text>
             </TouchableOpacity>
         )
@@ -31,7 +35,7 @@ const MenuDrawer = props => {
             <View style={styles.imgView} >
                 <Image style={styles.img} source={require('../../nwplus_logo.png')} />
             </View>
-            <View >
+            <ScrollView>
                 {navLink("Home", "Home")}
                 {navLink("Events", "Events")}
                 {navLink("Workshops", "Workshops")}
@@ -45,7 +49,7 @@ const MenuDrawer = props => {
                         <Text style={styles.linkLogout}>Logout</Text>
                     </TouchableOpacity>
                 </StoreProvider>
-            </View>
+            </ScrollView>
         </View>
     )
 };
@@ -85,6 +89,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingTop: 10,
         paddingBottom: 450,
+        position: 'absolute',
+        alignSelf: 'center',
     },
     linkScan: {
         flex: 1,
@@ -97,6 +103,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingTop: 10,
         paddingBottom: 450,
+        position: 'absolute',
+        alignSelf: 'center',
     },
     linkLogout: {
         flex: 1,
@@ -110,6 +118,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingTop: 40,
         paddingBottom: 450,
+        position: 'absolute',
+        alignSelf: 'center',
     }
 })
 
