@@ -2,17 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MenuButton from '../components/MenuButton';
 
-export default class ApplicantsScreen extends React.Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <MenuButton navigation={this.props.navigation} />
-                <Text style={styles.text}>Applicants</Text>
-            </View>
-        );
-    }
+const ApplicantsScreen = props => {
+    return (
+        <View style={styles.container}>
+            <MenuButton navigation={props.navigation} />
+            <Text style={styles.text}>Applicants</Text>
+        </View>
+    );
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -25,3 +22,5 @@ const styles = StyleSheet.create({
         fontSize: 30,
     }
 });
+
+export default ApplicantsScreen;

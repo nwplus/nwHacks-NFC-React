@@ -2,17 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MenuButton from '../components/MenuButton';
 
-export default class ScanScreen extends React.Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <MenuButton navigation={this.props.navigation} />
-                <Text style={styles.text}>Scan</Text>
-            </View>
-        );
-    }
+const ScanScreen = props => {
+    return (
+        <View style={styles.container}>
+            <MenuButton navigation={props.navigation} />
+            <Text style={styles.text}>Scan</Text>
+        </View>
+    );
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -25,3 +22,5 @@ const styles = StyleSheet.create({
         fontSize: 30,
     }
 });
+
+export default ScanScreen;
