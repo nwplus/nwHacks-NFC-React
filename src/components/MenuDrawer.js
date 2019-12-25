@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { View } from 'native-base';
 import { useStoreActions } from 'easy-peasy';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const MenuDrawer = props => {
     const logout = useStoreActions(actions => actions.auth.logout);
@@ -20,6 +21,11 @@ const MenuDrawer = props => {
 
     return (
         <View style={styles.container}>
+            <Icon
+                name="close"
+                size={35}
+                onPress={() => props.navigation.toggleDrawer()}
+                style={styles.closeIcon} />
             <View style={styles.imgView} >
                 <Image style={styles.img} source={require('../../nwplus_logo.png')} />
             </View>
@@ -45,8 +51,15 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#343338',
     },
+    closeIcon: {
+        color: 'white',
+        textAlign: 'right',
+        paddingTop: 50,
+        paddingRight: 20
+
+    },
     imgView: {
-        paddingTop: 80,
+        paddingTop: 20,
         alignItems: 'center',
         paddingBottom: 40
     },
