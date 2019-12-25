@@ -5,6 +5,7 @@ import {
     Dimensions,
     StyleSheet,
     TouchableOpacity,
+    Image
 } from 'react-native';
 import { View } from 'native-base';
 import { useStoreActions } from 'easy-peasy';
@@ -25,8 +26,8 @@ export default class MenuDrawer extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.topImage}>
-
+                <View style={styles.imgView} >
+                    <Image style={styles.img} source={require('../../nwplus_logo.png')} />
                 </View>
                 <View >
                     {this.navLink("Home", "Home")}
@@ -50,19 +51,23 @@ export default class MenuDrawer extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#2D2937',
+        backgroundColor: '#343338',
     },
-    menuItem: {
-
+    imgView: {
+        paddingTop: 80,
+        alignItems: 'center',
+        paddingBottom: 40
     },
-    topImage: {
-        height: 160,
-        backgroundColor: 'black'
-
+    img: {
+        // padding: 50,
+        height: 60,
+        width: 60,
+        backgroundColor: 'black',
+        justifyContent: 'center',
     },
     link: {
         flex: 1,
-        fontSize: 20,
+        fontSize: 25,
         padding: 6,
         paddingLeft: 14,
         margin: 5,
@@ -74,7 +79,7 @@ const styles = StyleSheet.create({
     },
     linkScan: {
         flex: 1,
-        fontSize: 20,
+        fontSize: 25,
         padding: 6,
         paddingLeft: 14,
         margin: 5,
