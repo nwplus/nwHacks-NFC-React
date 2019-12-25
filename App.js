@@ -20,6 +20,7 @@ import { Platform, Dimensions } from 'react-native';
 // Screen imports
 import EventsScreen from './src/views/Events';
 import WorkshopsScreen from './src/views/Workshops';
+import ApplicantsScreen from './src/views/Applicants';
 import CoatCheckScreen from './src/views/CoatCheck';
 import ScanScreen from './src/views/Scan';
 import MenuDrawer from './src/components/MenuDrawer';
@@ -28,9 +29,8 @@ const WIDTH = Dimensions.get('window').width;
 
 const DrawerConfig = {
   drawerWidth: WIDTH * 0.83,
-
   contentComponent: ({ navigation }) => {
-    return (<MenuDrawer />)
+    return (<MenuDrawer navigation={navigation}/>)
   }
 
 }
@@ -41,6 +41,7 @@ const DrawerNavigator = createDrawerNavigator(
     Home: Main,
     Events: EventsScreen,
     Workshops: WorkshopsScreen,
+    Applicants: ApplicantsScreen,
     "Coat Check": CoatCheckScreen,
     Scan: ScanScreen,
     Test,

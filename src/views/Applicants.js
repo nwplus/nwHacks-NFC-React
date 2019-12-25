@@ -7,7 +7,7 @@ export default class ApplicantsScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <MenuButton navigation={this.props.navigation} />
-                <Text style={styles.text}>Home</Text>
+                <Text style={styles.text}>Applicants</Text>
             </View>
         );
     }
