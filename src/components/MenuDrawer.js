@@ -38,8 +38,6 @@ const MenuDrawer = props => {
             </View>
         </View>
     )
-
-
 };
 
 const styles = StyleSheet.create({

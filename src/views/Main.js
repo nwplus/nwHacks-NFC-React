@@ -56,11 +56,8 @@ const Main = props => {
   }
   return (
     <Container>
-        <MenuButton navigation={props.navigation}/>
+      <MenuButton navigation={props.navigation} />
       <Content style={styles.content}>
-        {/* <Button onPress={() => props.navigation.navigate('Test')}>
-          <Text>Test navigation!</Text>
-        </Button> */}
         <H3 style={styles.text}>
           This is an NFC app and I'm going SQL inject your NFC tag
         </H3>
