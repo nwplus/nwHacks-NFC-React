@@ -6,12 +6,13 @@
  * @flow
  */
 
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import useNFC from '../utils/nfc';
 import useUuid from '../utils/uuid';
-import {StyleSheet} from 'react-native';
-import {useStoreState, useStoreActions} from 'easy-peasy';
-import {Container, Content, Button, Text, H3, H1} from 'native-base';
+import { StyleSheet } from 'react-native';
+import { useStoreState, useStoreActions } from 'easy-peasy';
+import { Container, Content, Button, Text, H3, H1 } from 'native-base';
+import MenuButton from '../components/MenuButton';
 
 const styles = StyleSheet.create({
   content: {
@@ -38,7 +39,7 @@ const Main = props => {
 
   const [text, setText] = useState('');
   const [currUuid, _generateUUID] = useUuid();
-  const {getNFC, _read, _write} = useNFC(currUuid, setText);
+  const { getNFC, _read, _write } = useNFC(currUuid, setText);
 
   //Example of getting an item from easy-peasy store
   const isLoggedIn = useStoreState(state => state.auth.loggedIn);
@@ -55,9 +56,7 @@ const Main = props => {
   }
   return (
     <Container>
-      <Button onPress={() => props.navigation.navigate('Test')}>
-        <Text>Test navigation!</Text>
-      </Button>
+      <MenuButton navigation={props.navigation} />
       <Content style={styles.content}>
         <H3 style={styles.text}>
           This is an NFC app and I'm going SQL inject your NFC tag
