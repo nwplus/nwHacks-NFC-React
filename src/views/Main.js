@@ -9,7 +9,7 @@
 import React, {useState, useEffect} from 'react';
 import useNFC from '../utils/nfc';
 import useUuid from '../utils/uuid';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image, TouchableHighlight} from 'react-native';
 import {useStoreState, useStoreActions} from 'easy-peasy';
 import {Container, Content, Button, Text, H3, H1} from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     height: '100%',
     position: 'absolute',
     zIndex: -1,
-    top: 0,
+    top: '-35%',
   },
   content: {
     margin: '10%',
@@ -30,10 +30,16 @@ const styles = StyleSheet.create({
   button: {
     marginVertical: 10,
     justifyContent: 'center',
+    alignSelf: 'center',
+    width: '70%',
+    height: '70%',
+    zIndex: -1,
+    position: 'absolute',
   },
   text: {
     textAlign: 'center',
     color: 'white',
+    marginVertical: '7%',
   },
   menuBtn: {
     width: 145,
@@ -50,6 +56,12 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 10,
     marginVertical: '10%',
+    bottom: '-30%',
+  },
+  menuText: {
+    bottom: 70,
+    fontSize: 18,
+    textTransform: 'capitalize',
   }
 });
 
@@ -83,24 +95,27 @@ const Main = props => {
         <H3 style={styles.text}>
           Home
         </H3>
-        <Button block onPress={() => navigateTo('Scan')}>
-          <Text>Scan</Text>
-        </Button>
+        <View>
+            <Image style={styles.button} source={require('../../assets/ButtonBg.png')}/>
+            <TouchableHighlight onPress={() => navigateTo('Scan')}>
+              <H3 style={styles.text}>Scan</H3>
+            </TouchableHighlight>
+        </View>
           <Grid style={styles.grid}>
             <Col>
               <Button light style={styles.menuBtn} onPress={() => navigateTo('Test')}>
-                <Text>Test</Text>
+                <Text style={styles.menuText}>Events</Text>
               </Button>
               <Button light style={styles.menuBtn} onPress={() => navigateTo('Test')}>
-                <Text>Test</Text>
+                <Text style={styles.menuText}>Applicants</Text>
               </Button>
             </Col>
             <Col>
               <Button light style={styles.menuBtn} onPress={() => navigateTo('Test')}>
-                <Text>Test</Text>
+                <Text style={styles.menuText}>Workshop</Text>
               </Button>
               <Button light style={styles.menuBtn} onPress={() => navigateTo('Test')}>
-                <Text>Test</Text>
+                <Text style={styles.menuText}>Coat Check</Text>
               </Button>
             </Col>
           </Grid>
