@@ -572,7 +572,7 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - abseil
     - AppAuth
     - boost-for-react-native
@@ -705,7 +705,7 @@ SPEC CHECKSUMS:
   React-jsi: cb2cd74d7ccf4cffb071a46833613edc79cdf8f7
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
-  react-native-nfc-manager: b86517f02817e727d896912668201d68eda7e347
+  react-native-nfc-manager: b5281be9e44ab25fb367dad1eacfa7ef0549e0ad
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -727,4 +727,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 47f1584b466e50e604dfba5494ba0af2ad29edb8
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.7.5
