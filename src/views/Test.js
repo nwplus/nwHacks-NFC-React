@@ -1,16 +1,30 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Button} from 'native-base';
 import {useStoreState} from 'easy-peasy';
+import {getUserFromUid} from '../utils/firebase';
 
 const Test = props => {
   const hackers = useStoreState(state => state.hackers.items);
+
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const doThing = newUser => {
+      setUser(newUser);
+    };
+
+    async () => {
+      const uid = props.navigation.getParam('uid', '');
+      await getUserFromUid(uid, doThing);
+    };
+  }, [props.navigation]);
 
   return (
     <View>
       <Button onPress={() => props.navigation.navigate('Home')}>
         <Text>Take me home!</Text>
       </Button>
-      <Text>UID: {props.navigation.getParam('uid', 'No UID!')}</Text>
+      <Text>User: {user ? user.email : 'none'}</Text>
     </View>
   );
 };

@@ -48,7 +48,9 @@ const styles = StyleSheet.create({
 
 const Scan = props => {
   const redirect = () => {
-    props.navigation.navigate('Test', {uid});
+    setTimeout(async function() {
+      props.navigation.navigate('Test', {uid});
+    }, 100);
   };
 
   const [uid, setUID] = useState('');

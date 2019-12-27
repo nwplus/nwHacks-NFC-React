@@ -45,3 +45,21 @@ export const login = async () => {
     return false;
   }
 };
+
+export const getUserFromUid = async (uid, callback) => {
+  console.log('firebase', uid);
+  await db
+    .collection('hacker_info_2020')
+    .where('nfcID', '==', uid)
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log('No matching documents.');
+        callback();
+      }
+      snapshot.forEach(doc => {
+        console.log('Document(s) found.', doc.data());
+        callback(doc.data());
+      });
+    });
+};
