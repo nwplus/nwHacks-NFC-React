@@ -48,12 +48,12 @@ const styles = StyleSheet.create({
 
 const Scan = props => {
   const redirect = () => {
-    props.navigation.navigate('Test');
+    props.navigation.navigate('Test', {uid});
   };
 
-  const [text, setText] = useState('');
+  const [uid, setUID] = useState('');
   const [isScanning, setScanning] = useState(false);
-  const {getNFC, _read} = useNFC(setScanning, setText, redirect);
+  const {getNFC, _read} = useNFC(setScanning, setUID, redirect);
 
   useEffect(() => {
     _read();

@@ -10,7 +10,7 @@ const Test = props => {
       <Button onPress={() => props.navigation.navigate('Home')}>
         <Text>Take me home!</Text>
       </Button>
-      <Text>{JSON.stringify(hackers, null, 4)}</Text>
+      <Text>UID: {props.navigation.getParam('uid', 'No UID!')}</Text>
     </View>
   );
 };
