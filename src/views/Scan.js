@@ -33,13 +33,18 @@ const styles = StyleSheet.create({
 });
 
 const Scan = props => {
+  const redirect = () => {
+    props.navigation.navigate('Test');
+  };
+
   const [text, setText] = useState('');
-  const {getNFC, _read} = useNFC(setText);
+  const [isScanning, setScanning] = useState(false);
+  const {getNFC, _read} = useNFC(setScanning, setText, redirect);
 
   useEffect(() => {
     _read();
   }, []);
-  
+
   return (
     <Container>
       <MenuButton navigation={props.navigation} />
@@ -51,9 +56,13 @@ const Scan = props => {
           </Text>
         )}
         <H1 style={styles.text}>{text}</H1>
-        <Button onPress={() => props.navigation.navigate('Auth')}>
-          <Text>Cancel</Text>
-        </Button>
+        {isScanning ? (
+          <Text>Scanning...</Text>
+        ) : (
+          <Button onPress={() => _read()}>
+            <Text>Scan</Text>
+          </Button>
+        )}
       </Content>
     </Container>
   );
