@@ -4,7 +4,6 @@ import {
     StyleSheet,
     TouchableOpacity,
     Image,
-    Dimensions,
     ScrollView
 } from 'react-native';
 import { View } from 'native-base';
@@ -12,8 +11,6 @@ import { useStoreActions } from 'easy-peasy';
 import Icon from 'react-native-vector-icons/AntDesign';
 import store from '../utils/store';
 import { StoreProvider } from 'easy-peasy';
-
-let { height, width } = Dimensions.get('window');
 
 const MenuDrawer = props => {
     const logout = useStoreActions(actions => actions.auth.logout);

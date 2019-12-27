@@ -14,6 +14,7 @@ const MenuButton = props => {
 
 const styles = StyleSheet.create({
     menuIcon: {
+        color: '#ffffff',
         zIndex: 9,
         position: 'absolute',
         top: 20,
