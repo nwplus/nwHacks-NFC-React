@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     height: '100%',
     position: 'absolute',
     zIndex: -1,
-    top: '-36%',
+    top: '-37%',
   },
   content: {
     margin: '10%',
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     color: 'white',
-    marginVertical: '7%',
+    marginVertical: '6%',
   },
   menuBtn: {
     width: 145,
