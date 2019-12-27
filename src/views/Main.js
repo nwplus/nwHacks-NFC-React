@@ -6,14 +6,13 @@
  * @flow
  */
 
-import React, {useState, useEffect} from 'react';
-import useNFC from '../utils/nfc';
-import useUuid from '../utils/uuid';
+import React from 'react';
 import {StyleSheet, View, Image, TouchableHighlight} from 'react-native';
 import {useStoreState, useStoreActions} from 'easy-peasy';
-import {Container, Content, Button, Text, H3, H1} from 'native-base';
+import {Container, Content, Button, Text, H3} from 'native-base';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import Scan from './Scan';
+import GreenButton from './GreenButton';
 
 const styles = StyleSheet.create({
   headerImage: {
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
     height: '100%',
     position: 'absolute',
     zIndex: -1,
-    top: '-35%',
+    top: '-36%',
   },
   content: {
     margin: '10%',
@@ -70,16 +69,9 @@ const Main = props => {
 
   //Example of getting an item from easy-peasy store
   const isLoggedIn = useStoreState(state => state.auth.loggedIn);
-
-  //Example of getting actions or thunks from easy-peasy store
-  const initialise = useStoreActions(actions => actions.initialise);
-  //initialize store
   const navigateTo = screen => {
     props.navigation.navigate(screen);
   };
-  useEffect(() => {
-    initialise();
-  }, [initialise]);
   if (!isLoggedIn) {
     props.navigation.navigate('Auth');
   }
@@ -91,15 +83,7 @@ const Main = props => {
       />
       <View>
         <H3 style={styles.text}>Home</H3>
-        <View>
-          <Image
-            style={styles.button}
-            source={require('../../assets/ButtonBg.png')}
-          />
-          <TouchableHighlight onPress={() => navigateTo('Scan')}>
-            <H3 style={styles.text}>Scan</H3>
-          </TouchableHighlight>
-        </View>
+        <GreenButton text='Scan' location='Scan'/>
         <Grid style={styles.grid}>
           <Col>
             <Button

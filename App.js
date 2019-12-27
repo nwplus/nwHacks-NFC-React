@@ -13,6 +13,7 @@ import Main from './src/views/Main';
 import Login from './src/views/Login';
 import Scan from './src/views/Scan';
 import Test from './src/views/Test';
+import GreenButton from './src/views/GreenButton';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
