@@ -39,7 +39,7 @@ const Scan = props => {
   useEffect(() => {
     _read();
   }, []);
-+6
+  
   return (
     <Container>
       <MenuButton navigation={props.navigation} />
