@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
-import NfcManager, {NfcEvents, Ndef} from 'react-native-nfc-manager';
+import NfcManager, {NfcEvents} from 'react-native-nfc-manager';
 import {useStoreActions, useStoreState} from 'easy-peasy';
 
-export default (currUuid, setText) => {
+export default setText => {
   const setNFC = useStoreActions(actions => actions.nfc.setNFC);
   const getNFC = useStoreState(state => state.nfc.on);
   useEffect(() => {

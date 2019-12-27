@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
 
 const Scan = props => {
   const [text, setText] = useState('');
-  const {getNFC, _read} = useNFC(null, setText);
+  const {getNFC, _read} = useNFC(setText);
 
   useEffect(() => {
     _read();
   }, []);
-
++6
   return (
     <Container>
       <MenuButton navigation={props.navigation} />
