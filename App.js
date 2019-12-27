@@ -11,7 +11,6 @@ import store from './src/utils/store';
 import {StoreProvider} from 'easy-peasy';
 import Main from './src/views/Main';
 import Login from './src/views/Login';
-import Scan from './src/views/Scan';
 import Test from './src/views/Test';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -19,6 +18,7 @@ import {createDrawerNavigator} from 'react-navigation-drawer';
 import {Platform, Dimensions} from 'react-native';
 
 // Screen imports
+import ScanScreen from './src/views/Scan';
 import EventsScreen from './src/views/Events';
 import WorkshopsScreen from './src/views/Workshops';
 import ApplicantsScreen from './src/views/Applicants';
@@ -42,7 +42,7 @@ const DrawerNavigator = createDrawerNavigator(
     Workshops: WorkshopsScreen,
     Applicants: ApplicantsScreen,
     'Coat Check': CoatCheckScreen,
-    Scan: Scan,
+    Scan: ScanScreen,
     Test,
   },
   DrawerConfig,

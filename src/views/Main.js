@@ -11,7 +11,7 @@ import {StyleSheet, View, Image, TouchableHighlight} from 'react-native';
 import {useStoreState, useStoreActions} from 'easy-peasy';
 import {Container, Content, Button, Text, H3} from 'native-base';
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import Scan from './Scan';
+import ScanScreen from './Scan';
 import GreenButton from '../components/GreenButton';
 import MenuButton from '../components/MenuButton';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MenuButton from '../components/MenuButton';
 
-const Scan = props => {
+const ScanScreen = props => {
     return (
         <View style={styles.container}>
             <MenuButton navigation={props.navigation} />
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Scan;
+export default ScanScreen;
