@@ -8,34 +8,31 @@
 
 import React from 'react';
 import store from './src/utils/store';
-import { StoreProvider } from 'easy-peasy';
+import {StoreProvider} from 'easy-peasy';
 import Main from './src/views/Main';
 import Login from './src/views/Login';
 import Scan from './src/views/Scan';
 import Test from './src/views/Test';
-import Login from './src/views/Login';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
-import { Platform, Dimensions } from 'react-native';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createDrawerNavigator} from 'react-navigation-drawer';
+import {Platform, Dimensions} from 'react-native';
 
 // Screen imports
 import EventsScreen from './src/views/Events';
 import WorkshopsScreen from './src/views/Workshops';
 import ApplicantsScreen from './src/views/Applicants';
 import CoatCheckScreen from './src/views/CoatCheck';
-import ScanScreen from './src/views/Scan';
 import MenuDrawer from './src/components/MenuDrawer';
 
 const WIDTH = Dimensions.get('window').width;
 
 const DrawerConfig = {
   drawerWidth: WIDTH * 0.83,
-  contentComponent: ({ navigation }) => {
-    return (<MenuDrawer navigation={navigation}/>)
-  }
-
-}
+  contentComponent: ({navigation}) => {
+    return <MenuDrawer navigation={navigation} />;
+  },
+};
 
 //Router for the app
 const DrawerNavigator = createDrawerNavigator(
@@ -44,8 +41,8 @@ const DrawerNavigator = createDrawerNavigator(
     Events: EventsScreen,
     Workshops: WorkshopsScreen,
     Applicants: ApplicantsScreen,
-    "Coat Check": CoatCheckScreen,
-    Scan: ScanScreen,
+    'Coat Check': CoatCheckScreen,
+    Scan: Scan,
     Test,
   },
   DrawerConfig,
@@ -53,7 +50,6 @@ const DrawerNavigator = createDrawerNavigator(
     initialRouteName: 'Home',
   },
 );
-
 
 const Auth = createStackNavigator(
   {
