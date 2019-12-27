@@ -6,10 +6,11 @@
  * @flow
  */
 
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import useNFC from '../utils/nfc';
 import {StyleSheet} from 'react-native';
 import {Container, Content, Button, Text, H3, H1} from 'native-base';
+import MenuButton from '../components/MenuButton';
 
 const styles = StyleSheet.create({
   content: {
