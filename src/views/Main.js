@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import useNFC from '../utils/nfc';
 import useUuid from '../utils/uuid';
 import {StyleSheet, View, Image, TouchableHighlight} from 'react-native';
