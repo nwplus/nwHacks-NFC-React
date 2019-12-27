@@ -9,14 +9,11 @@ const Test = props => {
   const [user, setUser] = useState(false);
 
   useEffect(() => {
-    const doThing = newUser => {
-      setUser(newUser);
-    };
-
-    async () => {
+    const getUser = async () => {
       const uid = props.navigation.getParam('uid', '');
-      await getUserFromUid(uid, doThing);
+      await getUserFromUid(uid, setUser);
     };
+    getUser();
   }, [props.navigation]);
 
   return (
