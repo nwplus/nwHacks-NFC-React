@@ -1,19 +1,26 @@
 import React from 'react';
-import {Container, Button, Text} from 'native-base';
+import { StyleSheet, Text, View } from 'react-native';
+import MenuButton from '../components/MenuButton';
 
 const Scan = props => {
-  //Set navigation options:
-  return (
-    <Container>
-        <Button onPress={() => props.navigation.navigate('Home')}>
-          <Text>Home</Text>
-        </Button>
-    </Container>
-  );
-};
+    return (
+        <View style={styles.container}>
+            <MenuButton navigation={props.navigation} />
+            <Text style={styles.text}>Scan</Text>
+        </View>
+    );
+}
 
-Scan.navigationOptions = {
-  header: null,
-};
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    text: {
+        fontSize: 30,
+    }
+});
 
 export default Scan;

@@ -12,7 +12,8 @@ import {useStoreState, useStoreActions} from 'easy-peasy';
 import {Container, Content, Button, Text, H3} from 'native-base';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import Scan from './Scan';
-import GreenButton from './GreenButton';
+import GreenButton from '../components/GreenButton';
+import MenuButton from '../components/MenuButton';
 
 const styles = StyleSheet.create({
   headerImage: {
@@ -77,6 +78,7 @@ const Main = props => {
   }
   return (
     <Container>
+      <MenuButton navigation={props.navigation} />
       <Image
         style={styles.headerImage}
         source={require('../../assets/nwMenuHeader.png')}
@@ -89,13 +91,13 @@ const Main = props => {
             <Button
               light
               style={styles.menuBtn}
-              onPress={() => navigateTo('Test')}>
+              onPress={() => navigateTo('Events')}>
               <Text style={styles.menuText}>Events</Text>
             </Button>
             <Button
               light
               style={styles.menuBtn}
-              onPress={() => navigateTo('Test')}>
+              onPress={() => navigateTo('Applicants')}>
               <Text style={styles.menuText}>Applicants</Text>
             </Button>
           </Col>
@@ -103,13 +105,13 @@ const Main = props => {
             <Button
               light
               style={styles.menuBtn}
-              onPress={() => navigateTo('Test')}>
-              <Text style={styles.menuText}>Workshop</Text>
+              onPress={() => navigateTo('Workshops')}>
+              <Text style={styles.menuText}>Workshops</Text>
             </Button>
             <Button
               light
               style={styles.menuBtn}
-              onPress={() => navigateTo('Test')}>
+              onPress={() => navigateTo('Coat Check')}>
               <Text style={styles.menuText}>Coat Check</Text>
             </Button>
           </Col>

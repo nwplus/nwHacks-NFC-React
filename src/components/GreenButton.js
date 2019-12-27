@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Image, TouchableHighlight} from 'react-native';
+import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import { H3} from 'native-base';
 import { withNavigation } from 'react-navigation';
 
@@ -22,15 +22,15 @@ const styles = StyleSheet.create({
 
 const GreenButton = props => {
     return (
-        <View>
-          <Image
-            style={styles.button}
-            source={require('../../assets/ButtonBg.png')}
-          />
-          <TouchableHighlight onPress={() => props.navigation.navigate(props.location)} >
-            <H3 style={styles.text}>{props.text}</H3>
-          </TouchableHighlight>
-        </View>
+        <TouchableOpacity onPress={() => props.navigation.navigate(props.location)} >
+            <View>
+              <Image
+                style={styles.button}
+                source={require('../../assets/ButtonBg.png')}
+              />
+                <H3 style={styles.text}>{props.text}</H3>
+            </View>
+        </TouchableOpacity>
     );
 };
 
