@@ -15,15 +15,13 @@ const MenuButton = props => {
 };
 
 const styles = StyleSheet.create({
-  menuIcon: {
-    zIndex: 9,
-    position: 'absolute',
-    top: 20,
-    left: 20,
-  },
-  light: {
-    color: 'white',
-  },
-});
+    menuIcon: {
+        color: '#ffffff',
+        zIndex: 9,
+        position: 'absolute',
+        top: 20,
+        left: 20
+    }
+})
 
 export default MenuButton;
