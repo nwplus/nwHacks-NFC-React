@@ -9,7 +9,7 @@
 import React, {useState, useEffect} from 'react';
 import useNFC from '../utils/nfc';
 import {StyleSheet} from 'react-native';
-import {Container, Content, Button, Text, H3, H1} from 'native-base';
+import {Container, Spinner, Content, Button, Text, H3, H1} from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {getUserFromUid} from '../utils/firebase';
 
@@ -49,12 +49,14 @@ const styles = StyleSheet.create({
 
 const Scan = props => {
   const getUser = async uid => {
+    setLoading(true);
     const user = await getUserFromUid(uid);
-    console.log(user);
+    setLoading(false);
     props.navigation.navigate('Test', {user});
   };
 
   const [isScanning, setScanning] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const {getNFC, _read} = useNFC(setScanning, getUser);
 
   useEffect(() => {
@@ -70,11 +72,15 @@ const Scan = props => {
           <Text style={styles.text}>
             {getNFC ? 'NFC Enabled!' : 'NFC not supported.'}
           </Text>
+          {isLoading ? <Spinner color="#18CDCD" /> : null}
         </Content>
         <Content contentContainerStyle={styles.body}>
           {/* <H1 style={styles.text}>{text}</H1> */}
           {isScanning ? (
-            <Text style={styles.text}>Scanning...</Text>
+            <>
+              <Text style={styles.text}>Scanning...</Text>
+              <Spinner color="#18CDCD" />
+            </>
           ) : (
             <Button style={styles.button} onPress={() => _read()}>
               <Text style={styles.text}>Scan</Text>
