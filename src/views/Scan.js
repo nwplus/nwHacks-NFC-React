@@ -57,7 +57,7 @@ const Scan = props => {
       props.navigation.navigate('Attendee', {user});
     } else {
       //This is page for no user
-      props.navigation.navigate('Test', {uid});
+      props.navigation.navigate('NoAttendee', {uid});
     }
   };
 

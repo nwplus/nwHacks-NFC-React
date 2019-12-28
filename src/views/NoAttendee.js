@@ -8,27 +8,16 @@
 
 import React, {useState, useEffect} from 'react';
 import {StyleSheet} from 'react-native';
-import {
-  Container,
-  Spinner,
-  Content,
-  Card,
-  CardItem,
-  Button,
-  Body,
-  Text,
-  H3,
-  H1,
-} from 'native-base';
+import {Container, Spinner, Content, Button, Text, H3, H1} from 'native-base';
 import MenuButton from '../components/MenuButton';
 
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#343338',
-    padding: 40,
+    padding: 60,
   },
   content: {
-    margin: 10,
+    margin: 20,
     flex: 1,
   },
   header: {
@@ -54,28 +43,20 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
   },
-  card: {
-    width: '100%',
-    // border: '2px solid red',
-  },
 });
 
-const Attendee = props => {
-  console.log('Props: ', props);
+const NoAttendee = props => {
   return (
     <Container style={styles.wrapper}>
       <MenuButton navigation={props.navigation} />
       <Content contentContainerStyle={styles.content}>
-        <Card style={styles.card}>
-          <CardItem>
-            <Body>
-              <Text>Hello</Text>
-            </Body>
-          </CardItem>
-        </Card>
+        <Content style={styles.header}>
+          <H3 style={styles.text}>Attendee ID</H3>
+          <Text style={styles.text}>This is a NO TEXT! component</Text>
+        </Content>
       </Content>
     </Container>
   );
 };
 
-export default Attendee;
+export default NoAttendee;

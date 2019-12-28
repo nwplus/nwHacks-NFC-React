@@ -8,15 +8,14 @@
 
 import React from 'react';
 import store from './src/utils/store';
-import { StoreProvider } from 'easy-peasy';
+import {StoreProvider} from 'easy-peasy';
 import Main from './src/views/Main';
 import Scan from './src/views/Scan';
-import Test from './src/views/Test';
 import Login from './src/views/Login';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
-import { Platform, Dimensions } from 'react-native';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createDrawerNavigator} from 'react-navigation-drawer';
+import {Platform, Dimensions} from 'react-native';
 
 // Screen imports
 import EventsScreen from './src/views/Events';
@@ -26,12 +25,13 @@ import CoatCheckScreen from './src/views/CoatCheck';
 import ScanScreen from './src/views/Scan';
 import MenuDrawer from './src/components/MenuDrawer';
 import AttendeeScreen from './src/views/Attendee';
+import NoAttendeeScreen from './src/views/NoAttendee';
 
 const WIDTH = Dimensions.get('window').width;
 
 const DrawerConfig = {
   drawerWidth: WIDTH * 0.83,
-  contentComponent: ({ navigation }) => {
+  contentComponent: ({navigation}) => {
     return <MenuDrawer navigation={navigation} />;
   },
 };
@@ -39,17 +39,19 @@ const DrawerConfig = {
 //Router for the app
 const DrawerNavigator = createDrawerNavigator(
   {
-    Home: Main,
+    // Home: Main,
+    Attendee: AttendeeScreen,
     Events: EventsScreen,
     Workshops: WorkshopsScreen,
     Applicants: ApplicantsScreen,
     'Coat Check': CoatCheckScreen,
     Scan: ScanScreen,
-    Attendee: AttendeeScreen,
+    // put attendee back
+    NoAttendee: NoAttendeeScreen,
   },
   DrawerConfig,
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Attendee',
   },
 );
 
@@ -68,7 +70,7 @@ const AppNavigator = createSwitchNavigator(
     Main: DrawerNavigator,
   },
   {
-    initialRouteName: 'Auth',
+    initialRouteName: 'Main',
   },
 );
 
