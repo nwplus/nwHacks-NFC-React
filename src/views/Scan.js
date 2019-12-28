@@ -48,23 +48,21 @@ const styles = StyleSheet.create({
 });
 
 const Scan = props => {
-  const getUser = uid => {
-    setTimeout(async function() {
-      await db
-        .collection('hacker_info_2020')
-        .where('nfcID', '==', uid)
-        .get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('No matching documents.');
-            props.navigation.navigate('Test');
-          }
-          snapshot.forEach(doc => {
-            console.log('Document(s) found.');
-            props.navigation.navigate('Test', {user: doc.data()});
-          });
+  const getUser = async uid => {
+    await db
+      .collection('hacker_info_2020')
+      .where('nfcID', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('No matching documents.');
+          props.navigation.navigate('Test');
+        }
+        snapshot.forEach(doc => {
+          console.log('Document(s) found.');
+          props.navigation.navigate('Test', {user: doc.data()});
         });
-    }, 100);
+      });
   };
 
   const [isScanning, setScanning] = useState(false);
