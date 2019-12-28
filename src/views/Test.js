@@ -6,6 +6,7 @@ const Test = props => {
   const hackers = useStoreState(state => state.hackers.items);
 
   const user = props.navigation.getParam('user', '');
+  const uid = props.navigation.getParam('uid', '');
 
   return (
     <View>
@@ -13,6 +14,7 @@ const Test = props => {
         <Text>Take me home!</Text>
       </Button>
       <Text>User: {user ? user.email : 'none'}</Text>
+      <Text>{uid ? uid : null}</Text>
     </View>
   );
 };
