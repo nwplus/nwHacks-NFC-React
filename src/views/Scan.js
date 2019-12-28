@@ -12,6 +12,7 @@ import {StyleSheet} from 'react-native';
 import {Container, Spinner, Content, Button, Text, H3, H1} from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {getUserFromUid} from '../utils/firebase';
+import {useStoreActions, useStoreState} from 'easy-peasy';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -63,11 +64,11 @@ const Scan = props => {
 
   const [isScanning, setScanning] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const {getNFC, _read} = useNFC(setScanning, getUser);
+  const {_read, nfc} = useNFC(setScanning, getUser);
 
   useEffect(() => {
     _read();
-  }, []);
+  }, [_read]);
 
   return (
     <Container style={styles.wrapper}>
@@ -76,7 +77,7 @@ const Scan = props => {
         <Content style={styles.header}>
           <H3 style={styles.text}>NFC Tag Scanner</H3>
           <Text style={styles.text}>
-            {getNFC ? 'NFC Enabled!' : 'NFC not supported.'}
+            {nfc ? 'NFC Enabled!' : 'NFC not supported.'}
           </Text>
           {isLoading ? <Spinner color="#18CDCD" /> : null}
         </Content>

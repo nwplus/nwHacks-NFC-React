@@ -1,17 +1,15 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import NfcManager, {NfcEvents} from 'react-native-nfc-manager';
-import {useStoreActions, useStoreState} from 'easy-peasy';
 
 export default (setScanning, onComplete) => {
-  const setNFC = useStoreActions(actions => actions.nfc.setNFC);
-  const getNFC = useStoreState(state => state.nfc.on);
+  const [nfc, setNFC] = useState(false);
   useEffect(() => {
     NfcManager.start()
       .then(() => {
         setNFC(true);
         NfcManager.setEventListener(NfcEvents.DiscoverTag, tag => {
           console.log('Read a tag with id:', tag.id);
-          NfcManager.setAlertMessageIOS('I got your tag!');
+          NfcManager.setAlertMessageIOS('Scan complete');
           NfcManager.unregisterTagEvent().catch(() => 0);
           setScanning(false);
           onComplete(tag.id);
