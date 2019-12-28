@@ -45,3 +45,19 @@ export const login = async () => {
     return false;
   }
 };
+
+export const getUserFromUid = async uid => {
+  return await db
+    .collection('hacker_info_2020')
+    .where('nfcID', '==', uid)
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log('No matching documents.');
+        return;
+      } else {
+        console.log('Document(s) found.');
+        return snapshot.docs[0]._data;
+      }
+    });
+};
