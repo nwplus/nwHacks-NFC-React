@@ -52,7 +52,13 @@ const Scan = props => {
     setLoading(true);
     const user = await getUserFromUid(uid);
     setLoading(false);
-    props.navigation.navigate('Test', {user});
+    if (user) {
+      //This is page for user
+      props.navigation.navigate('Test', {user});
+    } else {
+      //This is page for no user
+      props.navigation.navigate('Test', {uid});
+    }
   };
 
   const [isScanning, setScanning] = useState(false);
