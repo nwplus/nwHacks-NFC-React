@@ -25,16 +25,16 @@ import ApplicantsScreen from './src/views/Applicants';
 import CoatCheckScreen from './src/views/CoatCheck';
 import ScanScreen from './src/views/Scan';
 import MenuDrawer from './src/components/MenuDrawer';
+import AttendeeScreen from './src/views/Attendee';
 
 const WIDTH = Dimensions.get('window').width;
 
 const DrawerConfig = {
   drawerWidth: WIDTH * 0.83,
   contentComponent: ({ navigation }) => {
-    return (<MenuDrawer navigation={navigation}/>)
-  }
-
-}
+    return <MenuDrawer navigation={navigation} />;
+  },
+};
 
 //Router for the app
 const DrawerNavigator = createDrawerNavigator(
@@ -43,9 +43,9 @@ const DrawerNavigator = createDrawerNavigator(
     Events: EventsScreen,
     Workshops: WorkshopsScreen,
     Applicants: ApplicantsScreen,
-    "Coat Check": CoatCheckScreen,
+    'Coat Check': CoatCheckScreen,
     Scan: ScanScreen,
-    Test,
+    Attendee: AttendeeScreen,
   },
   DrawerConfig,
   {
