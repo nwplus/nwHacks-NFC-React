@@ -10,15 +10,15 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {
   Container,
-  Spinner,
   Content,
   Card,
   CardItem,
+  ListItem,
   Button,
   Body,
   Text,
-  H3,
-  H1,
+  Right,
+  Left,
 } from 'native-base';
 import MenuButton from '../components/MenuButton';
 
@@ -56,7 +56,10 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    // border: '2px solid red',
+  },
+  eventMetrics: {
+    display: 'flex',
+    textAlign: 'right',
   },
 });
 
@@ -69,9 +72,32 @@ const Attendee = props => {
         <Card style={styles.card}>
           <CardItem>
             <Body>
-              <Text>Hello</Text>
+              <Text>Image goes here</Text>
             </Body>
           </CardItem>
+          <CardItem>
+            <Body>
+              <Text>Designer</Text>
+              <Text>someone@gmail.com</Text>
+              <Text>01787 656592</Text>
+            </Body>
+          </CardItem>
+          <ListItem>
+            <Left>
+              <Text>Coat Check #</Text>
+            </Left>
+            <Right>
+              <Text style={styles.eventMetrics}>58</Text>
+            </Right>
+          </ListItem>
+          <ListItem>
+            <Left>
+              <Text>Lunch</Text>
+            </Left>
+            <Right>
+              <Text style={styles.eventMetrics}>1</Text>
+            </Right>
+          </ListItem>
         </Card>
       </Content>
     </Container>
