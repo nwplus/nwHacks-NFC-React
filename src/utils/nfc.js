@@ -14,6 +14,9 @@ export default (setScanning, onComplete) => {
           setScanning(false);
           onComplete(tag.id);
         });
+        NfcManager.setEventListener(NfcEvents.SessionClosed, event => {
+          setScanning(false);
+        });
       })
       .catch(e => {
         setNFC(false);
@@ -46,6 +49,6 @@ export default (setScanning, onComplete) => {
 
   return {
     _read,
-    getNFC,
+    nfc,
   };
 };

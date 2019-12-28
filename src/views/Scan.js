@@ -12,7 +12,6 @@ import {StyleSheet} from 'react-native';
 import {Container, Spinner, Content, Button, Text, H3, H1} from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {getUserFromUid} from '../utils/firebase';
-import {useStoreActions, useStoreState} from 'easy-peasy';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -68,7 +67,8 @@ const Scan = props => {
 
   useEffect(() => {
     _read();
-  }, [_read]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container style={styles.wrapper}>
