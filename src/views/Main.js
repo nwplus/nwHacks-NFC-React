@@ -6,11 +6,10 @@
  * @flow
  */
 
-import React, {useState, useEffect} from 'react';
-import useNFC from '../utils/nfc';
+import React, {useEffect} from 'react';
 import {StyleSheet, StatusBar} from 'react-native';
 import {useStoreState, useStoreActions} from 'easy-peasy';
-import {Container, Content, Button, Text, H3, H1, View} from 'native-base';
+import {Content, Button, Text, H3, H1, View} from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {SafeAreaView} from 'react-navigation';
 
