@@ -7,13 +7,13 @@
  */
 
 import React from 'react';
-import {StyleSheet, View, Image, TouchableHighlight} from 'react-native';
-import {useStoreState, useStoreActions} from 'easy-peasy';
-import {Container, Content, Button, Text, H3} from 'native-base';
-import {Col, Row, Grid} from 'react-native-easy-grid';
-import ScanScreen from './Scan';
+import {StyleSheet, View, Image, StatusBar} from 'react-native';
+import {useStoreState} from 'easy-peasy';
+import {Button, Text, H3} from 'native-base';
+import {Col, Grid} from 'react-native-easy-grid';
 import GreenButton from '../components/GreenButton';
 import MenuButton from '../components/MenuButton';
+import {SafeAreaView} from 'react-navigation';
 
 const styles = StyleSheet.create({
   headerImage: {
@@ -77,7 +77,8 @@ const Main = props => {
     props.navigation.navigate('Auth');
   }
   return (
-    <Container>
+    <SafeAreaView style={{flex: 1}}>
+      <StatusBar hidden={true} />
       <MenuButton navigation={props.navigation} />
       <Image
         style={styles.headerImage}
@@ -85,7 +86,7 @@ const Main = props => {
       />
       <View>
         <H3 style={styles.text}>Home</H3>
-        <GreenButton text='Scan' location='Scan'/>
+        <GreenButton text="Scan" location="Scan" />
         <Grid style={styles.grid}>
           <Col>
             <Button
@@ -117,7 +118,7 @@ const Main = props => {
           </Col>
         </Grid>
       </View>
-    </Container>
+    </SafeAreaView>
   );
 };
 Main.navigationOptions = {
