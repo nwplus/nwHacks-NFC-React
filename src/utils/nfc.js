@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import NfcManager, {NfcEvents} from 'react-native-nfc-manager';
 import {useStoreActions, useStoreState} from 'easy-peasy';
 
-export default (setScanning, setUID, redirect) => {
+export default (setScanning, onComplete) => {
   const setNFC = useStoreActions(actions => actions.nfc.setNFC);
   const getNFC = useStoreState(state => state.nfc.on);
   useEffect(() => {
@@ -11,11 +11,10 @@ export default (setScanning, setUID, redirect) => {
         setNFC(true);
         NfcManager.setEventListener(NfcEvents.DiscoverTag, tag => {
           console.log('Read a tag with id:', tag.id);
-          setUID(tag.id);
           NfcManager.setAlertMessageIOS('I got your tag!');
           NfcManager.unregisterTagEvent().catch(() => 0);
           setScanning(false);
-          redirect();
+          onComplete(tag.id);
         });
       })
       .catch(e => {
@@ -29,7 +28,7 @@ export default (setScanning, setUID, redirect) => {
       NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
       _cleanUp();
     };
-  }, [setNFC, setScanning, setUID, redirect]);
+  }, [setNFC, setScanning, onComplete]);
 
   const _cleanUp = () => {
     NfcManager.cancelTechnologyRequest().catch(() => 0);
