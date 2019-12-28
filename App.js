@@ -10,14 +10,12 @@ import React from 'react';
 import store from './src/utils/store';
 import {StoreProvider} from 'easy-peasy';
 import Main from './src/views/Main';
-import Scan from './src/views/Scan';
 import Test from './src/views/Test';
 import Login from './src/views/Login';
-import Test from './src/views/Test';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
-import {Platform, Dimensions} from 'react-native';
+import {Dimensions} from 'react-native';
 
 // Screen imports
 import ScanScreen from './src/views/Scan';
