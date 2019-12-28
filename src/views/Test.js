@@ -5,12 +5,16 @@ import {useStoreState} from 'easy-peasy';
 const Test = props => {
   const hackers = useStoreState(state => state.hackers.items);
 
+  const user = props.navigation.getParam('user', '');
+  const uid = props.navigation.getParam('uid', '');
+
   return (
     <View>
       <Button onPress={() => props.navigation.navigate('Home')}>
         <Text>Take me home!</Text>
       </Button>
-      <Text>{JSON.stringify(hackers, null, 4)}</Text>
+      <Text>User: {user ? user.email : 'none'}</Text>
+      <Text>{uid ? uid : null}</Text>
     </View>
   );
 };

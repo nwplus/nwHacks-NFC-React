@@ -10,6 +10,7 @@ import React from 'react';
 import store from './src/utils/store';
 import { StoreProvider } from 'easy-peasy';
 import Main from './src/views/Main';
+import Scan from './src/views/Scan';
 import Test from './src/views/Test';
 import Login from './src/views/Login';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
@@ -51,7 +52,6 @@ const DrawerNavigator = createDrawerNavigator(
     initialRouteName: 'Home',
   },
 );
-
 
 const Auth = createStackNavigator(
   {
