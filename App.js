@@ -49,10 +49,9 @@ const DrawerNavigator = createDrawerNavigator(
   },
   DrawerConfig,
   {
-    initialRouteName: 'Scan',
+    initialRouteName: 'Home',
   },
 );
-
 
 const Auth = createStackNavigator(
   {
