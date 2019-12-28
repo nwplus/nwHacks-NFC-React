@@ -11,7 +11,7 @@ import useNFC from '../utils/nfc';
 import {StyleSheet} from 'react-native';
 import {Container, Content, Button, Text, H3, H1} from 'native-base';
 import MenuButton from '../components/MenuButton';
-import {db} from '../utils/firebase';
+import {getUserFromUid} from '../utils/firebase';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -49,20 +49,9 @@ const styles = StyleSheet.create({
 
 const Scan = props => {
   const getUser = async uid => {
-    await db
-      .collection('hacker_info_2020')
-      .where('nfcID', '==', uid)
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('No matching documents.');
-          props.navigation.navigate('Test');
-        }
-        snapshot.forEach(doc => {
-          console.log('Document(s) found.');
-          props.navigation.navigate('Test', {user: doc.data()});
-        });
-      });
+    const user = await getUserFromUid(uid);
+    console.log(user);
+    props.navigation.navigate('Test', {user});
   };
 
   const [isScanning, setScanning] = useState(false);
