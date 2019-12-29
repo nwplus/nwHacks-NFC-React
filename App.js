@@ -8,9 +8,8 @@
 
 import React from 'react';
 import store from './src/utils/store';
-import {StoreProvider} from 'easy-peasy';
+import {StoreProvider, useStoreActions} from 'easy-peasy';
 import Main from './src/views/Main';
-import Test from './src/views/Test';
 import Login from './src/views/Login';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -18,7 +17,6 @@ import {createDrawerNavigator} from 'react-navigation-drawer';
 import {Dimensions} from 'react-native';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
-
 // Screen imports
 import ScanScreen from './src/views/Scan';
 import EventsScreen from './src/views/Events';
@@ -78,11 +76,19 @@ const App = createAppContainer(AppNavigator);
 
 const persistor = persistStore(store);
 
+const Initializer = props => {
+  const initialize = useStoreActions(actions => actions.initialise);
+  initialize();
+  return props.children;
+};
+
 export default props => {
   return (
     <PersistGate persistor={persistor}>
       <StoreProvider store={store}>
-        <App />
+        <Initializer>
+          <App />
+        </Initializer>
       </StoreProvider>
     </PersistGate>
   );
