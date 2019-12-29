@@ -16,6 +16,7 @@ import {SafeAreaView} from 'react-navigation';
 const styles = StyleSheet.create({
   content: {
     margin: 20,
+    marginTop: 80,
   },
   button: {
     marginVertical: 10,
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
+    color: 'white',
   },
   image: {
     width: 30,
@@ -50,10 +52,8 @@ const Main = props => {
     props.navigation.navigate('Auth');
   }
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <StatusBar hidden={true} />
+    <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
       <MenuButton navigation={props.navigation} />
-
       <View style={{flex: 1}}>
         <Content style={styles.content}>
           <H3 style={styles.text}>

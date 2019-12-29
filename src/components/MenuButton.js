@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     zIndex: 9,
     position: 'absolute',
-    top: 20,
+    top: 50,
     left: 20,
   },
 });
