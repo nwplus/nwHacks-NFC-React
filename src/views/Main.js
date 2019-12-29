@@ -78,7 +78,6 @@ const Main = props => {
   }
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar hidden={true} />
       <MenuButton navigation={props.navigation} />
       <Image
         style={styles.headerImage}

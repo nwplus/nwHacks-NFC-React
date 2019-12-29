@@ -16,6 +16,8 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import {Dimensions} from 'react-native';
+import {persistStore} from 'redux-persist';
+import {PersistGate} from 'redux-persist/integration/react';
 
 // Screen imports
 import ScanScreen from './src/views/Scan';
@@ -72,10 +74,14 @@ const AppNavigator = createSwitchNavigator(
 
 const App = createAppContainer(AppNavigator);
 
+const persistor = persistStore(store);
+
 export default props => {
   return (
-    <StoreProvider store={store}>
-      <App />
-    </StoreProvider>
+    <PersistGate persistor={persistor}>
+      <StoreProvider store={store}>
+        <App />
+      </StoreProvider>
+    </PersistGate>
   );
 };
