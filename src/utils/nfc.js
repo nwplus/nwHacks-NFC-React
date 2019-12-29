@@ -1,20 +1,14 @@
 import {useEffect, useState} from 'react';
-import NfcManager, {NfcEvents} from 'react-native-nfc-manager';
+import NfcManager, {NfcTech, NfcEvents} from 'react-native-nfc-manager';
+import {Platform} from 'react-native';
 
-export default (setScanning, onComplete) => {
+export default setScanning => {
   const [nfc, setNFC] = useState(false);
   useEffect(() => {
     NfcManager.start()
       .then(() => {
         setNFC(true);
-        NfcManager.setEventListener(NfcEvents.DiscoverTag, tag => {
-          console.log('Read a tag with id:', tag.id);
-          NfcManager.setAlertMessageIOS('Scan complete');
-          NfcManager.unregisterTagEvent().catch(() => 0);
-          setScanning(false);
-          onComplete(tag.id);
-        });
-        NfcManager.setEventListener(NfcEvents.SessionClosed, event => {
+        NfcManager.setEventListener(NfcEvents.SessionClosed, () => {
           setScanning(false);
         });
       })
@@ -26,25 +20,36 @@ export default (setScanning, onComplete) => {
       });
 
     return () => {
-      NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
       _cleanUp();
     };
-  }, [setNFC, setScanning, onComplete]);
+  }, [setNFC, setScanning]);
 
   const _cleanUp = () => {
-    NfcManager.cancelTechnologyRequest().catch(() => 0);
+    NfcManager.cancelTechnologyRequest().catch(x =>
+      console.warn("can't cancel" + x),
+    );
   };
 
   const _read = async () => {
+    setScanning(true);
     try {
-      setScanning(true);
-      await NfcManager.registerTagEvent(() => {
-        NfcManager.unregisterTagEvent().catch(() => 0);
+      const tech = Platform.OS === 'ios' ? NfcTech.MifareIOS : NfcTech.NfcA;
+      await NfcManager.requestTechnology(tech, {
+        alertMessage: 'Ready to scan!',
       });
+      const tag = await NfcManager.getTag();
+      await NfcManager.setAlertMessageIOS('Scan complete!');
+      setScanning(false);
+      _cleanUp();
+      return tag.id;
     } catch (ex) {
-      console.warn('ex', ex);
-      NfcManager.unregisterTagEvent().catch(() => 0);
+      await NfcManager.invalidateSessionWithErrorIOS(
+        'An error occured while scanning. Please try again.',
+      );
+      console.warn('ex' + ex);
     }
+    _cleanUp();
+    setScanning(false);
   };
 
   return {

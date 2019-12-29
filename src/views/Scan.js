@@ -8,7 +8,7 @@
 
 import React, {useState, useEffect} from 'react';
 import useNFC from '../utils/nfc';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {Container, Spinner, Content, Button, Text, H3, H1} from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {getUserFromUid} from '../utils/firebase';
@@ -48,25 +48,41 @@ const styles = StyleSheet.create({
 });
 
 const Scan = props => {
-  const getUser = async uid => {
+  const [isScanning, setScanning] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const {_read, nfc} = useNFC(setScanning);
+
+  const startScan = async () => {
+    const uid = await _read();
     setLoading(true);
     const user = await getUserFromUid(uid);
-    setLoading(false);
     if (user) {
       //This is page for user
-      props.navigation.navigate('Attendee', {user});
+      if (Platform.OS === 'ios') {
+        setTimeout(() => {
+          setLoading(false);
+          props.navigation.navigate('Test', {user});
+        }, 2750);
+      } else {
+        setLoading(false);
+        props.navigation.navigate('Test', {user});
+      }
     } else {
       //This is page for no user
-      props.navigation.navigate('Attendee', {uid});
+      if (Platform.OS === 'ios') {
+        setTimeout(() => {
+          setLoading(false);
+          props.navigation.navigate('Test', {uid});
+        }, 2750);
+      } else {
+        setLoading(false);
+        props.navigation.navigate('Test', {uid});
+      }
     }
   };
 
-  const [isScanning, setScanning] = useState(false);
-  const [isLoading, setLoading] = useState(false);
-  const {_read, nfc} = useNFC(setScanning, getUser);
-
   useEffect(() => {
-    _read();
+    startScan();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -89,7 +105,7 @@ const Scan = props => {
               <Spinner color="#18CDCD" />
             </>
           ) : (
-            <Button style={styles.button} onPress={() => _read()}>
+            <Button style={styles.button} onPress={() => startScan()}>
               <Text style={styles.text}>Scan</Text>
             </Button>
           )}
