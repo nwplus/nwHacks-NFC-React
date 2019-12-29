@@ -78,19 +78,23 @@ const styles = StyleSheet.create({
   scanAgainButton: {
     backgroundColor: '#19CBCB',
   },
+  assignButton: {
+    backgroundColor: '#2D2937',
+  },
 });
 
 const Attendee = props => {
   console.log('Props: ', props);
-  const user = {
-    firstname: 'John',
-    lastname: 'Smith',
-    email: 'john.smith@gmail.com',
-    hackerRoleDesigner: false,
-    hackerRoleDeveloper: true,
-    hackerRoleHardware: true,
-    nfcId: '0409893AE74C812',
-  };
+  const user = null;
+  // const user = {
+  //   firstname: 'John',
+  //   lastname: 'Smith',
+  //   email: 'john.smith@gmail.com',
+  //   hackerRoleDesigner: false,
+  //   hackerRoleDeveloper: true,
+  //   hackerRoleHardware: true,
+  //   nfcId: '0409893AE74C812',
+  // };
   return (
     <Container style={styles.wrapper}>
       <MenuButton navigation={props.navigation} />
@@ -107,25 +111,38 @@ const Attendee = props => {
               )}
             </Left>
             <Right>
-              <Button small style={styles.processButton}>
-                <Text>Process</Text>
-              </Button>
+              {user && (
+                <Button small style={styles.processButton}>
+                  <Text>Process</Text>
+                </Button>
+              )}
             </Right>
           </ListItem>
           <CardItem>
-            <Body style={styles.attendeeDetails}>
-              {user.hackerRoleDesigner && (
-                <Text style={styles.attendeeRoles}>Designer</Text>
-              )}
-              {user.hackerRoleDeveloper && (
-                <Text style={styles.attendeeRoles}>Developer</Text>
-              )}
-              {user.hackerRoleHardware && (
-                <Text style={styles.attendeeRoles}>Hardware</Text>
-              )}
-              <Text>{user.email}</Text>
-              <Text>{user.nfcId}</Text>
-            </Body>
+            {user ? (
+              <Body style={styles.attendeeDetails}>
+                {user.hackerRoleDesigner && (
+                  <Text style={styles.attendeeRoles}>Designer</Text>
+                )}
+                {user.hackerRoleDeveloper && (
+                  <Text style={styles.attendeeRoles}>Developer</Text>
+                )}
+                {user.hackerRoleHardware && (
+                  <Text style={styles.attendeeRoles}>Hardware</Text>
+                )}
+                <Text>{user.email}</Text>
+                <Text>{user.nfcId}</Text>
+              </Body>
+            ) : (
+              <Body style={styles.attendeeDetails}>
+                <Button small style={styles.assignButton}>
+                  <Text>Assign Id</Text>
+                </Button>
+                <Button small style={styles.assignButton}>
+                  <Text>Add Email</Text>
+                </Button>
+              </Body>
+            )}
           </CardItem>
           <ListItem>
             <Left>
