@@ -21,7 +21,7 @@ const Login = props => {
       <Text style={styles.text}>nwPlus NFC</Text>
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
+        color={GoogleSigninButton.Color.Light}
         onPress={login}
       />
     </View>
