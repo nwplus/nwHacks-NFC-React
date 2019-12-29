@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   text: {
     color: '#ffffff',
     textAlign: 'center',
+    // fontFamily: 'Apercu Pro',
   },
   image: {
     width: 30,
@@ -54,6 +55,15 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
   },
+  attendeeRoles: {
+    color: '#19CBCB',
+    textAlign: 'center',
+  },
+  attendeeDetails: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   card: {
     width: '100%',
   },
@@ -61,25 +71,58 @@ const styles = StyleSheet.create({
     display: 'flex',
     textAlign: 'right',
   },
+  processButton: {
+    width: 80,
+    backgroundColor: '#2D2937',
+  },
 });
 
 const Attendee = props => {
   console.log('Props: ', props);
+  const user = {
+    firstname: 'John',
+    lastname: 'Smith',
+    email: 'john.smith@gmail.com',
+    hackerRoleDesigner: false,
+    hackerRoleDeveloper: true,
+    hackerRoleHardware: true,
+    id: '01787 656592',
+  };
   return (
     <Container style={styles.wrapper}>
       <MenuButton navigation={props.navigation} />
       <Content contentContainerStyle={styles.content}>
         <Card style={styles.card}>
+          <ListItem>
+            <Left>
+              <Text>
+                {user.firstname} {user.lastname}
+              </Text>
+            </Left>
+            <Right>
+              <Button small style={styles.processButton}>
+                <Text>Process</Text>
+              </Button>
+            </Right>
+          </ListItem>
           <CardItem>
-            <Body>
+            <Body style={styles.attendeeDetails}>
               <Text>Image goes here</Text>
             </Body>
           </CardItem>
           <CardItem>
-            <Body>
-              <Text>Designer</Text>
-              <Text>someone@gmail.com</Text>
-              <Text>01787 656592</Text>
+            <Body style={styles.attendeeDetails}>
+              {user.hackerRoleDesigner && (
+                <Text style={styles.attendeeRoles}>Designer</Text>
+              )}
+              {user.hackerRoleDeveloper && (
+                <Text style={styles.attendeeRoles}>Developer</Text>
+              )}
+              {user.hackerRoleHardware && (
+                <Text style={styles.attendeeRoles}>Hardware</Text>
+              )}
+              <Text>{user.email}</Text>
+              <Text>{user.id}</Text>
             </Body>
           </CardItem>
           <ListItem>
