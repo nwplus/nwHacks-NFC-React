@@ -44,8 +44,7 @@ set -gx ANDROID_HOME $HOME/Library/Android/sdk
 set -gx PATH $ANDROID_HOME/emulator $ANDROID_HOME/tools $ANDROID_HOME/tools/bin $ANDROID_HOME/platform-tools $PATH
 ```
 
-
-Either set up an emulated device or plug in your phone and enable USB Debugging
+plug in your phone and enable USB Debugging
 
 `adb devices` should show your phone is connected and ready to go
 
