@@ -1,7 +1,9 @@
 import {createStore, thunk, action} from 'easy-peasy';
 import {watchUser, login, logout, watchHackers} from './firebase';
+import {persistReducer} from 'redux-persist';
+import AsyncStorage from '@react-native-community/async-storage';
 
-export default createStore({
+const model = {
   auth: {
     loggedIn: false,
     email: null,
@@ -38,4 +40,18 @@ export default createStore({
     watchHackers(actions.hackers.update);
     watchUser(actions.auth.setLogin);
   }),
+};
+
+const store = createStore(model, {
+  reducerEnhancer: reducer =>
+    persistReducer(
+      {
+        key: 'easypeasystate',
+        storage: AsyncStorage,
+        whitelist: ['auth'],
+      },
+      reducer,
+    ),
 });
+
+export default store;
