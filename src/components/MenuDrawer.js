@@ -24,13 +24,15 @@ const MenuDrawer = props => {
 
     return (
         <View style={styles.container}>
-            <Icon
-                name="close"
-                size={35}
-                onPress={() => props.navigation.toggleDrawer()}
-                style={styles.closeIcon} />
-            <View style={styles.imgView} >
-                <Image style={styles.img} source={require('../../nwplus_logo.png')} />
+            <View style={styles.test}>
+                <Icon
+                    name="close"
+                    size={35}
+                    onPress={() => props.navigation.toggleDrawer()}
+                    style={styles.closeIcon} />
+                <View style={styles.imgView} >
+                    <Image style={styles.img} source={require('../../nwplus_logo.png')} />
+                </View>
             </View>
             <ScrollView>
                 {navLink("Home", "Home")}
@@ -52,6 +54,10 @@ const MenuDrawer = props => {
 };
 
 const styles = StyleSheet.create({
+    test: {
+        flex: 1,
+        paddingBottom: 125
+    },
     container: {
         flex: 1,
         backgroundColor: '#343338',
@@ -59,18 +65,18 @@ const styles = StyleSheet.create({
     closeIcon: {
         color: 'white',
         textAlign: 'right',
-        paddingTop: 50,
-        paddingRight: 20
+        paddingTop: 15,
+        paddingRight: 15
 
     },
     imgView: {
-        paddingTop: 20,
+        paddingTop: 0,
         alignItems: 'center',
-        paddingBottom: 40
+        paddingBottom: 20
     },
     img: {
         // padding: 50,
-        height: 60,
+        height: 50,
         width: 60,
         backgroundColor: 'black',
         justifyContent: 'center',
@@ -113,7 +119,7 @@ const styles = StyleSheet.create({
         opacity: 0.5,
         color: 'white',
         fontWeight: 'bold',
-        paddingTop: 40,
+        paddingTop: 10,
         paddingBottom: 450,
         position: 'absolute',
         alignSelf: 'center',
