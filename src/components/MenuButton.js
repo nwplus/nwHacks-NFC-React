@@ -1,14 +1,17 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import {Dimensions, Platform} from 'react-native';
 
 const MenuButton = props => {
+  const dim = Dimensions.get('window');
+  const menuTop = Platform.OS === 'ios' && dim.height >= 812 ? {top: 65} : {};
   return (
     <Icon
       name="menu"
       size={30}
       onPress={() => props.navigation.toggleDrawer()}
-      style={[styles.menuIcon]}
+      style={[styles.menuIcon, menuTop]}
     />
   );
 };
@@ -18,7 +21,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     zIndex: 9,
     position: 'absolute',
-    top: 50,
+    top: 30,
     left: 20,
   },
 });
