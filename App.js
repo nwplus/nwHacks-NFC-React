@@ -25,7 +25,6 @@ import CoatCheckScreen from './src/views/CoatCheck';
 import ScanScreen from './src/views/Scan';
 import MenuDrawer from './src/components/MenuDrawer';
 import AttendeeScreen from './src/views/Attendee';
-import NoAttendeeScreen from './src/views/NoAttendee';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -47,7 +46,6 @@ const DrawerNavigator = createDrawerNavigator(
     'Coat Check': CoatCheckScreen,
     Scan: ScanScreen,
     // put attendee back
-    NoAttendee: NoAttendeeScreen,
   },
   DrawerConfig,
   {
