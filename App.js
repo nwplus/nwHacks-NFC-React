@@ -40,7 +40,7 @@ const DrawerConfig = {
 //Router for the app
 const DrawerNavigator = createDrawerNavigator(
   {
-    // Home: Main,
+    Home: Main,
     Attendee: AttendeeScreen,
     Events: EventsScreen,
     Workshops: WorkshopsScreen,

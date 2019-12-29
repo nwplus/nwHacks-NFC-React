@@ -38,6 +38,7 @@ export default setScanning => {
         alertMessage: 'Ready to scan!',
       });
       const tag = await NfcManager.getTag();
+      console.log(tag);
       await NfcManager.setAlertMessageIOS('Scan complete!');
       setScanning(false);
       _cleanUp();

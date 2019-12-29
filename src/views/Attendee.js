@@ -21,11 +21,12 @@ import {
   Left,
 } from 'native-base';
 import MenuButton from '../components/MenuButton';
+import {useStoreState} from 'easy-peasy';
 
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#343338',
-    padding: 40,
+    paddingTop: 200,
   },
   content: {
     margin: 10,
@@ -84,17 +85,9 @@ const styles = StyleSheet.create({
 });
 
 const Attendee = props => {
-  console.log('Props: ', props);
-  const user = null;
-  // const user = {
-  //   firstname: 'John',
-  //   lastname: 'Smith',
-  //   email: 'john.smith@gmail.com',
-  //   hackerRoleDesigner: false,
-  //   hackerRoleDeveloper: true,
-  //   hackerRoleHardware: true,
-  //   nfcId: '0409893AE74C812',
-  // };
+  const hackers = useStoreState(state => state.hackers.items);
+  const uid = props.navigation.getParam('uid', '');
+  const user = hackers.find(hacker => hacker.nfcID && hacker.nfcID === uid);
   return (
     <Container style={styles.wrapper}>
       <MenuButton navigation={props.navigation} />
@@ -107,11 +100,14 @@ const Attendee = props => {
                   {user.firstname} {user.lastname}
                 </Text>
               ) : (
-                <Text>No Applicant ID</Text>
+                <Body>
+                  <Text>No Applicant</Text>
+                  <Text>ID: {uid}</Text>
+                </Body>
               )}
             </Left>
             <Right>
-              {user && (
+              {!!user && (
                 <Button small style={styles.processButton}>
                   <Text>Process</Text>
                 </Button>
@@ -136,10 +132,7 @@ const Attendee = props => {
             ) : (
               <Body style={styles.attendeeDetails}>
                 <Button small style={styles.assignButton}>
-                  <Text>Assign Id</Text>
-                </Button>
-                <Button small style={styles.assignButton}>
-                  <Text>Add Email</Text>
+                  <Text>Check in</Text>
                 </Button>
               </Body>
             )}
@@ -161,7 +154,9 @@ const Attendee = props => {
             </Right>
           </ListItem>
         </Card>
-        <Button style={styles.scanAgainButton}>
+        <Button
+          style={styles.scanAgainButton}
+          onPress={() => props.navigation.navigate('Scan')}>
           <Text>Scan Again</Text>
         </Button>
       </Content>

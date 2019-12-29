@@ -11,7 +11,7 @@ import useNFC from '../utils/nfc';
 import {StyleSheet, Platform} from 'react-native';
 import {Container, Spinner, Content, Button, Text, H3, H1} from 'native-base';
 import MenuButton from '../components/MenuButton';
-import {getUserFromUid} from '../utils/firebase';
+import {useStoreState} from 'easy-peasy';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -55,29 +55,15 @@ const Scan = props => {
   const startScan = async () => {
     const uid = await _read();
     setLoading(true);
-    const user = await getUserFromUid(uid);
-    if (user) {
-      //This is page for user
-      if (Platform.OS === 'ios') {
-        setTimeout(() => {
-          setLoading(false);
-          props.navigation.navigate('Test', {user});
-        }, 2750);
-      } else {
+    //This is page for no user
+    if (Platform.OS === 'ios') {
+      setTimeout(() => {
         setLoading(false);
-        props.navigation.navigate('Test', {user});
-      }
+        props.navigation.navigate('Attendee', {uid});
+      }, 2500);
     } else {
-      //This is page for no user
-      if (Platform.OS === 'ios') {
-        setTimeout(() => {
-          setLoading(false);
-          props.navigation.navigate('Test', {uid});
-        }, 2750);
-      } else {
-        setLoading(false);
-        props.navigation.navigate('Test', {uid});
-      }
+      setLoading(false);
+      props.navigation.navigate('Attendee', {uid});
     }
   };
 
