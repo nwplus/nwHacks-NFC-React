@@ -34,10 +34,6 @@ export default createStore({
       state.items = data;
     }),
   },
-  nfc: {
-    on: false,
-    setNFC: action((state, nfc) => (state.on = nfc)),
-  },
   initialise: thunk(actions => {
     watchHackers(actions.hackers.update);
     watchUser(actions.auth.setLogin);

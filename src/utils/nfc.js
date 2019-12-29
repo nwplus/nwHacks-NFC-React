@@ -1,23 +1,21 @@
-import {useEffect} from 'react';
-import NfcManager, {NfcEvents, Ndef, NfcTech} from 'react-native-nfc-manager';
-import {useStoreActions, useStoreState} from 'easy-peasy';
+import {useEffect, useState} from 'react';
+import NfcManager, {NfcEvents} from 'react-native-nfc-manager';
 
-export default (currUuid, setText) => {
-  const setNFC = useStoreActions(actions => actions.nfc.setNFC);
-  const getNFC = useStoreState(state => state.nfc.on);
+export default (setScanning, onComplete) => {
+  const [nfc, setNFC] = useState(false);
   useEffect(() => {
     NfcManager.start()
       .then(() => {
         setNFC(true);
         NfcManager.setEventListener(NfcEvents.DiscoverTag, tag => {
-          console.log('Read a tag with payload(s):');
-          tag.ndefMessage.map(message => {
-            const payload = Ndef.text.decodePayload(message.payload);
-            console.log(payload);
-            setText(`Payload: ${payload}`);
-          });
-          NfcManager.setAlertMessageIOS('I got your tag!');
+          console.log('Read a tag with id:', tag.id);
+          NfcManager.setAlertMessageIOS('Scan complete');
           NfcManager.unregisterTagEvent().catch(() => 0);
+          setScanning(false);
+          onComplete(tag.id);
+        });
+        NfcManager.setEventListener(NfcEvents.SessionClosed, event => {
+          setScanning(false);
         });
       })
       .catch(e => {
@@ -31,7 +29,7 @@ export default (currUuid, setText) => {
       NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
       _cleanUp();
     };
-  }, [setNFC, setText]);
+  }, [setNFC, setScanning, onComplete]);
 
   const _cleanUp = () => {
     NfcManager.cancelTechnologyRequest().catch(() => 0);
@@ -39,8 +37,8 @@ export default (currUuid, setText) => {
 
   const _read = async () => {
     try {
-      setText('Ready to read');
-      await NfcManager.registerTagEvent(tag => {
+      setScanning(true);
+      await NfcManager.registerTagEvent(() => {
         NfcManager.unregisterTagEvent().catch(() => 0);
       });
     } catch (ex) {
@@ -49,34 +47,8 @@ export default (currUuid, setText) => {
     }
   };
 
-  const _write = async () => {
-    if (currUuid === '') {
-      setText('Please generate a uuid');
-      return;
-    }
-    setText(`Ready to write ${currUuid}`);
-    try {
-      await NfcManager.requestTechnology(NfcTech.Ndef, {
-        alertMessage: `Ready to write ${currUuid}`,
-      });
-      let bytes = Ndef.encodeMessage([
-        Ndef.textRecord(`Heres my number ${currUuid} so call me maybe`),
-      ]);
-      await NfcManager.writeNdefMessage(bytes);
-      console.log('successfully write ndef');
-      setText(`Successfully wrote uuid: ${currUuid}`);
-      await NfcManager.setAlertMessageIOS('Successfully write ndef');
-    } catch (ex) {
-      setText('wtf');
-      await NfcManager.invalidateSessionWithErrorIOS('error writing tag!');
-      console.log('ex', ex);
-    } finally {
-      NfcManager.cancelTechnologyRequest().catch(() => 0);
-    }
-  };
   return {
     _read,
-    _write,
-    getNFC,
+    nfc,
   };
 };

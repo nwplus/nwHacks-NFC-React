@@ -6,13 +6,12 @@
  * @flow
  */
 
-import React, { useState, useEffect } from 'react';
-import useNFC from '../utils/nfc';
-import useUuid from '../utils/uuid';
-import { StyleSheet } from 'react-native';
-import { useStoreState, useStoreActions } from 'easy-peasy';
-import { Container, Content, Button, Text, H3, H1 } from 'native-base';
+import React, {useEffect} from 'react';
+import {StyleSheet, StatusBar} from 'react-native';
+import {useStoreState, useStoreActions} from 'easy-peasy';
+import {Content, Button, Text, H3, H1, View} from 'native-base';
 import MenuButton from '../components/MenuButton';
+import {SafeAreaView} from 'react-navigation';
 
 const styles = StyleSheet.create({
   content: {
@@ -37,10 +36,6 @@ const styles = StyleSheet.create({
 const Main = props => {
   //Set navigation options:
 
-  const [text, setText] = useState('');
-  const [currUuid, _generateUUID] = useUuid();
-  const { getNFC, _read, _write } = useNFC(currUuid, setText);
-
   //Example of getting an item from easy-peasy store
   const isLoggedIn = useStoreState(state => state.auth.loggedIn);
 
@@ -55,32 +50,21 @@ const Main = props => {
     props.navigation.navigate('Auth');
   }
   return (
-    <Container>
+    <SafeAreaView style={{flex: 1}}>
+      <StatusBar hidden={true} />
       <MenuButton navigation={props.navigation} />
-      <Content style={styles.content}>
-        <H3 style={styles.text}>
-          This is an NFC app and I'm going SQL inject your NFC tag
-        </H3>
-        {getNFC ? null : (
-          <Text style={styles.text}>
-            {getNFC ? 'NFC Enabled!' : 'NFC not supported.'}
-          </Text>
-        )}
-        <Button style={styles.button} onPress={_read}>
-          <Text>Read</Text>
-        </Button>
-        <Button style={styles.button} onPress={_write}>
-          <Text>Write</Text>
-        </Button>
-        <Button style={styles.button} onPress={_generateUUID}>
-          <Text>Generate UUID: {currUuid}</Text>
-        </Button>
-        <H1 style={styles.text}>{text}</H1>
-        <Button onPress={logout}>
-          <Text>logout!</Text>
-        </Button>
-      </Content>
-    </Container>
+
+      <View style={{flex: 1}}>
+        <Content style={styles.content}>
+          <H3 style={styles.text}>
+            This is an NFC app and I'm going SQL inject your NFC tag
+          </H3>
+          <Button onPress={logout}>
+            <Text>logout!</Text>
+          </Button>
+        </Content>
+      </View>
+    </SafeAreaView>
   );
 };
 
