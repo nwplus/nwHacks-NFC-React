@@ -26,7 +26,7 @@ const MenuDrawer = props => {
   }
 
   const iosStyling =
-    Platform.OS === 'ios' ? {paddingBottom: 25, paddingTop: 25} : {};
+    Platform.OS === 'ios' ? {paddingBottom: 75, paddingTop: 25} : {};
 
   return (
     <View style={styles.container}>
