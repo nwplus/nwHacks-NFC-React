@@ -20,11 +20,11 @@ import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 
 // Screen imports
+import ScanScreen from './src/views/Scan';
 import EventsScreen from './src/views/Events';
 import WorkshopsScreen from './src/views/Workshops';
 import ApplicantsScreen from './src/views/Applicants';
 import CoatCheckScreen from './src/views/CoatCheck';
-import ScanScreen from './src/views/Scan';
 import MenuDrawer from './src/components/MenuDrawer';
 
 const WIDTH = Dimensions.get('window').width;
