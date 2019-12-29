@@ -14,16 +14,16 @@ const Login = props => {
 
   return (
     <View style={styles.container}>
-        <Image
-            style={styles.image}
-            source={require('../static/nwplus-logo.png')}
-        />
-        <Text style={styles.text}>nwPlus NFC</Text>
-        <GoogleSigninButton
-            size={GoogleSigninButton.Size.Wide}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={login}
-        />
+      <Image
+        style={styles.image}
+        source={require('../static/nwplus-logo.png')}
+      />
+      <Text style={styles.text}>nwPlus NFC</Text>
+      <GoogleSigninButton
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={login}
+      />
     </View>
   );
 };
@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
     marginTop: -100,
-    marginBottom: 20
+    marginBottom: 20,
   },
   text: {
     color: 'white',
     fontSize: 30,
-    marginBottom: 100
-  }
+    marginBottom: 100,
+  },
 });
