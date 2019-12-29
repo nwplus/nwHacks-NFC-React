@@ -75,6 +75,9 @@ const styles = StyleSheet.create({
     width: 80,
     backgroundColor: '#2D2937',
   },
+  scanAgainButton: {
+    backgroundColor: '#19CBCB',
+  },
 });
 
 const Attendee = props => {
@@ -86,7 +89,7 @@ const Attendee = props => {
     hackerRoleDesigner: false,
     hackerRoleDeveloper: true,
     hackerRoleHardware: true,
-    id: '01787 656592',
+    nfcId: '0409893AE74C812',
   };
   return (
     <Container style={styles.wrapper}>
@@ -95,9 +98,13 @@ const Attendee = props => {
         <Card style={styles.card}>
           <ListItem>
             <Left>
-              <Text>
-                {user.firstname} {user.lastname}
-              </Text>
+              {user ? (
+                <Text>
+                  {user.firstname} {user.lastname}
+                </Text>
+              ) : (
+                <Text>No Applicant ID</Text>
+              )}
             </Left>
             <Right>
               <Button small style={styles.processButton}>
@@ -105,11 +112,6 @@ const Attendee = props => {
               </Button>
             </Right>
           </ListItem>
-          <CardItem>
-            <Body style={styles.attendeeDetails}>
-              <Text>Image goes here</Text>
-            </Body>
-          </CardItem>
           <CardItem>
             <Body style={styles.attendeeDetails}>
               {user.hackerRoleDesigner && (
@@ -122,7 +124,7 @@ const Attendee = props => {
                 <Text style={styles.attendeeRoles}>Hardware</Text>
               )}
               <Text>{user.email}</Text>
-              <Text>{user.id}</Text>
+              <Text>{user.nfcId}</Text>
             </Body>
           </CardItem>
           <ListItem>
@@ -142,6 +144,9 @@ const Attendee = props => {
             </Right>
           </ListItem>
         </Card>
+        <Button style={styles.scanAgainButton}>
+          <Text>Scan Again</Text>
+        </Button>
       </Content>
     </Container>
   );
