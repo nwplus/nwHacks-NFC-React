@@ -41,8 +41,6 @@ export const login = async () => {
       userInfo.idToken,
       userInfo.accessToken,
     );
-    console.log('signing in....');
-    console.log(userInfo)
     return auth.signInWithCredential(credential);
   } catch (e) {
     return false;
@@ -56,10 +54,8 @@ export const getUserFromUid = async uid => {
     .get()
     .then(snapshot => {
       if (snapshot.empty) {
-        console.log('No matching documents.');
         return;
       } else {
-        console.log('Document(s) found.');
         return snapshot.docs[0]._data;
       }
     });
