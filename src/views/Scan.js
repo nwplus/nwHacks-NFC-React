@@ -54,6 +54,9 @@ const Scan = props => {
 
   const startScan = async () => {
     const uid = await _read();
+    if (uid == null) {
+      return;
+    }
     setLoading(true);
     //This is page for no user
     if (Platform.OS === 'ios') {
