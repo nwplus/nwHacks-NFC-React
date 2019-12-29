@@ -5,7 +5,7 @@ import {Dimensions, Platform} from 'react-native';
 
 const MenuButton = props => {
   const dim = Dimensions.get('window');
-  const menuTop = Platform.OS === 'ios' && dim.height >= 812 ? {top: 65} : {};
+  const menuTop = Platform.OS === 'ios' && dim.height >= 812 ? {top: 65} : {top: 20};
   return (
     <Icon
       name="menu"
