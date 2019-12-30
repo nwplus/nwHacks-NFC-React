@@ -60,6 +60,12 @@ const Scan = props => {
 
   useEffect(() => {
     startScan();
+    const focusListener = props.navigation.addListener('didFocus', () => {
+      startScan();
+    });
+    return () => {
+      focusListener.remove();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
