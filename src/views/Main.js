@@ -14,7 +14,7 @@ import {Col, Grid} from 'react-native-easy-grid';
 import GreenButton from '../components/GreenButton';
 import MenuButton from '../components/MenuButton';
 import {SafeAreaView} from 'react-navigation';
-
+import RegisterButton from '../utils/register';
 const styles = StyleSheet.create({
   headerImage: {
     resizeMode: 'contain',
@@ -117,6 +117,7 @@ const Main = props => {
           </Col>
         </Grid>
       </View>
+      <RegisterButton />
     </SafeAreaView>
   );
 };

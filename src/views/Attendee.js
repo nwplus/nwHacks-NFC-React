@@ -27,7 +27,7 @@ import {
   Toast,
 } from 'native-base';
 import MenuButton from '../components/MenuButton';
-import {useStoreState} from 'easy-peasy';
+import {useStoreState, useStoreActions} from 'easy-peasy';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -98,9 +98,23 @@ const styles = StyleSheet.create({
 const Attendee = props => {
   const hackers = useStoreState(state => state.hackers.items);
   const uid = props.navigation.getParam('uid', '');
-  const user = hackers.find(hacker => hacker.nfcID && hacker.nfcID === uid);
   const [showList, setShowList] = useState(false);
   const [selected, setSelected] = useState(null);
+  const [user, setUser] = useState(null);
+  const registered = useStoreState(state => state.registered.on);
+  const registeredApplicant = useStoreState(
+    state => state.registered.selectedApplicant,
+  );
+
+  useEffect(() => {
+    setUser(hackers.find(hacker => hacker.nfcID && hacker.nfcID === uid));
+  }, [hackers, uid]);
+  useEffect(() => {
+    if (registered) {
+      setSelected(registeredApplicant);
+    }
+  }, [registered, registeredApplicant]);
+
   const checkInApplicant = async (email, name) => {
     await checkIn(email, uid);
     setSelected(null);
@@ -204,12 +218,14 @@ const Attendee = props => {
               </Body>
             ) : (
               <Body style={styles.attendeeDetails}>
-                <Button
-                  onPress={() => setShowList(true)}
-                  small
-                  style={styles.assignButton}>
-                  <Text>Select Hacker</Text>
-                </Button>
+                {!registered ? (
+                  <Button
+                    onPress={() => setShowList(true)}
+                    small
+                    style={styles.assignButton}>
+                    <Text>Select Hacker</Text>
+                  </Button>
+                ) : null}
                 {selected ? (
                   <View
                     style={{
