@@ -32,7 +32,7 @@ import {useStoreState} from 'easy-peasy';
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#343338',
-    paddingTop: 200,
+    paddingTop: 100,
   },
   content: {
     margin: 10,
@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    width: '100%',
+    width: '90%',
+    alignSelf: 'center',
   },
   eventMetrics: {
     display: 'flex',
@@ -84,6 +85,10 @@ const styles = StyleSheet.create({
   },
   scanAgainButton: {
     backgroundColor: '#19CBCB',
+    position: 'absolute',
+    width: '100%',
+    bottom: 20,
+    justifyContent: 'center',
   },
   assignButton: {
     backgroundColor: '#2D2937',
@@ -207,7 +212,6 @@ const Attendee = props => {
                       justifyContent: 'center',
                       alignItems: 'center',
                       width: '70%',
-                      marginBottom: 40,
                     }}>
                     <Title style={{marginBottom: 20}}>Selected:</Title>
                     <Text style={{textAlign: 'center', fontSize: 22}}>
