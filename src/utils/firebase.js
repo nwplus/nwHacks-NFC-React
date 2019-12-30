@@ -28,6 +28,16 @@ export const watchHackers = callback => {
   db.collection('hacker_info_2020').onSnapshot(callback);
 };
 
+export const checkIn = async (email, uid) => {
+  return db
+    .collection('hacker_info_2020')
+    .doc(email)
+    .update({
+      'tags.checked-in': true,
+      nfcID: uid,
+    });
+};
+
 export const logout = async () => {
   await GoogleSignin.revokeAccess();
   await GoogleSignin.signOut();

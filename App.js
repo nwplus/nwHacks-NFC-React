@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import {Root} from 'native-base';
 import store from './src/utils/store';
 import {StoreProvider, useStoreActions} from 'easy-peasy';
 import Main from './src/views/Main';
@@ -87,7 +88,9 @@ export default props => {
     <PersistGate persistor={persistor}>
       <StoreProvider store={store}>
         <Initializer>
-          <App />
+          <Root>
+            <App />
+          </Root>
         </Initializer>
       </StoreProvider>
     </PersistGate>
