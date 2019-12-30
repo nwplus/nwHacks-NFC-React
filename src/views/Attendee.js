@@ -176,8 +176,13 @@ const Attendee = props => {
             </Left>
             <Right>
               {!!user && (
-                <Button small style={styles.processButton}>
-                  <Text>Process</Text>
+                <Button
+                  onPress={() =>
+                    props.navigation.navigate('Details', {email: user.email})
+                  }
+                  small
+                  style={styles.processButton}>
+                  <Text>Details</Text>
                 </Button>
               )}
             </Right>
