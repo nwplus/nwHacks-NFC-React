@@ -8,10 +8,9 @@
 
 import React, {useState, useEffect} from 'react';
 import useNFC from '../utils/nfc';
-import {StyleSheet, Platform} from 'react-native';
-import {Container, Spinner, Content, Button, Text, H3, H1} from 'native-base';
+import {StyleSheet} from 'react-native';
+import {Container, Spinner, Content, Button, Text, H3, Icon} from 'native-base';
 import MenuButton from '../components/MenuButton';
-import {useStoreState} from 'easy-peasy';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -49,7 +48,6 @@ const styles = StyleSheet.create({
 
 const Scan = props => {
   const [isScanning, setScanning] = useState(false);
-  const [isLoading, setLoading] = useState(false);
   const {_read, nfc} = useNFC(setScanning);
 
   const startScan = async () => {
@@ -57,17 +55,7 @@ const Scan = props => {
     if (uid == null) {
       return;
     }
-    setLoading(true);
-    //This is page for no user
-    if (Platform.OS === 'ios') {
-      setTimeout(() => {
-        setLoading(false);
-        props.navigation.navigate('Attendee', {uid});
-      }, 2500);
-    } else {
-      setLoading(false);
-      props.navigation.navigate('Attendee', {uid});
-    }
+    props.navigation.navigate('Attendee', {uid});
   };
 
   useEffect(() => {
@@ -84,7 +72,15 @@ const Scan = props => {
           <Text style={styles.text}>
             {nfc ? 'NFC Enabled!' : 'NFC not supported.'}
           </Text>
-          {isLoading ? <Spinner color="#18CDCD" /> : null}
+          <Icon
+            name="nfc"
+            type="MaterialCommunityIcons"
+            style={{
+              marginTop: 100,
+              fontSize: 200,
+              color: 'white',
+            }}
+          />
         </Content>
         <Content contentContainerStyle={styles.body}>
           {/* <H1 style={styles.text}>{text}</H1> */}
