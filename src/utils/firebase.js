@@ -60,3 +60,12 @@ export const getUserFromUid = async uid => {
       }
     });
 };
+
+export const getEvents = async () => {
+  return await db
+    .collection('nfc_events')
+    .get()
+    .then(events => {
+      return events;
+    })
+}
