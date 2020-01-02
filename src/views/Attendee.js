@@ -6,9 +6,9 @@
  * @flow
  */
 
-import {checkIn, modifyEvent} from '../utils/firebase';
+import {checkIn, modifyEvent, updateCoatCheck} from '../utils/firebase';
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Modal, View} from 'react-native';
+import {StyleSheet, Modal, View, TextInput} from 'react-native';
 import {
   Container,
   Content,
@@ -25,6 +25,7 @@ import {
   Title,
   Icon,
   Toast,
+  Input,
 } from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {useStoreState, useStoreActions} from 'easy-peasy';
@@ -114,6 +115,10 @@ const Attendee = props => {
     state => state.registered.selectedApplicant,
   );
   const events = useStoreState(state => state.events.all);
+  const [coatCheck, setCoatCheck] = useState('');
+  useEffect(() => {
+    setCoatCheck(user ? (user.coatCheck ? user.coatCheck : 'unset') : 'unset');
+  }, [user]);
 
   useEffect(() => {
     if (supplied) {
@@ -230,9 +235,19 @@ const Attendee = props => {
                     <Text>Coat Check #</Text>
                   </Left>
                   <Right>
-                    <Text style={{textAlign: 'right'}}>
-                      {user.coatCheck ? user.coatCheck : 'unset'}
-                    </Text>
+                    <Input
+                      value={coatCheck}
+                      onChangeText={text => {
+                        setCoatCheck(text);
+                      }}
+                      onEndEditing={() => {
+                        updateCoatCheck(user.email, coatCheck);
+                      }}
+                      style={{
+                        textAlign: 'right',
+                      }}
+                      keyboardType={'numeric'}
+                    />
                   </Right>
                 </ListItem>
                 {!!events &&

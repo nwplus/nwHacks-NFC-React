@@ -100,6 +100,16 @@ export const getUserFromUid = async uid => {
     });
 };
 
+export const updateCoatCheck = async (hacker, number) => {
+  console.log('updating...');
+  return db
+    .collection('hacker_info_2020')
+    .doc(hacker)
+    .update({
+      coatCheck: number,
+    });
+};
+
 export const watchEvents = async callback => {
   db.collection('nfc_events').onSnapshot(({docs}) => {
     const all = docs
