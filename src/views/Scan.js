@@ -109,7 +109,10 @@ const Scan = props => {
           </Text>
           {event && scanned ? (
             <Text style={{textAlign: 'center', fontSize: 26, color: 'white'}}>
-              Checkins: {scanned.events[event].count}
+              Checkins:{' '}
+              {!!scanned &&
+                !!scanned.events[event] &&
+                scanned.events[event].count}
             </Text>
           ) : null}
           <Icon

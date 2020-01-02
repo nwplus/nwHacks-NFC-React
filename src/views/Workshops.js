@@ -1,24 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
 import {H3, Icon, Button} from 'native-base';
 import MenuButton from '../components/MenuButton';
 import EventButton from '../components/EventButton';
-import {getEvents} from '../utils/firebase';
 import EventDetailCard from '../components/EventDetailCard';
+import {useStoreState} from 'easy-peasy';
 
 const WorkshopScreen = props => {
-  const [events, setEvents] = useState([]);
+  const events = useStoreState(state => state.events.workshops);
   const [currentOpen, setCurrentOpen] = useState('');
-
-  const fetchData = async () => {
-    const res = await getEvents();
-    setEvents(res);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <SafeAreaView style={styles.header}>
       <MenuButton navigation={props.navigation} />
@@ -61,8 +51,16 @@ const WorkshopScreen = props => {
           </View>
         ) : (
           <View>
-            <EventDetailCard event={currentOpen} checkedIn={true} />
-            <EventDetailCard event={currentOpen} checkedIn={false} />
+            <EventDetailCard
+              navigation={props.navigation}
+              event={currentOpen}
+              checkedIn={true}
+            />
+            <EventDetailCard
+              navigation={props.navigation}
+              event={currentOpen}
+              checkedIn={false}
+            />
           </View>
         )}
       </ScrollView>
