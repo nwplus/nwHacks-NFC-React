@@ -27,7 +27,7 @@ import {
   Toast,
 } from 'native-base';
 import MenuButton from '../components/MenuButton';
-import {useStoreState} from 'easy-peasy';
+import {useStoreState, useStoreActions} from 'easy-peasy';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -109,6 +109,7 @@ const Attendee = props => {
   const [selected, setSelected] = useState(null);
   const [user, setUser] = useState(null);
   const registered = useStoreState(state => state.registered.on);
+  const setScanning = useStoreActions(actions => actions.events.setScanning);
   const registeredApplicant = useStoreState(
     state => state.registered.selectedApplicant,
   );
@@ -326,7 +327,10 @@ const Attendee = props => {
         </Card>
         <Button
           style={styles.scanAgainButton}
-          onPress={() => props.navigation.navigate('Scan')}>
+          onPress={() => {
+            setScanning(null);
+            props.navigation.navigate('Scan');
+          }}>
           <Text>Scan</Text>
         </Button>
       </Content>

@@ -1,10 +1,11 @@
 import React from 'react';
 import {StyleSheet, View, Text, ScrollView, SafeAreaView} from 'react-native';
 import {Button} from 'native-base';
-import {useStoreState} from 'easy-peasy';
+import {useStoreState, useStoreActions} from 'easy-peasy';
 
 const EventDetailCard = props => {
   const hackers = useStoreState(state => state.hackers.items);
+  const setScanning = useStoreActions(actions => actions.events.setScanning);
   const relevant = (() => {
     if (props.checkedIn) {
       return hackers.filter(hacker => {
@@ -40,7 +41,12 @@ const EventDetailCard = props => {
           {props.checkedIn ? (
             <View style={styles.buttonContainer}>
               {/* need to add onPress with startScan here */}
-              <Button style={styles.button}>
+              <Button
+                onPress={() => {
+                  setScanning(props.event);
+                  props.navigation.navigate('Scan');
+                }}
+                style={styles.button}>
                 <Text style={styles.text}>Scan</Text>
               </Button>
             </View>

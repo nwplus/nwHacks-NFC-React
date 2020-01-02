@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
-import { H3} from 'native-base';
-import { withNavigation } from 'react-navigation';
+import {H3} from 'native-base';
+import {withNavigation} from 'react-navigation';
+import {useStoreActions} from 'easy-peasy';
 
 const styles = StyleSheet.create({
   button: {
@@ -18,20 +19,25 @@ const styles = StyleSheet.create({
     color: 'white',
     marginVertical: '7%',
   },
-})
+});
 
 const GreenButton = props => {
-    return (
-        <TouchableOpacity onPress={() => props.navigation.navigate(props.location)} >
-            <View>
-              <Image
-                style={styles.button}
-                source={require('../../assets/ButtonBg.png')}
-              />
-                <H3 style={styles.text}>{props.text}</H3>
-            </View>
-        </TouchableOpacity>
-    );
+  const setScanning = useStoreActions(actions => actions.events.setScanning);
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        setScanning(null);
+        props.navigation.navigate(props.location);
+      }}>
+      <View>
+        <Image
+          style={styles.button}
+          source={require('../../assets/ButtonBg.png')}
+        />
+        <H3 style={styles.text}>{props.text}</H3>
+      </View>
+    </TouchableOpacity>
+  );
 };
 
 export default withNavigation(GreenButton);

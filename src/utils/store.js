@@ -63,9 +63,13 @@ const model = {
     all: [],
     meals: [],
     workshops: [],
+    scannedEvent: null,
     setEvents: action((state, payload) => {
       (state.all = payload.all), (state.meals = payload.meals);
       state.workshops = payload.workshops;
+    }),
+    setScanning: action((state, payload) => {
+      state.scannedEvent = payload;
     }),
   },
   initialise: thunk(actions => {

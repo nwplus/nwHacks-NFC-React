@@ -9,7 +9,6 @@ import {useStoreState} from 'easy-peasy';
 const EventsScreen = props => {
   const events = useStoreState(state => state.events.meals);
   const [currentOpen, setCurrentOpen] = useState('');
-  console.log(events);
   return (
     <SafeAreaView style={styles.header}>
       <MenuButton navigation={props.navigation} />
@@ -52,8 +51,16 @@ const EventsScreen = props => {
           </View>
         ) : (
           <View>
-            <EventDetailCard event={currentOpen} checkedIn={true} />
-            <EventDetailCard event={currentOpen} checkedIn={false} />
+            <EventDetailCard
+              navigation={props.navigation}
+              event={currentOpen}
+              checkedIn={true}
+            />
+            <EventDetailCard
+              navigation={props.navigation}
+              event={currentOpen}
+              checkedIn={false}
+            />
           </View>
         )}
       </ScrollView>

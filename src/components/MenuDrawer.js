@@ -13,6 +13,7 @@ import {Platform} from 'react-native';
 
 const MenuDrawer = props => {
   const logout = useStoreActions(actions => actions.auth.logout);
+  const setScanned = useStoreActions(actions => actions.events.setScanning);
   function navLink(nav, text) {
     return (
       <TouchableOpacity
@@ -47,7 +48,10 @@ const MenuDrawer = props => {
         {navLink('Coat Check', 'Coat Check')}
         <TouchableOpacity
           style={{height: 80}}
-          onPress={() => props.navigation.navigate('Scan')}>
+          onPress={() => {
+            setScanned(null);
+            props.navigation.navigate('Scan');
+          }}>
           <Text style={styles.linkScan}>Scan</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{height: 80}} onPress={logout}>
