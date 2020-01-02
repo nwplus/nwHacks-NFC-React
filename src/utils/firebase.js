@@ -100,6 +100,41 @@ export const getUserFromUid = async uid => {
     });
 };
 
-export const getEvents = async () => {
-  return (await db.collection('nfc_events').get()).docs.map(doc => doc.data());
+export const watchEvents = async callback => {
+  db.collection('nfc_events').onSnapshot(({docs}) => {
+    const all = docs
+      .map(doc => doc.data())
+      .sort((a, b) => (a.order > b.order ? 1 : a.order === b.order ? 0 : -1));
+    const meals = docs
+      .filter(doc => {
+        return ['Lunch1', 'Lunch2', 'Breakfast', 'Dinner1'].includes(doc.id);
+      })
+      .map(doc => doc.data())
+      .sort((a, b) => (a.order > b.order ? 1 : a.order === b.order ? 0 : -1));
+    const workshops = docs
+      .filter(
+        doc => !['Lunch1', 'Lunch2', 'Breakfast', 'Dinner1'].includes(doc.id),
+      )
+      .map(doc => doc.data())
+      .sort((a, b) => (a.order > b.order ? 1 : a.order === b.order ? 0 : -1));
+    callback({all, meals, workshops});
+  });
+};
+
+export const modifyEvent = async ({operation, event, hacker}) => {
+  const op =
+    operation === 'inc'
+      ? firebase.firestore.FieldValue.increment(1)
+      : operation === 'dec'
+      ? firebase.firestore.FieldValue.increment(-1)
+      : null;
+  if (op === null) {
+    throw new Error('Incorrect Operation');
+  }
+
+  db.collection('hacker_info_2020')
+    .doc(hacker)
+    .update({
+      [`events.${event}.count`]: op,
+    });
 };

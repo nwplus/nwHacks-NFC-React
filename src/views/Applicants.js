@@ -50,7 +50,11 @@ const ApplicantsScreen = props => {
         <List>
           {filteredHackers.map((hacker, i) => {
             return (
-              <ListItem key={hacker.email} onPress={() => {}}>
+              <ListItem
+                key={hacker.email}
+                onPress={() => {
+                  props.navigation.navigate('Attendee', {hacker: hacker.email});
+                }}>
                 <Text>
                   {!!hacker.firstname && hacker.firstname}{' '}
                   {!!hacker.lastname && hacker.lastname}

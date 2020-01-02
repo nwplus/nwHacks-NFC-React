@@ -5,6 +5,7 @@ import {
   login,
   logout,
   watchHackers,
+  watchEvents,
 } from './firebase';
 import {persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -58,9 +59,19 @@ const model = {
       state.on = toggle;
     }),
   },
+  events: {
+    all: [],
+    meals: [],
+    workshops: [],
+    setEvents: action((state, payload) => {
+      (state.all = payload.all), (state.meals = payload.meals);
+      state.workshops = payload.workshops;
+    }),
+  },
   initialise: thunk(actions => {
     watchHackers(actions.hackers.update);
     watchUser(actions.auth.setLogin);
+    watchEvents(actions.events.setEvents);
   }),
 };
 

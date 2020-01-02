@@ -1,24 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
 import {H3, Icon, Button} from 'native-base';
 import MenuButton from '../components/MenuButton';
 import EventButton from '../components/EventButton';
-import {getEvents} from '../utils/firebase';
 import EventDetailCard from '../components/EventDetailCard';
+import {useStoreState} from 'easy-peasy';
 
 const EventsScreen = props => {
-  const [events, setEvents] = useState([]);
+  const events = useStoreState(state => state.events.meals);
   const [currentOpen, setCurrentOpen] = useState('');
-
-  const fetchData = async () => {
-    const res = await getEvents();
-    setEvents(res);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+  console.log(events);
   return (
     <SafeAreaView style={styles.header}>
       <MenuButton navigation={props.navigation} />

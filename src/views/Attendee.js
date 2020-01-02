@@ -6,7 +6,7 @@
  * @flow
  */
 
-import {checkIn} from '../utils/firebase';
+import {checkIn, modifyEvent} from '../utils/firebase';
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Modal, View} from 'react-native';
 import {
@@ -27,7 +27,7 @@ import {
   Toast,
 } from 'native-base';
 import MenuButton from '../components/MenuButton';
-import {useStoreState, useStoreActions} from 'easy-peasy';
+import {useStoreState} from 'easy-peasy';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -36,13 +36,15 @@ const styles = StyleSheet.create({
   },
   content: {
     margin: 10,
-    flex: 1,
+    flex: 3,
+    flexWrap: 'nowrap',
   },
   header: {
     flex: 1,
   },
   body: {
     flex: 1,
+    flexWrap: 'nowrap',
     justifyContent: 'flex-end',
   },
   button: {
@@ -67,7 +69,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   attendeeDetails: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -76,8 +77,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   eventMetrics: {
-    display: 'flex',
     textAlign: 'right',
+    paddingBottom: 13,
   },
   processButton: {
     width: 80,
@@ -93,11 +94,17 @@ const styles = StyleSheet.create({
   assignButton: {
     backgroundColor: '#2D2937',
   },
+  incdecButtons: {
+    backgroundColor: 'white',
+    color: 'black',
+    marginRight: 10,
+  },
 });
 
 const Attendee = props => {
   const hackers = useStoreState(state => state.hackers.items);
   const uid = props.navigation.getParam('uid', '');
+  const supplied = props.navigation.getParam('hacker', '');
   const [showList, setShowList] = useState(false);
   const [selected, setSelected] = useState(null);
   const [user, setUser] = useState(null);
@@ -105,10 +112,15 @@ const Attendee = props => {
   const registeredApplicant = useStoreState(
     state => state.registered.selectedApplicant,
   );
+  const events = useStoreState(state => state.events.all);
 
   useEffect(() => {
-    setUser(hackers.find(hacker => hacker.nfcID && hacker.nfcID === uid));
-  }, [hackers, uid]);
+    if (supplied) {
+      setUser(hackers.find(hacker => hacker.email === supplied));
+    } else {
+      setUser(hackers.find(hacker => hacker.nfcID && hacker.nfcID === uid));
+    }
+  }, [hackers, supplied, uid]);
   useEffect(() => {
     if (registered) {
       setSelected(registeredApplicant);
@@ -188,34 +200,89 @@ const Attendee = props => {
                 </Body>
               )}
             </Left>
-            <Right>
-              {!!user && (
-                <Button
-                  onPress={() =>
-                    props.navigation.navigate('Details', {email: user.email})
-                  }
-                  small
-                  style={styles.processButton}>
-                  <Text>Details</Text>
-                </Button>
-              )}
-            </Right>
+            <Right />
           </ListItem>
           <CardItem>
             {user ? (
-              <Body style={styles.attendeeDetails}>
-                {user.hackerRoleDesigner && (
-                  <Text style={styles.attendeeRoles}>Designer</Text>
-                )}
-                {user.hackerRoleDeveloper && (
-                  <Text style={styles.attendeeRoles}>Developer</Text>
-                )}
-                {user.hackerRoleHardware && (
-                  <Text style={styles.attendeeRoles}>Hardware</Text>
-                )}
-                <Text>{user.email}</Text>
-                <Text>{user.nfcId}</Text>
-              </Body>
+              <View
+                style={{
+                  flex: 3,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  flexWrap: 'nowrap',
+                }}>
+                <View style={styles.attendeeDetails}>
+                  {user.hackerRoleDesigner && (
+                    <Text style={styles.attendeeRoles}>Designer</Text>
+                  )}
+                  {user.hackerRoleDeveloper && (
+                    <Text style={styles.attendeeRoles}>Developer</Text>
+                  )}
+                  {user.hackerRoleHardware && (
+                    <Text style={styles.attendeeRoles}>Hardware</Text>
+                  )}
+                  <Text>{user.email}</Text>
+                  <Text>{user.nfcId}</Text>
+                </View>
+                <ListItem>
+                  <Left>
+                    <Text>Coat Check #</Text>
+                  </Left>
+                  <Right>
+                    <Text style={{textAlign: 'right'}}>
+                      {user.coatCheck ? user.coatCheck : 'unset'}
+                    </Text>
+                  </Right>
+                </ListItem>
+                {!!events &&
+                  events.map((event, i) => (
+                    <ListItem key={i}>
+                      <Left>
+                        <Text>{event.name}</Text>
+                      </Left>
+                      <Right
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          marginRight: 20,
+                        }}>
+                        <Button
+                          onPress={() =>
+                            modifyEvent({
+                              operation: 'inc',
+                              event: event.name,
+                              hacker: user.email,
+                            })
+                          }
+                          style={styles.incdecButtons}>
+                          <Icon
+                            style={styles.incdecButtons}
+                            name="arrow-back"
+                          />
+                        </Button>
+                        <Text style={styles.eventMetrics}>
+                          {user.events && user.events[event.name]
+                            ? user.events[event.name].count
+                            : 0}
+                        </Text>
+                        <Button
+                          onPress={() =>
+                            modifyEvent({
+                              operation: 'dec',
+                              event: event.name,
+                              hacker: user.email,
+                            })
+                          }
+                          style={styles.incdecButtons}>
+                          <Icon
+                            style={styles.incdecButtons}
+                            name="arrow-forward"
+                          />
+                        </Button>
+                      </Right>
+                    </ListItem>
+                  ))}
+              </View>
             ) : (
               <Body style={styles.attendeeDetails}>
                 {!registered ? (

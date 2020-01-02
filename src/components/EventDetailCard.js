@@ -5,7 +5,7 @@ import {useStoreState} from 'easy-peasy';
 
 const EventDetailCard = props => {
   const hackers = useStoreState(state => state.hackers.items);
-  const getRelevant = () => {
+  const relevant = (() => {
     if (props.checkedIn) {
       return hackers.filter(hacker => {
         try {
@@ -24,8 +24,7 @@ const EventDetailCard = props => {
         }
       });
     }
-  };
-  const relevant = getRelevant();
+  })();
   return (
     <View style={styles.container}>
       <View style={[styles.headerBar, styles.inline]}>
