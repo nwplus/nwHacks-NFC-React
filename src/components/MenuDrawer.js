@@ -41,7 +41,7 @@ const MenuDrawer = props => {
       </View>
       <ScrollView>
         {navLink('Home', 'Home')}
-        {navLink('Events', 'Events')}
+        {navLink('Meals', 'Meals')}
         {navLink('Workshops', 'Workshops')}
         {navLink('Applicants', 'Applicants')}
         {navLink('Coat Check', 'Coat Check')}

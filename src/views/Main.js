@@ -91,8 +91,8 @@ const Main = props => {
             <Button
               light
               style={styles.menuBtn}
-              onPress={() => navigateTo('Events')}>
-              <Text style={styles.menuText}>Events</Text>
+              onPress={() => navigateTo('Meals')}>
+              <Text style={styles.menuText}>Meals</Text>
             </Button>
             <Button
               light
