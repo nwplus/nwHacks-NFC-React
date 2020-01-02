@@ -28,8 +28,47 @@ export const watchHackers = callback => {
   db.collection('hacker_info_2020').onSnapshot(callback);
 };
 
+export const deviceExists = async id => {
+  return (await db
+    .collection('nfc_devices')
+    .doc(id)
+    .get()).exists;
+};
+
+export const newDevice = async (id, device) => {
+  await db
+    .collection('nfc_devices')
+    .doc(id)
+    .set(device);
+};
+
+export const checkIn = async (email, uid) => {
+  return db
+    .collection('hacker_info_2020')
+    .doc(email)
+    .update({
+      'tags.checked-in': true,
+      nfcID: uid,
+    });
+};
+
+export const watchSelected = (id, callback) => {
+  db.collection('nfc_devices')
+    .doc(id)
+    .onSnapshot(async snap => {
+      const {email, firstname, lastname} = (await db
+        .collection('hacker_info_2020')
+        .doc(snap.data().writeId)
+        .get()).data();
+      callback({
+        email,
+        firstname,
+        lastname,
+      });
+    });
+};
+
 export const logout = async () => {
-  await GoogleSignin.revokeAccess();
   await GoogleSignin.signOut();
   return auth.signOut();
 };

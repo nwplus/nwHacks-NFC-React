@@ -3,8 +3,6 @@ import {View, Text, Button} from 'native-base';
 import {useStoreState} from 'easy-peasy';
 
 const Test = props => {
-  const hackers = useStoreState(state => state.hackers.items);
-
   const user = props.navigation.getParam('user', '');
   const uid = props.navigation.getParam('uid', '');
 
