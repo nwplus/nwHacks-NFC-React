@@ -50,6 +50,7 @@ export default setScanning => {
     }
     _cleanUp();
     setScanning(false);
+    return null;
   };
 
   return {

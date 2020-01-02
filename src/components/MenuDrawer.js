@@ -9,8 +9,6 @@ import {
 import {View} from 'native-base';
 import {useStoreActions} from 'easy-peasy';
 import Icon from 'react-native-vector-icons/AntDesign';
-import store from '../utils/store';
-import {StoreProvider} from 'easy-peasy';
 import {Platform} from 'react-native';
 
 const MenuDrawer = props => {
@@ -52,11 +50,9 @@ const MenuDrawer = props => {
           onPress={() => props.navigation.navigate('Scan')}>
           <Text style={styles.linkScan}>Scan</Text>
         </TouchableOpacity>
-        <StoreProvider store={store}>
-          <TouchableOpacity style={{height: 80}} onPress={logout}>
-            <Text style={styles.linkLogout}>Logout</Text>
-          </TouchableOpacity>
-        </StoreProvider>
+        <TouchableOpacity style={{height: 80}} onPress={logout}>
+          <Text style={styles.linkLogout}>Logout</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
