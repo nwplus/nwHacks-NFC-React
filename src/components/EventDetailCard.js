@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, ScrollView, SafeAreaView} from 'react-native';
 import {Button} from 'native-base';
 import {useStoreState, useStoreActions} from 'easy-peasy';
@@ -6,26 +6,31 @@ import {useStoreState, useStoreActions} from 'easy-peasy';
 const EventDetailCard = props => {
   const hackers = useStoreState(state => state.hackers.items);
   const setScanning = useStoreActions(actions => actions.events.setScanning);
-  const relevant = (() => {
-    if (props.checkedIn) {
-      return hackers.filter(hacker => {
-        try {
-          return hacker.events[props.event].count > 0;
-        } catch (e) {
-          return false;
-        }
-      });
-    } else {
-      return hackers.filter(hacker => {
-        try {
-          const checked = hacker.events[props.event].count > 0;
-          return !checked;
-        } catch (e) {
-          return true;
-        }
-      });
-    }
-  })();
+  const [relevant, setRelevant] = useState([]);
+
+  useEffect(() => {
+    const getRelevant = () => {
+      if (props.checkedIn) {
+        return hackers.filter(hacker => {
+          try {
+            return hacker.events[props.event].count > 0;
+          } catch (e) {
+            return false;
+          }
+        });
+      } else {
+        return hackers.filter(hacker => {
+          try {
+            const checked = hacker.events[props.event].count > 0;
+            return !checked;
+          } catch (e) {
+            return true;
+          }
+        });
+      }
+    };
+    setRelevant(getRelevant);
+  }, [hackers, props.checkedIn, props.event]);
   return (
     <View style={styles.container}>
       <View style={[styles.headerBar, styles.inline]}>

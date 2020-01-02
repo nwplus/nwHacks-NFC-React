@@ -66,6 +66,7 @@ const Scan = props => {
   const hackers = useStoreState(state => state.hackers.items);
   const event = useStoreState(state => state.events.scannedEvent);
   const [scanned, setScanned] = useState(null);
+  const [hackerRef, setHackerRef] = useState(null);
   const startScan = async () => {
     const uid = await _read();
     if (uid == null) {
@@ -88,7 +89,7 @@ const Scan = props => {
         return null;
       }
       await modifyEvent({operation: 'inc', event: event, hacker: hacker.email});
-      setScanned(hacker);
+      setHackerRef(hacker.email);
       Toast.show({
         text: `Successfully checked in ${hacker.firstname} for ${event}`,
         duration: 5000,
@@ -97,6 +98,11 @@ const Scan = props => {
     }
   };
 
+  useEffect(() => {
+    if (hackerRef) {
+      setScanned(hackers.find(hacker => hacker.email === hackerRef));
+    }
+  }, [hackerRef, hackers]);
   return (
     <Container style={styles.wrapper}>
       <MenuButton navigation={props.navigation} />
