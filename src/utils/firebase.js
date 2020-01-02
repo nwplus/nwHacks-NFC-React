@@ -69,7 +69,6 @@ export const watchSelected = (id, callback) => {
 };
 
 export const logout = async () => {
-  await GoogleSignin.revokeAccess();
   await GoogleSignin.signOut();
   return auth.signOut();
 };

@@ -23,7 +23,9 @@ const model = {
     logout: thunk(async actions => {
       try {
         await logout();
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
       actions.setLogin({success: false, email: null});
     }),
     setLogin: action((state, {success, email}) => {

@@ -52,11 +52,9 @@ const MenuDrawer = props => {
           onPress={() => props.navigation.navigate('Scan')}>
           <Text style={styles.linkScan}>Scan</Text>
         </TouchableOpacity>
-        <StoreProvider store={store}>
-          <TouchableOpacity style={{height: 80}} onPress={logout}>
-            <Text style={styles.linkLogout}>Logout</Text>
-          </TouchableOpacity>
-        </StoreProvider>
+        <TouchableOpacity style={{height: 80}} onPress={logout}>
+          <Text style={styles.linkLogout}>Logout</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
