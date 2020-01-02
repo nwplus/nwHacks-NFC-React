@@ -327,7 +327,7 @@ const Attendee = props => {
         <Button
           style={styles.scanAgainButton}
           onPress={() => props.navigation.navigate('Scan')}>
-          <Text>Scan Again</Text>
+          <Text>Scan</Text>
         </Button>
       </Content>
     </Container>
