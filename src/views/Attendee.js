@@ -26,6 +26,7 @@ import {
   Icon,
   Toast,
   Input,
+  Item,
 } from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {useStoreState, useStoreActions} from 'easy-peasy';
@@ -103,7 +104,20 @@ const styles = StyleSheet.create({
 });
 
 const Attendee = props => {
+  const [search, setSearch] = useState('');
   const hackers = useStoreState(state => state.hackers.items);
+  const filteredHackers =
+    search === ''
+      ? hackers
+      : hackers.filter(
+          hacker =>
+            (hacker.firstname &&
+              hacker.firstname.toLowerCase().includes(search.toLowerCase())) ||
+            (hacker.lastname &&
+              hacker.lastname.toLowerCase().includes(search.toLowerCase())) ||
+            (hacker.email &&
+              hacker.email.toLowerCase().includes(search.toLowerCase())),
+        );
   const uid = props.navigation.getParam('uid', '');
   const supplied = props.navigation.getParam('hacker', '');
   const [showList, setShowList] = useState(false);
@@ -117,7 +131,7 @@ const Attendee = props => {
   const events = useStoreState(state => state.events.all);
   const [coatCheck, setCoatCheck] = useState('');
   useEffect(() => {
-    setCoatCheck(user ? (user.coatCheck ? user.coatCheck : 'unset') : 'unset');
+    setCoatCheck(user ? (user.coatCheck ? user.coatCheck : -1) : -1);
   }, [user]);
 
   useEffect(() => {
@@ -165,9 +179,17 @@ const Attendee = props => {
             </Body>
             <Right />
           </Header>
+          <Item style={{marginLeft: 20}}>
+            <Icon name="ios-search" />
+            <Input
+              value={search}
+              onChangeText={setSearch}
+              placeholder="Search"
+            />
+          </Item>
           <Content>
             <List>
-              {hackers.map((hacker, i) => {
+              {filteredHackers.map((hacker, i) => {
                 return (
                   <ListItem
                     key={hacker.email}
