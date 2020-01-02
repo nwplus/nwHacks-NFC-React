@@ -6,7 +6,7 @@ import EventButton from '../components/EventButton';
 import {getEvents} from '../utils/firebase';
 import EventDetailCard from '../components/EventDetailCard';
 
-const WorkshopScreen = props => {
+const EventsScreen = props => {
   const [events, setEvents] = useState([]);
   const [currentOpen, setCurrentOpen] = useState('');
 
@@ -23,7 +23,7 @@ const WorkshopScreen = props => {
     <SafeAreaView style={styles.header}>
       <MenuButton navigation={props.navigation} />
       <View>
-        <H3 style={styles.text}>Workshops</H3>
+        <H3 style={styles.text}>Meals</H3>
         {currentOpen !== '' ? (
           <View
             style={{
@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WorkshopScreen;
+export default EventsScreen;

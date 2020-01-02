@@ -5,7 +5,7 @@ import {Dimensions} from 'react-native';
 import React from 'react';
 // Screen imports
 import ScanScreen from './views/Scan';
-import EventsScreen from './views/Events';
+import MealsScreen from './views/Meals';
 import WorkshopsScreen from './views/Workshops';
 import ApplicantsScreen from './views/Applicants';
 import CoatCheckScreen from './views/CoatCheck';
@@ -28,7 +28,7 @@ const DrawerNavigator = createDrawerNavigator(
   {
     Home: Main,
     Attendee: AttendeeScreen,
-    Events: EventsScreen,
+    Meals: MealsScreen,
     Workshops: WorkshopsScreen,
     Applicants: ApplicantsScreen,
     'Coat Check': CoatCheckScreen,
