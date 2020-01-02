@@ -10,7 +10,7 @@ const EventDetailCard = props => {
     if (props.checkedIn) {
       return hackers.filter(hacker => {
         try {
-          return hacker.events[props.event];
+          return hacker.events[props.event].count > 0;
         } catch (e) {
           return false;
         }
@@ -18,7 +18,7 @@ const EventDetailCard = props => {
     } else {
       return hackers.filter(hacker => {
         try {
-          const checked = hacker.events[props.event];
+          const checked = hacker.events[props.event].count > 0;
           return !checked;
         } catch (e) {
           return true;
