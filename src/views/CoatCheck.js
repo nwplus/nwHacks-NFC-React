@@ -1,24 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
 import {H3, Content, List, ListItem, Item, Icon, Input} from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {useStoreState} from 'easy-peasy';
 
-const WorkshopScreen = props => {
+const CoatCheckScreen = props => {
   const hackers = useStoreState(state => state.hackers.items);
   const [search, setSearch] = useState('');
-  const filteredHackers =
-    search === ''
-      ? hackers
-      : hackers.filter(
-          hacker =>
-            (hacker.firstname &&
-              hacker.firstname.toLowerCase().includes(search.toLowerCase())) ||
-            (hacker.lastname &&
-              hacker.lastname.toLowerCase().includes(search.toLowerCase())) ||
-            (hacker.email &&
-              hacker.email.toLowerCase().includes(search.toLowerCase())),
-        );
+  const [filteredHackers, setFiltered] = useState([]);
+  useEffect(() => {
+    setFiltered(
+      search === ''
+        ? hackers
+        : hackers.filter(
+            hacker =>
+              (hacker.firstname &&
+                hacker.firstname
+                  .toLowerCase()
+                  .includes(search.toLowerCase())) ||
+              (hacker.lastname &&
+                hacker.lastname.toLowerCase().includes(search.toLowerCase())) ||
+              (hacker.email &&
+                hacker.email.toLowerCase().includes(search.toLowerCase())),
+          ),
+    );
+  }, [search, hackers]);
   return (
     <SafeAreaView style={styles.header}>
       <MenuButton navigation={props.navigation} />
@@ -98,4 +104,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WorkshopScreen;
+export default CoatCheckScreen;
