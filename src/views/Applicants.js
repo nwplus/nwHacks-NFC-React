@@ -27,18 +27,20 @@ const ApplicantsScreen = props => {
             (hacker.firstname &&
               hacker.firstname.toLowerCase().includes(search.toLowerCase())) ||
             (hacker.lastname &&
-              hacker.lastname.toLowerCase().includes(search.toLowerCase())),
+              hacker.lastname.toLowerCase().includes(search.toLowerCase())) ||
+            (hacker.email &&
+              hacker.email.toLowerCase().includes(search.toLowerCase())),
         );
   return (
     <Container>
-      <Header style={{marginBottom: 0}}>
+      <Header style={{marginBottom: 0, backgroundColor: '#2D2937'}}>
         <Left>
           <Button onPress={() => props.navigation.navigate('Home')} transparent>
             <Icon name="arrow-back" />
           </Button>
         </Left>
         <Body>
-          <Title style={{width: 200}}>Hackers</Title>
+          <Title style={{width: 200, color: 'white'}}>Hackers</Title>
         </Body>
         <Right />
       </Header>
