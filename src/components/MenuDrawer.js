@@ -9,8 +9,6 @@ import {
 import {View} from 'native-base';
 import {useStoreActions} from 'easy-peasy';
 import Icon from 'react-native-vector-icons/AntDesign';
-import store from '../utils/store';
-import {StoreProvider} from 'easy-peasy';
 import {Platform} from 'react-native';
 
 const MenuDrawer = props => {
