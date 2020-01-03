@@ -151,18 +151,19 @@ const Attendee = props => {
   }, [registered, registeredApplicant]);
 
   const GetApplicantStatus = () => {
-    const baseStyles = {width: 100, textAlign: 'right'};
+    const baseStyles = {width: 200, textAlign: 'right'};
     if (user && user.tags) {
-      if (user.tags.RSVP) {
+      if (user.tags['checked-in']) {
+        return <Text style={[baseStyles, {color: 'green'}]}>Checked in!</Text>;
+      } else if (user.tags.RSVP) {
         return <Text style={[baseStyles, {color: 'green'}]}>RSVPed</Text>;
       } else if (user.tags.accepted) {
         return <Text style={[baseStyles, {color: 'orange'}]}>Accepted</Text>;
-      } else {
+      } else if (user.tags.rejected) {
         return <Text style={[baseStyles, {color: 'red'}]}>Rejected</Text>;
       }
-    } else {
-      return <Text style={{color: 'red'}}>No tags</Text>;
     }
+    return <Text style={{color: 'red'}}>No tags</Text>;
   };
 
   const checkInApplicant = async (email, name) => {
