@@ -21,7 +21,7 @@ import {
 } from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {modifyEvent} from '../utils/firebase';
-import {useStoreState} from 'easy-peasy';
+import {useStoreState, useStoreActions} from 'easy-peasy';
 import {View} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -65,6 +65,7 @@ const Scan = props => {
   const {_read, nfc} = useNFC(setScanning);
   const hackers = useStoreState(state => state.hackers.items);
   const event = useStoreState(state => state.events.scannedEvent);
+  const setScanMode = useStoreActions(actions => actions.scan.setScanMode);
   const [scanned, setScanned] = useState(null);
   const [hackerRef, setHackerRef] = useState(null);
   const startScan = async () => {
@@ -72,14 +73,15 @@ const Scan = props => {
     if (uid == null) {
       return;
     }
+    const hacker = hackers.find(hacker => hacker.nfcID && hacker.nfcID === uid);
     if (event === null) {
-      console.log('no event!');
-      props.navigation.navigate('Attendee', {uid});
+      if (hacker) {
+        setScanMode({mode: 'hacker', payload: hacker.email});
+      } else {
+        setScanMode({mode: 'uid', payload: uid});
+      }
+      setTimeout(() => props.navigation.navigate('Attendee'), 500);
     } else {
-      console.log('event!');
-      const hacker = hackers.find(
-        hacker => hacker.nfcID && hacker.nfcID === uid,
-      );
       if (!hacker) {
         Toast.show({
           text: 'Not hacker assigned to this nfc chip',
@@ -103,6 +105,7 @@ const Scan = props => {
       setScanned(hackers.find(hacker => hacker.email === hackerRef));
     }
   }, [hackerRef, hackers]);
+
   return (
     <Container style={styles.wrapper}>
       <MenuButton navigation={props.navigation} />

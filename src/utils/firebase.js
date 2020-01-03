@@ -102,7 +102,6 @@ export const getUserFromUid = async uid => {
 };
 
 export const updateCoatCheck = async (hacker, number) => {
-  console.log('updating...');
   return db
     .collection('hacker_info_2020')
     .doc(hacker)
