@@ -14,6 +14,7 @@ const model = {
   auth: {
     loggedIn: false,
     email: null,
+    listeners: [],
     login: thunk(async (actions, payload) => {
       const loginResult = await login();
       if (!loginResult) {
@@ -23,6 +24,7 @@ const model = {
     }),
     logout: thunk(async actions => {
       try {
+        actions.clearListeners();
         await logout();
       } catch (e) {
         console.log(e);
@@ -32,6 +34,22 @@ const model = {
     setLogin: action((state, {success, email}) => {
       state.loggedIn = success;
       state.email = email;
+    }),
+    clearListeners: action(state => {
+      state.listeners.forEach(func => {
+        try {
+          func();
+        } catch (e) {
+          return;
+        }
+      });
+      state.listeners = [];
+    }),
+    pushListener: action((state, listener) => {
+      if (!state.listeners) {
+        state.listeners = [];
+      }
+      state.listeners.push(listener);
     }),
   },
   hackers: {
@@ -73,9 +91,9 @@ const model = {
     }),
   },
   initialise: thunk(actions => {
-    watchHackers(actions.hackers.update);
+    actions.auth.pushListener(watchHackers(actions.hackers.update));
     watchUser(actions.auth.setLogin);
-    watchEvents(actions.events.setEvents);
+    actions.auth.pushListener(watchEvents(actions.events.setEvents));
   }),
 };
 

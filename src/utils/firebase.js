@@ -25,7 +25,7 @@ export const watchUser = callback => {
 };
 
 export const watchHackers = callback => {
-  db.collection('hacker_info_2020').onSnapshot(callback);
+  return db.collection('hacker_info_2020').onSnapshot(callback);
 };
 
 export const deviceExists = async id => {
@@ -53,7 +53,8 @@ export const checkIn = async (email, uid) => {
 };
 
 export const watchSelected = (id, callback) => {
-  db.collection('nfc_devices')
+  return db
+    .collection('nfc_devices')
     .doc(id)
     .onSnapshot(async snap => {
       const {email, firstname, lastname} = (await db
@@ -111,7 +112,13 @@ export const updateCoatCheck = async (hacker, number) => {
 };
 
 export const watchEvents = async callback => {
-  db.collection('nfc_events').onSnapshot(({docs}) => {
+  return db.collection('nfc_events').onSnapshot(snap => {
+    let docs;
+    try {
+      docs = snap.docs;
+    } catch (e) {
+      return;
+    }
     const all = docs
       .map(doc => doc.data())
       .sort((a, b) => (a.order > b.order ? 1 : a.order === b.order ? 0 : -1));
