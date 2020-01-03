@@ -141,9 +141,6 @@ const Attendee = props => {
     } else if (mode === 'uid') {
       setUser(hackers.find(hacker => hacker.nfcID && hacker.nfcID === uid));
     }
-    console.log(mode);
-    console.log(hackerEmail);
-    console.log(uid);
   }, [hackerEmail, hackers, mode, uid]);
   useEffect(() => {
     if (registered) {
@@ -152,6 +149,21 @@ const Attendee = props => {
       setSelected(null);
     }
   }, [registered, registeredApplicant]);
+
+  const GetApplicantStatus = () => {
+    const baseStyles = {width: 100, textAlign: 'right'};
+    if (user && user.tags) {
+      if (user.tags.RSVP) {
+        return <Text style={[baseStyles, {color: 'green'}]}>RSVPed</Text>;
+      } else if (user.tags.accepted) {
+        return <Text style={[baseStyles, {color: 'orange'}]}>Accepted</Text>;
+      } else {
+        return <Text style={[baseStyles, {color: 'red'}]}>Rejected</Text>;
+      }
+    } else {
+      return <Text style={{color: 'red'}}>No tags</Text>;
+    }
+  };
 
   const checkInApplicant = async (email, name) => {
     await checkIn(email, uid);
@@ -170,7 +182,6 @@ const Attendee = props => {
         transparent={false}
         visible={showList}
         onRequestClose={() => {
-          console.log(selected);
           setShowList(false);
         }}>
         <Container>
@@ -234,7 +245,9 @@ const Attendee = props => {
                 </Body>
               )}
             </Left>
-            <Right />
+            <Right>
+              <GetApplicantStatus />
+            </Right>
           </ListItem>
           <CardItem>
             {user ? (
