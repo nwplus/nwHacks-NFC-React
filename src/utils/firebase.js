@@ -13,14 +13,25 @@ export const auth = firebase.auth();
 export const db = firestore();
 analytics();
 
+const isAdmin = async email => {
+  const admins = (await db.collection('admins').get()).docs.filter(
+    doc => doc.data().email === email,
+  );
+  return admins.length !== 0;
+};
+
 export const watchUser = callback => {
-  auth.onAuthStateChanged(user => {
+  auth.onAuthStateChanged(async user => {
     if (!user) {
       callback({success: false, email: null});
       return;
     }
     const {email} = user;
-    callback({success: true, email});
+    if (await isAdmin(email)) {
+      callback({success: true, email});
+    } else {
+      callback({success: false, email: null});
+    }
   });
 };
 
@@ -81,7 +92,12 @@ export const login = async () => {
       userInfo.idToken,
       userInfo.accessToken,
     );
-    return auth.signInWithCredential(credential);
+    const res = await auth.signInWithCredential(credential);
+    if (await isAdmin(res.user.email)) {
+      return res;
+    } else {
+      return null;
+    }
   } catch (e) {
     return false;
   }
