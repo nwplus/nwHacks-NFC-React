@@ -118,13 +118,14 @@ const Attendee = props => {
             (hacker.email &&
               hacker.email.toLowerCase().includes(search.toLowerCase())),
         );
-  const uid = props.navigation.getParam('uid', '');
-  const supplied = props.navigation.getParam('hacker', '');
   const [showList, setShowList] = useState(false);
   const [selected, setSelected] = useState(null);
   const [user, setUser] = useState(null);
   const registered = useStoreState(state => state.registered.on);
   const setScanning = useStoreActions(actions => actions.events.setScanning);
+  const mode = useStoreState(state => state.scan.scanMode);
+  const uid = useStoreState(state => state.scan.uid);
+  const hackerEmail = useStoreState(state => state.scan.hacker);
   const registeredApplicant = useStoreState(
     state => state.registered.selectedApplicant,
   );
@@ -135,15 +136,20 @@ const Attendee = props => {
   }, [user]);
 
   useEffect(() => {
-    if (supplied) {
-      setUser(hackers.find(hacker => hacker.email === supplied));
-    } else {
+    if (mode === 'hacker') {
+      setUser(hackers.find(hacker => hacker.email === hackerEmail));
+    } else if (mode === 'uid') {
       setUser(hackers.find(hacker => hacker.nfcID && hacker.nfcID === uid));
     }
-  }, [hackers, supplied, uid]);
+    console.log(mode);
+    console.log(hackerEmail);
+    console.log(uid);
+  }, [hackerEmail, hackers, mode, uid]);
   useEffect(() => {
     if (registered) {
       setSelected(registeredApplicant);
+    } else {
+      setSelected(null);
     }
   }, [registered, registeredApplicant]);
 

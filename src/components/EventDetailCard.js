@@ -49,7 +49,7 @@ const EventDetailCard = props => {
               <Button
                 onPress={() => {
                   setScanning(props.event);
-                  props.navigation.navigate('Scan');
+                  setTimeout(() => props.navigation.navigate('Scan'), 500);
                 }}
                 style={styles.button}>
                 <Text style={styles.text}>Scan</Text>

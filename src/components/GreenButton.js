@@ -27,7 +27,7 @@ const GreenButton = props => {
     <TouchableOpacity
       onPress={() => {
         setScanning(null);
-        props.navigation.navigate(props.location);
+        setTimeout(() => props.navigation.navigate(props.location), 500);
       }}>
       <View>
         <Image

@@ -90,6 +90,26 @@ const model = {
       state.scannedEvent = payload;
     }),
   },
+  scan: {
+    scanMode: '',
+    uid: null,
+    hacker: null,
+    setScanMode: action((state, {mode, payload}) => {
+      if (mode === 'uid') {
+        state.scanMode = 'uid';
+        state.uid = payload;
+        state.hacker = null;
+      } else if (mode === 'hacker') {
+        state.scanMode = 'hacker';
+        state.hacker = payload;
+        state.uid = null;
+      } else {
+        state.scanMode = '';
+        state.hacker = null;
+        state.uid = null;
+      }
+    }),
+  },
   initialise: thunk(actions => {
     actions.auth.pushListener(watchHackers(actions.hackers.update));
     watchUser(actions.auth.setLogin);

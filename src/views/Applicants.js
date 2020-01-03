@@ -15,10 +15,11 @@ import {
   Item,
   Input,
 } from 'native-base';
-import {useStoreState} from 'easy-peasy';
+import {useStoreState, useStoreActions} from 'easy-peasy';
 const ApplicantsScreen = props => {
   const [search, setSearch] = useState('');
   const hackers = useStoreState(state => state.hackers.items);
+  const setScanMode = useStoreActions(actions => actions.scan.setScanMode);
   const filteredHackers =
     search === ''
       ? hackers
@@ -55,6 +56,7 @@ const ApplicantsScreen = props => {
               <ListItem
                 key={hacker.email}
                 onPress={() => {
+                  setScanMode({mode: 'hacker', payload: hacker.email});
                   props.navigation.navigate('Attendee', {hacker: hacker.email});
                 }}>
                 <Text>
