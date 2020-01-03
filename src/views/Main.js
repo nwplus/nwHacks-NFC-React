@@ -9,7 +9,7 @@
 import React from 'react';
 import {StyleSheet, View, Image, StatusBar} from 'react-native';
 import {useStoreState} from 'easy-peasy';
-import {Button, Text, H3} from 'native-base';
+import {Button, Text, H3, Icon} from 'native-base';
 import {Col, Grid} from 'react-native-easy-grid';
 import GreenButton from '../components/GreenButton';
 import MenuButton from '../components/MenuButton';
@@ -62,6 +62,23 @@ const styles = StyleSheet.create({
     bottom: 70,
     fontSize: 18,
     textTransform: 'capitalize',
+    zIndex: 1,
+  },
+  menuImage: {
+    width: '75%',
+    height: '80%',
+    resizeMode: 'contain',
+    position: 'absolute',
+    bottom: -15,
+    left: 15,
+    zIndex: -1,
+  },
+  menuIcon: {
+    fontSize: 120,
+    position: 'absolute',
+    bottom: -20,
+    left: 0,
+    zIndex: -1,
   },
 });
 
@@ -91,28 +108,39 @@ const Main = props => {
           <Col>
             <Button
               light
-              style={styles.menuBtn}
+              style={[{backgroundColor: 'lightblue'}, styles.menuBtn]}
               onPress={() => navigateTo('Meals')}>
+              <Image
+                style={styles.menuImage}
+                source={require('../../assets/taco.png')}
+              />
               <Text style={styles.menuText}>Meals</Text>
             </Button>
             <Button
               light
-              style={styles.menuBtn}
+              style={[{backgroundColor: 'orange'}, styles.menuBtn]}
               onPress={() => navigateTo('Applicants')}>
+              <Icon name="people" style={styles.menuIcon} />
               <Text style={styles.menuText}>Applicants</Text>
             </Button>
           </Col>
           <Col>
             <Button
               light
-              style={styles.menuBtn}
+              style={[{backgroundColor: 'lightgreen'}, styles.menuBtn]}
               onPress={() => navigateTo('Workshops')}>
+              <Icon style={styles.menuIcon} name="laptop" />
               <Text style={styles.menuText}>Workshops</Text>
             </Button>
             <Button
               light
-              style={styles.menuBtn}
+              style={[{backgroundColor: 'pink'}, styles.menuBtn]}
               onPress={() => navigateTo('Coat Check')}>
+              <Icon
+                name="hanger"
+                type="MaterialCommunityIcons"
+                style={styles.menuIcon}
+              />
               <Text style={styles.menuText}>Coat Check</Text>
             </Button>
           </Col>
