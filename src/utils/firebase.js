@@ -30,6 +30,12 @@ export const watchUser = callback => {
     if (await isAdmin(email)) {
       callback({success: true, email});
     } else {
+      try {
+        await GoogleSignin.signOut();
+        await auth.signOut();
+      } catch (e) {
+        console.log(e);
+      }
       callback({success: false, email: null});
     }
   });
@@ -96,6 +102,12 @@ export const login = async () => {
     if (await isAdmin(res.user.email)) {
       return res;
     } else {
+      try {
+        await GoogleSignin.signOut();
+        await auth.signOut();
+      } catch (e) {
+        console.log(e);
+      }
       return null;
     }
   } catch (e) {
