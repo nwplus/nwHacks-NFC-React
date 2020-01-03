@@ -8,7 +8,7 @@ import {View} from 'react-native';
 const styles = StyleSheet.create({
   registerView: {
     position: 'absolute',
-    bottom: '6%',
+    bottom: '5%',
     width: '100%',
     alignItems: 'center',
   },
