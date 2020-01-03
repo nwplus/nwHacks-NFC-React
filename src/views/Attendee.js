@@ -8,7 +8,7 @@
 
 import {checkIn, modifyEvent, updateCoatCheck} from '../utils/firebase';
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Modal, View, TextInput} from 'react-native';
+import {StyleSheet, Modal, View, ScrollView} from 'react-native';
 import {
   Container,
   Content,
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   card: {
     width: '90%',
     alignSelf: 'center',
+    maxHeight: '60%',
   },
   eventMetrics: {
     textAlign: 'right',
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#19CBCB',
     position: 'absolute',
     width: '100%',
-    bottom: 20,
+    bottom: 5,
     justifyContent: 'center',
   },
   assignButton: {
@@ -292,54 +293,56 @@ const Attendee = props => {
                     />
                   </Right>
                 </ListItem>
-                {!!events &&
-                  events.map((event, i) => (
-                    <ListItem key={i}>
-                      <Left>
-                        <Text>{event.name}</Text>
-                      </Left>
-                      <Right
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          marginRight: 20,
-                        }}>
-                        <Button
-                          onPress={() =>
-                            modifyEvent({
-                              operation: 'inc',
-                              event: event.name,
-                              hacker: user.email,
-                            })
-                          }
-                          style={styles.incdecButtons}>
-                          <Icon
-                            style={styles.incdecButtons}
-                            name="arrow-back"
-                          />
-                        </Button>
-                        <Text style={styles.eventMetrics}>
-                          {user.events && user.events[event.name]
-                            ? user.events[event.name].count
-                            : 0}
-                        </Text>
-                        <Button
-                          onPress={() =>
-                            modifyEvent({
-                              operation: 'dec',
-                              event: event.name,
-                              hacker: user.email,
-                            })
-                          }
-                          style={styles.incdecButtons}>
-                          <Icon
-                            style={styles.incdecButtons}
-                            name="arrow-forward"
-                          />
-                        </Button>
-                      </Right>
-                    </ListItem>
-                  ))}
+                <ScrollView>
+                  {!!events &&
+                    events.map((event, i) => (
+                      <ListItem key={i}>
+                        <Left>
+                          <Text>{event.name}</Text>
+                        </Left>
+                        <Right
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            marginRight: 20,
+                          }}>
+                          <Button
+                            onPress={() =>
+                              modifyEvent({
+                                operation: 'inc',
+                                event: event.name,
+                                hacker: user.email,
+                              })
+                            }
+                            style={styles.incdecButtons}>
+                            <Icon
+                              style={styles.incdecButtons}
+                              name="arrow-back"
+                            />
+                          </Button>
+                          <Text style={styles.eventMetrics}>
+                            {user.events && user.events[event.name]
+                              ? user.events[event.name].count
+                              : 0}
+                          </Text>
+                          <Button
+                            onPress={() =>
+                              modifyEvent({
+                                operation: 'dec',
+                                event: event.name,
+                                hacker: user.email,
+                              })
+                            }
+                            style={styles.incdecButtons}>
+                            <Icon
+                              style={styles.incdecButtons}
+                              name="arrow-forward"
+                            />
+                          </Button>
+                        </Right>
+                      </ListItem>
+                    ))}
+                </ScrollView>
               </View>
             ) : (
               <Body style={styles.attendeeDetails}>
