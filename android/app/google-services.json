@@ -1,101 +1,57 @@
 {
   "project_info": {
-    "project_number": "5043243303",
-    "firebase_url": "https://nwhacks-2019-dev.firebaseio.com",
-    "project_id": "nwhacks-2019-dev",
-    "storage_bucket": "nwhacks-2019-dev.appspot.com"
+    "project_number": "98283589440",
+    "firebase_url": "https://nwhacks-2019.firebaseio.com",
+    "project_id": "nwhacks-2019",
+    "storage_bucket": "nwhacks-2019.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:5043243303:android:9fef8bac531469df980102",
-        "android_client_info": {
-          "package_name": "com.nwnfc"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "5043243303-e84at7b7j4ibg6c7obl0m4elr38mgad7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.nwnfc",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "5043243303-otbpttl12vjtitiokg16sb0nctusapio.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDtTxJlv6PkqzBZRdjE0gMNNyx0UKl-ETY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "5043243303-otbpttl12vjtitiokg16sb0nctusapio.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "5043243303-f2h0cm0ndg695hkpu2908ss99bv7ppqn.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.NwPlus.NwNFC"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:5043243303:android:2c658881ef005bd1",
+        "mobilesdk_app_id": "1:98283589440:android:2c658881ef005bd1",
         "android_client_info": {
           "package_name": "io.nwhacks.nfc"
         }
       },
       "oauth_client": [
         {
-          "client_id": "5043243303-q5d1nhsiaahliu06nlacg126r4betidn.apps.googleusercontent.com",
+          "client_id": "98283589440-4pping4d667u8ttlqccpsgj2nvljbrfg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "io.nwhacks.nfc",
-            "certificate_hash": "9b242a763a999c5d04e2c1454563321ed195a972"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
-          "client_id": "5043243303-37a8t5qceo9gih5824atit1ru94fpe5g.apps.googleusercontent.com",
+          "client_id": "98283589440-eqlv4f4s86sciibnitdsf8mfbvrq14nq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "io.nwhacks.nfc",
-            "certificate_hash": "e68fe865628e0da25560fd44a787dc71acd9494e"
+            "certificate_hash": "acc538b7d8f7241c7047fbe1ce2ecb653932552b"
           }
         },
         {
-          "client_id": "5043243303-otbpttl12vjtitiokg16sb0nctusapio.apps.googleusercontent.com",
+          "client_id": "98283589440-2chjrhtmevin56hn4av6gmqhkm624de3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDtTxJlv6PkqzBZRdjE0gMNNyx0UKl-ETY"
+          "current_key": "AIzaSyATqbqu42HfevI894zEcKEktaxfZU-_LoE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "5043243303-otbpttl12vjtitiokg16sb0nctusapio.apps.googleusercontent.com",
+              "client_id": "98283589440-f11nmje3nqs9fvbef85uq5en5l3lna2q.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "5043243303-f2h0cm0ndg695hkpu2908ss99bv7ppqn.apps.googleusercontent.com",
+              "client_id": "98283589440-42hcrborhpdgium0mduik7ln88tmht3m.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.NwPlus.NwNFC"
+                "bundle_id": "org.nwplus.nwhacks.nfc"
               }
             }
           ]
