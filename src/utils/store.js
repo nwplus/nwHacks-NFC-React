@@ -29,7 +29,11 @@ const model = {
       if (!loginResult) {
         return false;
       }
-      await getStoreActions().forceUpdateHackers();
+      try {
+        await getStoreActions().forceUpdateHackers();
+      } catch (e) {
+        console.log('no force');
+      }
       actions.setLogin({success: true, email: loginResult.user.email});
       return true;
     }),
