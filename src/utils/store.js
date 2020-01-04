@@ -21,7 +21,6 @@ const model = {
       if (!loginResult) {
         return false;
       }
-      console.log(loginResult);
       actions.setLogin({success: true, email: loginResult.user.email});
       return true;
     }),

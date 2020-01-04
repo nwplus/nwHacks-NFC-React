@@ -20,8 +20,6 @@ const isAdmin = async email => {
   return admins.length !== 0;
 };
 const isTester = async email => {
-  const testNumbers = await db.collection('testers').get();
-  console.log(testNumbers.size);
   const testers = (await db.collection('testers').get()).docs.filter(
     doc => doc.data().email === email,
   );
@@ -123,7 +121,7 @@ export const login = async (test = false) => {
     if (!test && (await isAdmin(res.user.email))) {
       return res;
     }
-    if (test && (await isTester(req.user.email))) {
+    if (test && (await isTester(res.user.email))) {
       return res;
     } else {
       try {

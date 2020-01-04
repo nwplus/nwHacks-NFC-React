@@ -6,10 +6,10 @@
  * @flow
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Root} from 'native-base';
 import store from './src/utils/store';
-import {StoreProvider, useStoreActions} from 'easy-peasy';
+import {StoreProvider, useStoreActions, useStoreState} from 'easy-peasy';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 
@@ -19,7 +19,18 @@ const persistor = persistStore(store);
 
 const Initializer = props => {
   const initialize = useStoreActions(actions => actions.initialise);
-  initialize();
+  const initializeTest = useStoreActions(actions => actions.initialiseTest);
+  const mode = useStoreState(state => state.project.mode);
+  const clearWatchers = useStoreActions(actions => actions.auth.clearListeners);
+  useEffect(() => {
+    clearWatchers();
+    if (mode === 'test') {
+      initializeTest();
+    } else {
+      initialize();
+    }
+  }, [clearWatchers, initialize, initializeTest, mode]);
+
   return props.children;
 };
 
