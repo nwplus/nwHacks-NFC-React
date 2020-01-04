@@ -379,6 +379,11 @@ const Attendee = props => {
                     style={styles.assignButton}>
                     <Text>Select Hacker</Text>
                   </Button>
+                ) : !selected ? (
+                  <Text
+                    style={{textAlign: 'center', color: 'red', fontSize: 20}}>
+                    No Applicant Selected on the admin portal
+                  </Text>
                 ) : null}
                 {selected ? (
                   <View

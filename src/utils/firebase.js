@@ -86,15 +86,19 @@ export const watchSelected = (id, callback) => {
     .collection('nfc_devices')
     .doc(id)
     .onSnapshot(async snap => {
-      const {email, firstname, lastname} = (await db
-        .collection('hacker_info_2020')
-        .doc(snap.data().writeId)
-        .get()).data();
-      callback({
-        email,
-        firstname,
-        lastname,
-      });
+      try {
+        const {email, firstname, lastname} = (await db
+          .collection('hacker_info_2020')
+          .doc(snap.data().writeId)
+          .get()).data();
+        callback({
+          email,
+          firstname,
+          lastname,
+        });
+      } catch (e) {
+        console.log(e);
+      }
     });
 };
 
