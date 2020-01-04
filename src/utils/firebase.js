@@ -6,7 +6,7 @@ import {GoogleSignin} from '@react-native-community/google-signin';
 GoogleSignin.configure({
   scopes: ['https://www.googleapis.com/auth/userinfo.profile'],
   webClientId:
-    '5043243303-otbpttl12vjtitiokg16sb0nctusapio.apps.googleusercontent.com', // required
+    '98283589440-2chjrhtmevin56hn4av6gmqhkm624de3.apps.googleusercontent.com', // required
 });
 
 export const auth = firebase.auth();
