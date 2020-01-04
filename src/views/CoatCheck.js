@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import {
   H3,
   Content,
