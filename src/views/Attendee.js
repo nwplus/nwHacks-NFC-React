@@ -134,7 +134,7 @@ const Attendee = props => {
   const events = useStoreState(state => state.events.all);
   const [coatCheck, setCoatCheck] = useState('');
   useEffect(() => {
-    setCoatCheck(user ? (user.coatCheck ? user.coatCheck : -1) : -1);
+    setCoatCheck(user ? (user.coatCheck ? user.coatCheck : '-1') : '-1');
   }, [user]);
 
   useEffect(() => {
@@ -278,7 +278,7 @@ const Attendee = props => {
                   <Left>
                     <Text>Coat Check #</Text>
                   </Left>
-                  <Right>
+                  <Right style={{height: 30}}>
                     <Input
                       value={coatCheck}
                       onChangeText={text => {
@@ -288,7 +288,10 @@ const Attendee = props => {
                         updateCoatCheck(user.email, coatCheck);
                       }}
                       style={{
-                        textAlign: 'right',
+                        textAlign: 'center',
+                        borderWidth: 2,
+                        width: 50,
+                        right: -10,
                       }}
                       keyboardType={'numeric'}
                     />
