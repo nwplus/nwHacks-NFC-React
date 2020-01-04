@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
   incdecButtons: {
     backgroundColor: 'white',
     color: 'black',
-    marginRight: 10,
+    marginHorizontal: 1,
+    fontSize: 20,
   },
 });
 
@@ -315,17 +316,18 @@ const Attendee = props => {
                                     : 0
                                   : 0) + 1;
                               modifyEvent({
-                                operation: 'inc',
+                                operation: 'dec',
                                 event: event.name,
                                 hacker: user.email,
                                 count,
                               });
                             }}
                             style={styles.incdecButtons}>
-                            <Icon
+                            <Text
                               style={styles.incdecButtons}
-                              name="arrow-back"
-                            />
+                              name="arrow-forward">
+                              -
+                            </Text>
                           </Button>
                           <Text style={styles.eventMetrics}>
                             {user.events && user.events[event.name]
@@ -341,17 +343,18 @@ const Attendee = props => {
                                     : 0
                                   : 0) + 1;
                               modifyEvent({
-                                operation: 'dec',
+                                operation: 'inc',
                                 event: event.name,
                                 hacker: user.email,
                                 count,
                               });
                             }}
                             style={styles.incdecButtons}>
-                            <Icon
+                            <Text
                               style={styles.incdecButtons}
-                              name="arrow-forward"
-                            />
+                              name="arrow-back">
+                              +
+                            </Text>
                           </Button>
                         </Right>
                       </ListItem>
