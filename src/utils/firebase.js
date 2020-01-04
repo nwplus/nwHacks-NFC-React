@@ -19,15 +19,25 @@ const isAdmin = async email => {
   );
   return admins.length !== 0;
 };
+const isTester = async email => {
+  const testNumbers = await db.collection('testers').get();
+  console.log(testNumbers.size);
+  const testers = (await db.collection('testers').get()).docs.filter(
+    doc => doc.data().email === email,
+  );
+  return testers.length !== 0;
+};
 
-export const watchUser = callback => {
-  auth.onAuthStateChanged(async user => {
+export const watchUser = (callback, test = false) => {
+  return auth.onAuthStateChanged(async user => {
     if (!user) {
       callback({success: false, email: null});
       return;
     }
     const {email} = user;
-    if (await isAdmin(email)) {
+    if (!test && (await isAdmin(email))) {
+      callback({success: true, email});
+    } else if (test && (await isTester(email))) {
       callback({success: true, email});
     } else {
       try {
@@ -45,6 +55,13 @@ export const watchHackers = callback => {
   return db
     .collection('hacker_info_2020')
     .where('tags.accepted', '==', true)
+    .onSnapshot(callback);
+};
+
+export const watchTestHackers = callback => {
+  return db
+    .collection('hacker_info_2020')
+    .where('tags.test', '==', true)
     .onSnapshot(callback);
 };
 
@@ -95,7 +112,7 @@ export const logout = async () => {
   return auth.signOut();
 };
 
-export const login = async () => {
+export const login = async (test = false) => {
   try {
     const userInfo = await GoogleSignin.signIn();
     const credential = firebase.auth.GoogleAuthProvider.credential(
@@ -103,7 +120,10 @@ export const login = async () => {
       userInfo.accessToken,
     );
     const res = await auth.signInWithCredential(credential);
-    if (await isAdmin(res.user.email)) {
+    if (!test && (await isAdmin(res.user.email))) {
+      return res;
+    }
+    if (test && (await isTester(req.user.email))) {
       return res;
     } else {
       try {
@@ -112,7 +132,7 @@ export const login = async () => {
       } catch (e) {
         console.log(e);
       }
-      return null;
+      return false;
     }
   } catch (e) {
     return false;

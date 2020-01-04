@@ -6,6 +6,7 @@ import {
   logout,
   watchHackers,
   watchEvents,
+  watchTestHackers,
 } from './firebase';
 import {persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -16,11 +17,13 @@ const model = {
     email: null,
     listeners: [],
     login: thunk(async (actions, payload) => {
-      const loginResult = await login();
+      const loginResult = await login(payload);
       if (!loginResult) {
         return false;
       }
+      console.log(loginResult);
       actions.setLogin({success: true, email: loginResult.user.email});
+      return true;
     }),
     logout: thunk(async actions => {
       try {
@@ -110,9 +113,20 @@ const model = {
       }
     }),
   },
+  project: {
+    mode: 'test',
+    setMode: action((state, payload) => {
+      state.mode = payload;
+    }),
+  },
   initialise: thunk(actions => {
     actions.auth.pushListener(watchHackers(actions.hackers.update));
-    watchUser(actions.auth.setLogin);
+    actions.auth.pushListener(watchUser(actions.auth.setLogin));
+    actions.auth.pushListener(watchEvents(actions.events.setEvents));
+  }),
+  initialiseTest: thunk(actions => {
+    actions.auth.pushListener(watchTestHackers(actions.hackers.update));
+    actions.auth.pushListener(watchUser(actions.auth.setLogin, true));
     actions.auth.pushListener(watchEvents(actions.events.setEvents));
   }),
 };
@@ -123,7 +137,7 @@ const store = createStore(model, {
       {
         key: 'easypeasystate',
         storage: AsyncStorage,
-        whitelist: ['auth'],
+        whitelist: ['auth', 'project'],
       },
       reducer,
     ),
