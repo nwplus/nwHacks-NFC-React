@@ -101,8 +101,13 @@ const styles = StyleSheet.create({
   incdecButtons: {
     backgroundColor: 'white',
     color: 'black',
-    marginHorizontal: 1,
-    fontSize: 20,
+    marginHorizontal: 0,
+    padding: 1,
+    fontSize: 24,
+    height: 40,
+    width: 40,
+    justifyContent: 'center',
+    textAlign: 'center',
   },
 });
 
@@ -309,7 +314,7 @@ const Attendee = props => {
                           style={{
                             display: 'flex',
                             flexDirection: 'row',
-                            marginRight: 20,
+                            marginRight: 35,
                           }}>
                           <Button
                             onPress={() => {
