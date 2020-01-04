@@ -50,7 +50,6 @@ export const watchUser = (callback, test = false) => {
 };
 
 export const watchHackers = (callback, test) => {
-  console.log('reset hacker ref!!');
   return db
     .collection('hacker_info_2020')
     .where('tags.accepted', '==', true)
