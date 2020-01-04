@@ -20,7 +20,7 @@ const CoatCheckScreen = props => {
   useEffect(() => {
     setFiltered(
       search === ''
-        ? hackers.filter(hacker => !!hacker.coatCheck)
+        ? hackers
         : hackers
             .filter(
               hacker =>
@@ -30,6 +30,11 @@ const CoatCheckScreen = props => {
                     .includes(search.toLowerCase())) ||
                 (hacker.lastname &&
                   hacker.lastname
+                    .toLowerCase()
+                    .includes(search.toLowerCase())) ||
+                (hacker.firstname &&
+                  hacker.lastname &&
+                  `${hacker.firstname} ${hacker.lastname}`
                     .toLowerCase()
                     .includes(search.toLowerCase())) ||
                 (hacker.email &&

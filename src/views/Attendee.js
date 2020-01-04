@@ -123,6 +123,11 @@ const Attendee = props => {
               hacker.firstname.toLowerCase().includes(search.toLowerCase())) ||
             (hacker.lastname &&
               hacker.lastname.toLowerCase().includes(search.toLowerCase())) ||
+            (hacker.firstname &&
+              hacker.lastname &&
+              `${hacker.firstname} ${hacker.lastname}`
+                .toLowerCase()
+                .includes(search.toLowerCase())) ||
             (hacker.email &&
               hacker.email.toLowerCase().includes(search.toLowerCase())),
         );
