@@ -8,7 +8,7 @@
 
 import {checkIn, modifyEvent, updateCoatCheck} from '../utils/firebase';
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Modal, View, ScrollView} from 'react-native';
+import {StyleSheet, Modal, View, ScrollView, SafeAreaView} from 'react-native';
 import {
   Container,
   Content,
@@ -34,12 +34,13 @@ import {useStoreState, useStoreActions} from 'easy-peasy';
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#343338',
-    paddingTop: 100,
+    height: '100%',
   },
   content: {
     margin: 10,
     flex: 3,
     flexWrap: 'nowrap',
+    paddingTop: 40,
   },
   header: {
     flex: 1,
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#19CBCB',
     position: 'absolute',
     width: '100%',
-    bottom: 5,
+    bottom: 0,
     justifyContent: 'center',
   },
   assignButton: {
@@ -179,7 +180,7 @@ const Attendee = props => {
     props.navigation.navigate('Scan');
   };
   return (
-    <Container style={styles.wrapper}>
+    <SafeAreaView style={styles.wrapper}>
       <Modal
         animationType="slide"
         transparent={false}
@@ -414,7 +415,7 @@ const Attendee = props => {
           <Text>Scan</Text>
         </Button>
       </Content>
-    </Container>
+    </SafeAreaView>
   );
 };
 
