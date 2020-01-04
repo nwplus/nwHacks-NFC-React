@@ -42,7 +42,10 @@ export const watchUser = callback => {
 };
 
 export const watchHackers = callback => {
-  return db.collection('hacker_info_2020').onSnapshot(callback);
+  return db
+    .collection('hacker_info_2020')
+    .where('tags.accepted', '==', true)
+    .onSnapshot(callback);
 };
 
 export const deviceExists = async id => {
