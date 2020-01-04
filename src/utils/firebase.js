@@ -34,9 +34,9 @@ export const watchUser = (callback, test = false) => {
     }
     const {email} = user;
     if (!test && (await isAdmin(email))) {
-      callback({success: true, email});
+      callback({success: true, email, test: false});
     } else if (test && (await isTester(email))) {
-      callback({success: true, email});
+      callback({success: true, email, test: true});
     } else {
       try {
         await GoogleSignin.signOut();
@@ -49,17 +49,11 @@ export const watchUser = (callback, test = false) => {
   });
 };
 
-export const watchHackers = callback => {
+export const watchHackers = (callback, test) => {
+  console.log('reset hacker ref!!');
   return db
     .collection('hacker_info_2020')
     .where('tags.accepted', '==', true)
-    .onSnapshot(callback);
-};
-
-export const watchTestHackers = callback => {
-  return db
-    .collection('hacker_info_2020')
-    .where('tags.test', '==', true)
     .onSnapshot(callback);
 };
 

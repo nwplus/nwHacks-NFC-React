@@ -6,27 +6,35 @@ import {
   logout,
   watchHackers,
   watchEvents,
-  watchTestHackers,
+  db,
 } from './firebase';
 import {persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const model = {
+  checkLogin: thunk((actions, payload, {getStoreState}) => {
+    const state = getStoreState();
+    if (state.project.mode === 'test' && payload.test === true) {
+      actions.auth.setLogin({success: true, email: payload.email});
+    } else if (state.project.mode !== 'test' && payload.test === false) {
+      actions.auth.setLogin({success: true, email: payload.email});
+    }
+  }),
   auth: {
     loggedIn: false,
     email: null,
     listeners: [],
-    login: thunk(async (actions, payload) => {
+    login: thunk(async (actions, payload, {getStoreActions}) => {
       const loginResult = await login(payload);
       if (!loginResult) {
         return false;
       }
+      await getStoreActions().forceUpdateHackers();
       actions.setLogin({success: true, email: loginResult.user.email});
       return true;
     }),
     logout: thunk(async actions => {
       try {
-        actions.clearListeners();
         await logout();
       } catch (e) {
         console.log(e);
@@ -37,34 +45,28 @@ const model = {
       state.loggedIn = success;
       state.email = email;
     }),
-    clearListeners: action(state => {
-      state.listeners.forEach(func => {
-        try {
-          func();
-        } catch (e) {
-          return;
-        }
-      });
-      state.listeners = [];
-    }),
-    pushListener: action((state, listener) => {
-      if (!state.listeners) {
-        state.listeners = [];
-      }
-      state.listeners.push(listener);
-    }),
   },
   hackers: {
     items: [],
-    update: action((state, ref) => {
-      if (!ref) {
-        return;
-      }
-      const {docs} = ref;
-      const data = docs.map(d => d.data());
-      state.items = data;
-    }),
   },
+  forceUpdateHackers: thunk(async actions => {
+    const ref = await db
+      .collection('hacker_info_2020')
+      .where('tags.accepted', '==', true)
+      .get();
+    actions.updateHackers(ref);
+  }),
+  updateHackers: action((state, ref) => {
+    if (!ref) {
+      return;
+    }
+    const isTest = state.project.mode === 'test';
+    const {docs} = ref;
+    const data = isTest
+      ? docs.map(d => d.data()).filter(doc => doc.tags && doc.tags.test)
+      : docs.map(d => d.data());
+    state.hackers.items = data;
+  }),
   registered: {
     on: false,
     selectedApplicant: null,
@@ -119,14 +121,9 @@ const model = {
     }),
   },
   initialise: thunk(actions => {
-    actions.auth.pushListener(watchHackers(actions.hackers.update));
-    actions.auth.pushListener(watchUser(actions.auth.setLogin));
-    actions.auth.pushListener(watchEvents(actions.events.setEvents));
-  }),
-  initialiseTest: thunk(actions => {
-    actions.auth.pushListener(watchTestHackers(actions.hackers.update));
-    actions.auth.pushListener(watchUser(actions.auth.setLogin, true));
-    actions.auth.pushListener(watchEvents(actions.events.setEvents));
+    watchHackers(actions.updateHackers);
+    watchEvents(actions.events.setEvents);
+    watchUser(actions.checkLogin);
   }),
 };
 

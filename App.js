@@ -19,18 +19,12 @@ const persistor = persistStore(store);
 
 const Initializer = props => {
   const initialize = useStoreActions(actions => actions.initialise);
-  const initializeTest = useStoreActions(actions => actions.initialiseTest);
-  const mode = useStoreState(state => state.project.mode);
-  const clearWatchers = useStoreActions(actions => actions.auth.clearListeners);
+  const isLoggedIn = useStoreState(state => state.auth.loggedIn);
   useEffect(() => {
-    clearWatchers();
-    if (mode === 'test') {
-      initializeTest();
-    } else {
+    if (isLoggedIn) {
       initialize();
     }
-  }, [clearWatchers, initialize, initializeTest, mode]);
-
+  }, [initialize, isLoggedIn]);
   return props.children;
 };
 
