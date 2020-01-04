@@ -1,13 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  SafeAreaView,
-  Spinner,
-} from 'react-native';
-import {Button} from 'native-base';
+import {StyleSheet, View, Text, ScrollView, SafeAreaView} from 'react-native';
+import {Button, Spinner} from 'native-base';
 import {useStoreState, useStoreActions} from 'easy-peasy';
 
 const EventDetailCard = props => {
@@ -37,7 +30,7 @@ const EventDetailCard = props => {
         });
       }
     };
-    setRelevant(getRelevant);
+    setRelevant(getRelevant());
     setLoading(false);
   }, [hackers, props.checkedIn, props.event]);
   return (
