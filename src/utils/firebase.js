@@ -65,6 +65,7 @@ export const checkIn = async (email, uid) => {
     .doc(email)
     .update({
       'tags.checked-in': true,
+      'stats.checkInTime': firestore.FieldValue.serverTimestamp(),
       nfcID: uid,
     });
 };
@@ -135,6 +136,7 @@ export const updateCoatCheck = async (hacker, number) => {
     .doc(hacker)
     .update({
       coatCheck: number,
+      'stats.coatCheckTime': firestore.FieldValue.serverTimestamp(),
     });
 };
 
@@ -165,7 +167,7 @@ export const watchEvents = async callback => {
   });
 };
 
-export const modifyEvent = async ({operation, event, hacker}) => {
+export const modifyEvent = async ({operation, event, hacker, count}) => {
   const op =
     operation === 'inc'
       ? firebase.firestore.FieldValue.increment(1)
@@ -180,5 +182,6 @@ export const modifyEvent = async ({operation, event, hacker}) => {
     .doc(hacker)
     .update({
       [`events.${event}.count`]: op,
+      [`stats.${event}.${count}`]: firestore.FieldValue.serverTimestamp(),
     });
 };
