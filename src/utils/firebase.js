@@ -49,7 +49,7 @@ export const watchUser = (callback, test = false) => {
   });
 };
 
-export const watchHackers = (callback, test) => {
+export const watchHackers = callback => {
   return db
     .collection('hacker_info_2020')
     .where('tags.accepted', '==', true)
