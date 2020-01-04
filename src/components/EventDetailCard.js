@@ -31,6 +31,10 @@ const EventDetailCard = props => {
     };
     setRelevant(getRelevant);
   }, [hackers, props.checkedIn, props.event]);
+
+  if (hackers.length === 0) {
+    return <Text>Loading hackers..</Text>;
+  }
   return (
     <View style={styles.container}>
       <View style={[styles.headerBar, styles.inline]}>

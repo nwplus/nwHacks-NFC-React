@@ -1,6 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
-import {H3, Content, List, ListItem, Item, Icon, Input} from 'native-base';
+import {
+  H3,
+  Content,
+  List,
+  ListItem,
+  Item,
+  Icon,
+  Input,
+  Spinner,
+} from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {useStoreState} from 'easy-peasy';
 
@@ -11,18 +20,22 @@ const CoatCheckScreen = props => {
   useEffect(() => {
     setFiltered(
       search === ''
-        ? hackers
-        : hackers.filter(
-            hacker =>
-              (hacker.firstname &&
-                hacker.firstname
-                  .toLowerCase()
-                  .includes(search.toLowerCase())) ||
-              (hacker.lastname &&
-                hacker.lastname.toLowerCase().includes(search.toLowerCase())) ||
-              (hacker.email &&
-                hacker.email.toLowerCase().includes(search.toLowerCase())),
-          ),
+        ? hackers.filter(hacker => !!hacker.coatCheck)
+        : hackers
+            .filter(
+              hacker =>
+                (hacker.firstname &&
+                  hacker.firstname
+                    .toLowerCase()
+                    .includes(search.toLowerCase())) ||
+                (hacker.lastname &&
+                  hacker.lastname
+                    .toLowerCase()
+                    .includes(search.toLowerCase())) ||
+                (hacker.email &&
+                  hacker.email.toLowerCase().includes(search.toLowerCase())),
+            )
+            .filter(hacker => !!hacker.coatCheck),
     );
   }, [search, hackers]);
   return (
@@ -57,21 +70,29 @@ const CoatCheckScreen = props => {
         </Text>
       </View>
       <Content style={{backgroundColor: 'white'}}>
-        <List>
-          {filteredHackers.map((hacker, i) => {
-            return (
-              <ListItem key={hacker.email}>
-                <Text style={{width: '90%'}}>
-                  {!!hacker.firstname && hacker.firstname}{' '}
-                  {!!hacker.lastname && hacker.lastname}
-                </Text>
-                <Text style={{textAlign: 'right'}}>
-                  {hacker.coatCheck ? hacker.coatCheck : -1}
-                </Text>
-              </ListItem>
-            );
-          })}
-        </List>
+        {hackers.length === 0 ? (
+          <Spinner />
+        ) : filteredHackers.length === 0 ? (
+          <Text style={{textAlign: 'center', fontSize: 24, marginTop: 50}}>
+            No one is assigned a number
+          </Text>
+        ) : (
+          <List>
+            {filteredHackers.map((hacker, i) => {
+              return (
+                <ListItem key={hacker.email}>
+                  <Text style={{width: '90%'}}>
+                    {!!hacker.firstname && hacker.firstname}{' '}
+                    {!!hacker.lastname && hacker.lastname}
+                  </Text>
+                  <Text style={{textAlign: 'right'}}>
+                    {hacker.coatCheck ? hacker.coatCheck : -1}
+                  </Text>
+                </ListItem>
+              );
+            })}
+          </List>
+        )}
       </Content>
     </SafeAreaView>
   );

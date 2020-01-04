@@ -14,6 +14,7 @@ import {
   ListItem,
   Item,
   Input,
+  Spinner,
 } from 'native-base';
 import {useStoreState, useStoreActions} from 'easy-peasy';
 const ApplicantsScreen = props => {
@@ -50,23 +51,29 @@ const ApplicantsScreen = props => {
         <Input value={search} onChangeText={setSearch} placeholder="Search" />
       </Item>
       <Content>
-        <List>
-          {filteredHackers.map((hacker, i) => {
-            return (
-              <ListItem
-                key={hacker.email}
-                onPress={() => {
-                  setScanMode({mode: 'hacker', payload: hacker.email});
-                  props.navigation.navigate('Attendee', {hacker: hacker.email});
-                }}>
-                <Text>
-                  {!!hacker.firstname && hacker.firstname}{' '}
-                  {!!hacker.lastname && hacker.lastname}
-                </Text>
-              </ListItem>
-            );
-          })}
-        </List>
+        {hackers.length === 0 ? (
+          <Spinner />
+        ) : (
+          <List>
+            {filteredHackers.map((hacker, i) => {
+              return (
+                <ListItem
+                  key={hacker.email}
+                  onPress={() => {
+                    setScanMode({mode: 'hacker', payload: hacker.email});
+                    props.navigation.navigate('Attendee', {
+                      hacker: hacker.email,
+                    });
+                  }}>
+                  <Text>
+                    {!!hacker.firstname && hacker.firstname}{' '}
+                    {!!hacker.lastname && hacker.lastname}
+                  </Text>
+                </ListItem>
+              );
+            })}
+          </List>
+        )}
       </Content>
     </Container>
   );

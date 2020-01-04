@@ -90,7 +90,19 @@ const Scan = props => {
         });
         return null;
       }
-      await modifyEvent({operation: 'inc', event: event, hacker: hacker.email});
+      const count =
+        (hacker.events
+          ? hacker.events[event]
+            ? hacker.events[event].count
+            : 0
+          : 0) + 1;
+
+      await modifyEvent({
+        operation: 'inc',
+        event: event,
+        hacker: hacker.email,
+        count,
+      });
       setHackerRef(hacker.email);
       Toast.show({
         text: `Successfully checked in ${hacker.firstname} for ${event}`,

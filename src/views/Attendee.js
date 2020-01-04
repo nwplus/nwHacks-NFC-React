@@ -307,13 +307,20 @@ const Attendee = props => {
                             marginRight: 20,
                           }}>
                           <Button
-                            onPress={() =>
+                            onPress={() => {
+                              const count =
+                                (user.events
+                                  ? user.events[event]
+                                    ? user.events[event].count
+                                    : 0
+                                  : 0) + 1;
                               modifyEvent({
                                 operation: 'inc',
                                 event: event.name,
                                 hacker: user.email,
-                              })
-                            }
+                                count,
+                              });
+                            }}
                             style={styles.incdecButtons}>
                             <Icon
                               style={styles.incdecButtons}
@@ -326,13 +333,20 @@ const Attendee = props => {
                               : 0}
                           </Text>
                           <Button
-                            onPress={() =>
+                            onPress={() => {
+                              const count =
+                                (user.events
+                                  ? user.events[event]
+                                    ? user.events[event].count
+                                    : 0
+                                  : 0) + 1;
                               modifyEvent({
                                 operation: 'dec',
                                 event: event.name,
                                 hacker: user.email,
-                              })
-                            }
+                                count,
+                              });
+                            }}
                             style={styles.incdecButtons}>
                             <Icon
                               style={styles.incdecButtons}
