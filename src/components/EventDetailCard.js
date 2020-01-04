@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, ScrollView, SafeAreaView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  Spinner,
+} from 'react-native';
 import {Button} from 'native-base';
 import {useStoreState, useStoreActions} from 'easy-peasy';
 
@@ -7,6 +14,7 @@ const EventDetailCard = props => {
   const hackers = useStoreState(state => state.hackers.items);
   const setScanning = useStoreActions(actions => actions.events.setScanning);
   const [relevant, setRelevant] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getRelevant = () => {
@@ -30,11 +38,8 @@ const EventDetailCard = props => {
       }
     };
     setRelevant(getRelevant);
+    setLoading(false);
   }, [hackers, props.checkedIn, props.event]);
-
-  if (hackers.length === 0) {
-    return <Text>Loading hackers..</Text>;
-  }
   return (
     <View style={styles.container}>
       <View style={[styles.headerBar, styles.inline]}>
@@ -62,19 +67,26 @@ const EventDetailCard = props => {
           ) : (
             <View />
           )}
-          {relevant.map((person, i) => (
-            <View key={i}>
-              <View style={[styles.inline, styles.tableContent]}>
-                <Text style={styles.left}>
-                  {person.firstname} {person.lastname}
-                </Text>
-                <Text style={styles.right}>
-                  {props.checkedIn ? person.events[props.event].count : 0}
-                </Text>
-              </View>
-              <View style={styles.divider} />
+          {loading ? (
+            <View>
+              <Text style={{textAlign: 'center'}}>Loading Applicants</Text>
+              <Spinner />
             </View>
-          ))}
+          ) : (
+            relevant.map((person, i) => (
+              <View key={i}>
+                <View style={[styles.inline, styles.tableContent]}>
+                  <Text style={styles.left}>
+                    {person.firstname} {person.lastname}
+                  </Text>
+                  <Text style={styles.right}>
+                    {props.checkedIn ? person.events[props.event].count : 0}
+                  </Text>
+                </View>
+                <View style={styles.divider} />
+              </View>
+            ))
+          )}
         </ScrollView>
       </SafeAreaView>
     </View>

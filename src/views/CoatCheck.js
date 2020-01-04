@@ -71,7 +71,12 @@ const CoatCheckScreen = props => {
       </View>
       <Content style={{backgroundColor: 'white'}}>
         {hackers.length === 0 ? (
-          <Spinner />
+          <View>
+            <Text style={{textAlign: 'center', fontSize: 24, marginTop: 50}}>
+              Loading coat check...
+            </Text>
+            <Spinner />
+          </View>
         ) : filteredHackers.length === 0 ? (
           <Text style={{textAlign: 'center', fontSize: 24, marginTop: 50}}>
             No one is assigned a number

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
-import {H3, Icon, Button} from 'native-base';
+import {H3, Icon, Button, Spinner} from 'native-base';
 import MenuButton from '../components/MenuButton';
 import EventButton from '../components/EventButton';
 import EventDetailCard from '../components/EventDetailCard';
@@ -9,6 +9,7 @@ import {useStoreState} from 'easy-peasy';
 const EventsScreen = props => {
   const events = useStoreState(state => state.events.meals);
   const [currentOpen, setCurrentOpen] = useState('');
+  console.log(events.length);
   return (
     <SafeAreaView style={styles.header}>
       <MenuButton navigation={props.navigation} />
@@ -38,7 +39,15 @@ const EventsScreen = props => {
       <ScrollView style={styles.container}>
         {currentOpen === '' ? (
           <View>
-            {events.length > 0 &&
+            {events.length === 0 ? (
+              <View>
+                <Text
+                  style={{textAlign: 'center', fontSize: 24, marginTop: 50}}>
+                  Loading events...
+                </Text>
+                <Spinner />
+              </View>
+            ) : (
               events.map((event, i) => (
                 <EventButton
                   key={i}
@@ -47,7 +56,8 @@ const EventsScreen = props => {
                     setCurrentOpen(event.name);
                   }}
                 />
-              ))}
+              ))
+            )}
           </View>
         ) : (
           <View>

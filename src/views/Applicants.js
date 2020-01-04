@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 import {
   Container,
   Header,
@@ -52,7 +52,12 @@ const ApplicantsScreen = props => {
       </Item>
       <Content>
         {hackers.length === 0 ? (
-          <Spinner />
+          <View>
+            <Text style={{textAlign: 'center', fontSize: 24, marginTop: 50}}>
+              Loading Applicants...
+            </Text>
+            <Spinner />
+          </View>
         ) : (
           <List>
             {filteredHackers.map((hacker, i) => {
