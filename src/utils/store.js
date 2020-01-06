@@ -120,7 +120,7 @@ const model = {
     }),
   },
   project: {
-    mode: 'test',
+    mode: 'live',
     setMode: action((state, payload) => {
       state.mode = payload;
     }),
