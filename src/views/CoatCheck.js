@@ -20,7 +20,7 @@ const CoatCheckScreen = props => {
   useEffect(() => {
     setFiltered(
       search === ''
-        ? hackers
+        ? hackers.filter(hacker => !!hacker.coatCheck)
         : hackers
             .filter(
               hacker =>
