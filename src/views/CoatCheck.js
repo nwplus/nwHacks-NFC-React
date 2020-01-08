@@ -82,7 +82,7 @@ const CoatCheckScreen = props => {
             </Text>
             <Spinner />
           </View>
-        ) : filteredHackers.length === 0 ? (
+        ) : (filteredHackers.length === 0 ? (
           <Text style={{textAlign: 'center', fontSize: 24, marginTop: 50}}>
             No one is assigned a number
           </Text>
@@ -102,7 +102,7 @@ const CoatCheckScreen = props => {
               );
             })}
           </List>
-        )}
+        ))}
       </Content>
     </SafeAreaView>
   );
