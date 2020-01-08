@@ -18,7 +18,10 @@ const MenuDrawer = props => {
     return (
       <TouchableOpacity
         style={{height: 70}}
-        onPress={() => props.navigation.navigate(nav)}>
+        onPress={() => {
+          props.navigation.toggleDrawer();
+          props.navigation.navigate(nav);
+        }}>
         <Text style={styles.link}>{text}</Text>
       </TouchableOpacity>
     );
@@ -50,6 +53,7 @@ const MenuDrawer = props => {
           style={{height: 80}}
           onPress={() => {
             setScanned(null);
+            props.navigation.toggleDrawer();
             setTimeout(() => props.navigation.navigate('Scan'), 500);
           }}>
           <Text style={styles.linkScan}>Scan</Text>
