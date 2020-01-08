@@ -283,7 +283,7 @@ const Attendee = props => {
                     <Text style={styles.attendeeRoles}>Hardware</Text>
                   )}
                   <Text>{user.email}</Text>
-                  <Text>{user.nfcId}</Text>
+                  <Text>{user.nfcID}</Text>
                 </View>
                 <ListItem>
                   <Left>
