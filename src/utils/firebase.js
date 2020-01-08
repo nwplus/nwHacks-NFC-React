@@ -203,3 +203,13 @@ export const modifyEvent = async ({operation, event, hacker, count}) => {
       [`stats.${event}.${count}`]: firestore.FieldValue.serverTimestamp(),
     });
 };
+
+export const unRegisterApplicant = async email => {
+  return db
+    .collection('hacker_info_2020')
+    .doc(email)
+    .update({
+      'tags.checked-in': firestore.FieldValue.delete(),
+      nfcID: firestore.FieldValue.delete(),
+    });
+};
