@@ -6,9 +6,23 @@
  * @flow
  */
 
-import {checkIn, modifyEvent, updateCoatCheck} from '../utils/firebase';
+import {
+  checkIn,
+  modifyEvent,
+  updateCoatCheck,
+  unRegisterApplicant,
+} from '../utils/firebase';
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Modal, View, ScrollView, SafeAreaView} from 'react-native';
+import {
+  StyleSheet,
+  Modal,
+  View,
+  ScrollView,
+  SafeAreaView,
+  Platform,
+  Dimensions,
+  Alert,
+} from 'react-native';
 import {
   Container,
   Content,
@@ -27,6 +41,7 @@ import {
   Toast,
   Input,
   Item,
+  Spinner,
 } from 'native-base';
 import MenuButton from '../components/MenuButton';
 import {useStoreState, useStoreActions} from 'easy-peasy';
@@ -133,6 +148,7 @@ const Attendee = props => {
         );
   const [showList, setShowList] = useState(false);
   const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const registered = useStoreState(state => state.registered.on);
   const setScanning = useStoreActions(actions => actions.events.setScanning);
@@ -147,6 +163,10 @@ const Attendee = props => {
   useEffect(() => {
     setCoatCheck(user ? (user.coatCheck ? user.coatCheck : '-1') : '-1');
   }, [user]);
+
+  const dim = Dimensions.get('window');
+  const deTagTop =
+    Platform.OS === 'ios' && dim.height >= 812 ? {top: 65} : {top: 20};
 
   useEffect(() => {
     if (mode === 'hacker') {
@@ -180,7 +200,9 @@ const Attendee = props => {
   };
 
   const checkInApplicant = async (email, name) => {
+    setLoading(true);
     await checkIn(email, uid);
+    setLoading(false);
     setSelected(null);
     Toast.show({
       text: `Successfully checked in ${name}`,
@@ -188,6 +210,35 @@ const Attendee = props => {
       type: 'success',
     });
     props.navigation.navigate('Scan');
+  };
+  const deTagPressed = async (email, name) => {
+    Alert.alert(
+      'Are you sure you want to detag?',
+      `You are about to detag ${name} which will also uncheck them in.`,
+      [
+        {
+          text: 'DETAG',
+          onPress: () => unRegister(email, name),
+          style: 'destructive',
+        },
+        {
+          text: 'cancel',
+          onPress: () => {},
+          style: 'cancel',
+        },
+      ],
+    );
+  };
+  const unRegister = async (email, name) => {
+    setLoading(true);
+    await unRegisterApplicant(email);
+    setLoading(false);
+    setSelected(null);
+    Toast.show({
+      text: `Successfully unregistered ${name}`,
+      duration: 3000,
+      type: 'success',
+    });
   };
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -244,6 +295,20 @@ const Attendee = props => {
         </Container>
       </Modal>
       <MenuButton navigation={props.navigation} />
+      {loading ? (
+        <Spinner style={{position: 'absolute', width: '100%', top: 35}} />
+      ) : null}
+      {!!user && user.nfcID ? (
+        <Button
+          onPress={() =>
+            deTagPressed(user.email, `${user.firstname} ${user.lastname}`)
+          }
+          small
+          danger
+          style={[{position: 'absolute', right: 26, zIndex: 3}, deTagTop]}>
+          <Text>DETAG</Text>
+        </Button>
+      ) : null}
       <Content contentContainerStyle={styles.content}>
         <Card style={styles.card}>
           <ListItem>
@@ -283,7 +348,7 @@ const Attendee = props => {
                     <Text style={styles.attendeeRoles}>Hardware</Text>
                   )}
                   <Text>{user.email}</Text>
-                  <Text>{user.nfcID}</Text>
+                  <Text>{user.nfcID ? user.nfcID : ''}</Text>
                 </View>
                 <ListItem>
                   <Left>
@@ -295,8 +360,10 @@ const Attendee = props => {
                       onChangeText={text => {
                         setCoatCheck(text);
                       }}
-                      onEndEditing={() => {
-                        updateCoatCheck(user.email, coatCheck);
+                      onEndEditing={async () => {
+                        setLoading(true);
+                        await updateCoatCheck(user.email, coatCheck);
+                        setLoading(false);
                       }}
                       style={{
                         textAlign: 'center',
@@ -322,19 +389,21 @@ const Attendee = props => {
                             marginRight: 35,
                           }}>
                           <Button
-                            onPress={() => {
+                            onPress={async () => {
+                              setLoading(true);
                               const count =
                                 (user.events
                                   ? user.events[event]
                                     ? user.events[event].count
                                     : 0
                                   : 0) + 1;
-                              modifyEvent({
+                              await modifyEvent({
                                 operation: 'dec',
                                 event: event.name,
                                 hacker: user.email,
                                 count,
                               });
+                              setLoading(false);
                             }}
                             style={styles.incdecButtons}>
                             <Text
@@ -349,19 +418,21 @@ const Attendee = props => {
                               : 0}
                           </Text>
                           <Button
-                            onPress={() => {
+                            onPress={async () => {
+                              setLoading(true);
                               const count =
                                 (user.events
                                   ? user.events[event]
                                     ? user.events[event].count
                                     : 0
                                   : 0) + 1;
-                              modifyEvent({
+                              await modifyEvent({
                                 operation: 'inc',
                                 event: event.name,
                                 hacker: user.email,
                                 count,
                               });
+                              setLoading(false);
                             }}
                             style={styles.incdecButtons}>
                             <Text
@@ -410,7 +481,6 @@ const Attendee = props => {
                           `${selected.firstname} ${selected.lastname}`,
                         )
                       }
-                      loading
                       small
                       style={styles.assignButton}>
                       <Text>Check In</Text>

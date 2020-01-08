@@ -196,7 +196,8 @@ export const modifyEvent = async ({operation, event, hacker, count}) => {
     throw new Error('Incorrect Operation');
   }
 
-  db.collection('hacker_info_2020')
+  return db
+    .collection('hacker_info_2020')
     .doc(hacker)
     .update({
       [`events.${event}.count`]: op,
